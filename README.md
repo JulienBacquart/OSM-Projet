@@ -1,2 +1,2 @@
-# OSM-Projet
-Projet Cproj6 
+# Projet Cproj6
+Projet de renderer pour OpenStreetMap 
