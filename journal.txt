@@ -1,1 +1,1 @@
-/* Journal.txt pour le planning de chauqe semaine */
+/* Journal.txt pour le planning de chaque semaine. */
