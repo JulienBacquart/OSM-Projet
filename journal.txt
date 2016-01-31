@@ -1,1 +1,9 @@
 /* Journal.txt pour le planning de chaque semaine. */
+
+* Pour le 03/02/15:
+- Tout le monde a commit sur le dépot Github et est au point avec git (clone, commit, push, pull)
+- Choix définitif des librairies utilisées pour le projet (libxml2 ? SDL ?)
+- Création de fichiers maps test pour tester le projet
+
+* Pour le 10/02/15:
+- Librairies installées et testées
