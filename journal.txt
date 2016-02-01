@@ -1,1 +1,10 @@
 /* Journal.txt pour le planning de chaque semaine. */
+
+Pour le 3/02
+- Tous les membres du groupe on fait un commit
+- compréhension du sujet + des librairies
+- Voir pour un meilleur planning
+
+Pour le 10/02
+- Libraire installé
+- Sujet compris, début du code...
