@@ -7,4 +7,7 @@
 
 * Pour le 10/02/15:
 - Librairies installées et testées
+- Comprendre comment parser avec libxml2
+- Faire le Makefile et tester chez chacun
+- Définir les structures nécessaires pour representer les batiments, routes, cours d'eau, arbres etc.
 
