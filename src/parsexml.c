@@ -36,7 +36,7 @@ int main() {
  
     // Ouverture du document
     xmlKeepBlanksDefault(0); // Ignore les noeuds texte composant la mise en forme
-    doc = xmlParseFile("01_denver_lafayette.osm");
+    doc = xmlParseFile("../maps_test/01_denver_lafayette.osm");
     if (doc == NULL) {
         fprintf(stderr, "Document XML invalide\n");
         return EXIT_FAILURE;
