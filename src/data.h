@@ -18,7 +18,9 @@ typedef struct{
 	int id;
 	int visible; //boolean
 	int * nds;
-	Tag * tagTab;
+	int nb_nds;
+	Tag * tags;
+	int nb_tags;
 	
 }Way;
 
@@ -26,5 +28,6 @@ typedef struct{
 	int id;
 	int lat;
 	int lon;
+	int nb_tags;
 	Tag * tags;
 }Node;
