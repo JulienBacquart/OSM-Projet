@@ -5,9 +5,12 @@
 - Choix définitif des librairies utilisées pour le projet (libxml2 ? SDL ?) -- OK pas le choix libxml2 et SDL
 - Création de fichiers maps test pour tester le projet -- OK dispo sur didel
 
-* Pour le 10/02/15:
+* Pour le 10/02/16:
 - Librairies installées et testées
 - Comprendre comment parser avec libxml2
 - Faire le Makefile et tester chez chacun
 - Définir les structures nécessaires pour representer les batiments, routes, cours d'eau, arbres etc.
 
+* Pour le 17/02/2016:
+-Parser le document
+-Faire des fonctions de dessin
