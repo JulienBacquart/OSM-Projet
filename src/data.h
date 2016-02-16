@@ -26,8 +26,9 @@ typedef struct{
 
 typedef struct{
 	int id;
-	int lat;
-	int lon;
-	int nb_tags;
-	Tag * tags;
+	int free_tags;
+	float lat;
+	float lon;
+	
+	Tag tags[10];
 }Node;
