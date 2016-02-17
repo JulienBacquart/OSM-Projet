@@ -8,6 +8,7 @@
  *
  */
 
+#define MAX_NODE_IN_WAY 2000
 
 typedef struct{
 	char * key;
@@ -32,3 +33,10 @@ typedef struct{
 	
 	Tag tags[10];
 }Node;
+
+typedef struct{
+	double minlat;
+	double minlon;
+	double maxlat;
+	double maxlon;
+}Bounds;
