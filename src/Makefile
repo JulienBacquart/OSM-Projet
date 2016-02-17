@@ -12,3 +12,12 @@ parsexml: parsexml.c
 
 frame: frame.c
 	$(CC) -o $@ $(CPPFLAGS) $< $(SDFLAGS)
+	
+test: test.c
+	$(CC) -o $@ $(CPPFLAGS) $< $(LDFLAGS)
+	
+clean:
+	rm -f $(OBJECTS)
+
+mrproper: clean
+	rm -f $(EXEC)

@@ -8,6 +8,11 @@
  *
  */
 
+#define MAX_NODE_IN_WAY 2000
+#define MIN_LAT −90.0000000
+#define MAX_LAT 90.0000000
+#define MIN_LON −180.0000000
+#define MAX_LON 180.0000000
 
 typedef struct{
 	char * key;
@@ -27,8 +32,15 @@ typedef struct{
 typedef struct{
 	int id;
 	int free_tags;
-	float lat;
-	float lon;
+	double lat;
+	double lon;
 	
 	Tag tags[10];
 }Node;
+
+typedef struct{
+	double minlat;
+	double minlon;
+	double maxlat;
+	double maxlon;
+}Bounds;
