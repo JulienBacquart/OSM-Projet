@@ -8,6 +8,8 @@
  *
  */
 
+# include <stdbool.h>
+
 #define MAX_NODE_IN_WAY 2000
 #define MIN_LAT −90.0000000
 #define MAX_LAT 90.0000000
@@ -17,30 +19,31 @@
 typedef struct{
 	char * key;
 	char * val;
-}Tag;
+} Tag;
 
 typedef struct{
 	int id;
-	int visible; //boolean
+	bool visible;
 	int * nds;
 	int nb_nds;
 	Tag * tags;
 	int nb_tags;
 	
-}Way;
+} Way;
 
 typedef struct{
 	int id;
-	int free_tags;
+	bool visible;
+	int free_tags;	// need to be changed, this is actually the number of used tags (nb_tags?)
 	double lat;
 	double lon;
 	
 	Tag tags[10];
-}Node;
+} Node;
 
 typedef struct{
 	double minlat;
 	double minlon;
 	double maxlat;
 	double maxlon;
-}Bounds;
+} Bounds;
