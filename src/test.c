@@ -32,8 +32,8 @@ void parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f) {
 		xmlAttr* attribute = n->properties;
 		int node_id;
 		xmlNodePtr n_fils;
-		float node_lat;
-		float node_lon;
+		double node_lat;
+		double node_lon;
 		nodes[nodes_i].free_tags= 0;
 
 		while(attribute)
