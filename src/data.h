@@ -9,6 +9,10 @@
  */
 
 #define MAX_NODE_IN_WAY 2000
+#define MIN_LAT −90.0000000
+#define MAX_LAT 90.0000000
+#define MIN_LON −180.0000000
+#define MAX_LON 180.0000000
 
 typedef struct{
 	char * key;
