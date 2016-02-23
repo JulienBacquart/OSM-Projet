@@ -2,8 +2,10 @@
 #include <stdio.h>
 #include <SDL2/SDL.h>
 
+#define NB_PIXELS 28
+
 void pause();
-int drawPolygon(int nb);
+int drawRoad(int xdeb, int ydeb, int xfin, int yfin, int ep, SDL_Renderer *);
 
 int main(int argc, char *argv[])
 {
@@ -42,17 +44,16 @@ int main(int argc, char *argv[])
 		SDL_Rect rectFill = {600,700,50,50};
 		SDL_RenderFillRect(renderer,&rectFill);
 
-		//Dessin d'une ligne droite verticale
-		SDL_RenderDrawLine(renderer,480,0,480,800);
-		SDL_RenderDrawLine(renderer,500,0,500,800);
+		//Dessin d'une route vertical en rouge
+		drawRoad(400,0,400,800,100,renderer);
 
-		SDL_RenderDrawLine(renderer,490,10,490,80);
-		SDL_RenderDrawLine(renderer,490,120,490,190);
-		SDL_RenderDrawLine(renderer,490,230,490,300);
-		SDL_RenderDrawLine(renderer,490,340,490,410);
-		SDL_RenderDrawLine(renderer,490,450,490,520);
-		SDL_RenderDrawLine(renderer,490,560,490,630);
-		SDL_RenderDrawLine(renderer,490,670,490,740);
+		//Dessin d'une route horizontal en bleu
+		SDL_SetRenderDrawColor(renderer,0,0,255,255);
+		drawRoad(0,300,800,300,100,renderer);
+
+		//Dessin d'une route en diagonale en noir
+		SDL_SetRenderDrawColor(renderer,0,0,0,255);
+		drawRoad(0,300,300,0,200,renderer);
 		
 
 		SDL_RenderPresent(renderer);
@@ -65,6 +66,41 @@ int main(int argc, char *argv[])
         return 0;
 }
 
+//Rajouter le début et la fin en args
+int drawRoad(int xdeb, int ydeb, int xfin, int yfin, int ep, SDL_Renderer *renderer)
+{
+	int i,j;
+	int moy = 0;
+	SDL_RenderDrawLine(renderer,xdeb,ydeb,xfin,yfin);
+	if(xdeb < ydeb && xfin > yfin && ydeb != yfin)//Route en diagonale
+	{
+		SDL_RenderDrawLine(renderer,xdeb,ydeb+ep,xfin+ep,yfin);
+		//SDL_RenderDrawLine(renderer,130,300,150,280);
+		/*for(i = ydeb+30,j = ydeb+90;i<yfin,j<yfin;i+=110,j+=110)
+		{
+			SDL_RenderDrawLine(renderer,moy,i,moy,j);
+		}*/
+	}
+	else if(ydeb == yfin)//route horizontal
+	{
+		moy = (int)(ydeb*2+ep)/2;
+		SDL_RenderDrawLine(renderer,xdeb,ydeb+ep,xfin,yfin+ep);
+		for(i = xdeb+30,j = xdeb+90;i<xfin,j<xfin;i+=110,j+=110)
+		{
+			SDL_RenderDrawLine(renderer,i,moy,j,moy);
+		}
+	}
+	else
+	{
+		moy = (int)(xdeb*2+ep)/2;
+		SDL_RenderDrawLine(renderer,xdeb+ep,ydeb,xfin+ep,yfin);
+		for(i = ydeb+30,j = ydeb+90;i<yfin,j<yfin;i+=110,j+=110)
+		{
+			SDL_RenderDrawLine(renderer,moy,i,moy,j);
+		}
+	}
+	return 0;
+}
 
 void pause()
 {
