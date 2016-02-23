@@ -23,6 +23,9 @@ void print_node(Node node){
 
 void parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f) {
     Node nodes[177];   //ajouter malloc ici
+    Way ways[1000];
+    int ways_i=0;
+	
     int nodes_i=0;
     xmlNodePtr n;
     
@@ -102,7 +105,6 @@ void parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f) {
 				nodes[nodes_i].tags[nodes[nodes_i].free_tags].key= key;
 				nodes[nodes_i].tags[nodes[nodes_i].free_tags].val= val;
 				nodes[nodes_i].free_tags++;
-				
 			}
 		}
 		
@@ -112,48 +114,137 @@ void parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f) {
 		nodes[nodes_i].lon= node_lon;
 		nodes[nodes_i].visible = node_visible;
 	
-		print_node(nodes[nodes_i]);
+		//print_node(nodes[nodes_i]);
 		nodes_i++;
 		
 	}
 
-// 	else if (!strcmp(n->name,"way")){
-// 		printf("************way found**************\n");
-// 		// We get the attributes of the way
-// 		xmlAttr* attribute = n->properties;
-// 		
-// 		int way_id;
-// 		xmlNodePtr n_fils;
-// 		double way_lat;
-// 		double way_lon;
-// 		
-// 		// Get attribute (id)
-// 		while(attribute)
-// 		{
-// 			xmlChar* value = xmlNodeListGetString(n->doc, attribute->children, 1);
-// 			if(!strcmp(attribute->name,"id")){
-// 				node_id= atoi(value);
-// 			}
-// 			else if(!strcmp(attribute->name,"lat")){
-// 				node_lat= atof(value);	
-// 			}
-// 			else if(!strcmp(attribute->name,"lon")){
-// 				node_lon = atof(value);
-// 			}
-// 			
-// 		  	//printf(" %s", attribute->name);
-// 		  	//printf("=%s ;", value);
-// 			
-// 		  	xmlFree(value); 
-// 		 	attribute = attribute->next;
-// 		}
-// 		//printf("id = %d; lon =%f; lat=%f \n",node_id,node_lon,node_lat);
-// 		
-// 		// Process nodes
-// 		
-// 		// Process tags
-// 	}
-// 	
+ 	else if (!strcmp(n->name,"way")){
+ 		printf("************way found**************\n");
+ 		// We get the attributes of the way
+ 		int way_id;
+		bool way_visible;
+
+		ways[ways_i].nb_tags= 0;
+		ways[ways_i].nb_nds= 0;
+
+ 		//xmlNodePtr n_fils;
+ 		
+		xmlAttr* attribute = n->properties;
+		while(attribute)
+		{
+			xmlChar* value = xmlNodeListGetString(n->doc, attribute->children, 1);
+			
+			if(!strcmp(attribute->name,"id")){
+				way_id= atoi(value);
+			}
+			else if (!strcmp(attribute->name,"visible")){
+				// Check if the node is visible
+				if (strcmp(value,"true") == 0) {
+					way_visible = true;
+				} else {
+					way_visible = false;
+				}				
+			}
+			
+			// Memory managment 
+		  	xmlFree(value); 
+		 	attribute = attribute->next;
+		}
+ 		ways[ways_i].id= way_id;
+		ways[ways_i].visible= way_visible;
+ 		
+		xmlNodePtr n_fils;		
+		
+		ways[ways_i].tags = malloc(10*sizeof(Tag));
+		ways[ways_i].nds = malloc(10*sizeof(int));
+		ways[ways_i].nb_tags =10;
+		ways[ways_i].nb_nds=10;
+		int nb_added_tags = 0;
+		int nb_added_nds = 0;
+		if( ways[ways_i].tags == NULL )
+		{
+		     fprintf(stderr,"Allocation impossible");
+		     exit(EXIT_FAILURE);
+		}
+
+		for (n_fils = n->children; n_fils != NULL; n_fils = n_fils->next) {
+
+			xmlAttr* attributes_fils = n_fils->properties;
+			// Process nodes
+			if (!strcmp(n_fils->name,"nd")){
+				char * val;
+				nb_added_nds++;				
+				while(attributes_fils)
+				{
+					xmlChar* value_fils = xmlNodeListGetString(n_fils->doc, attributes_fils->children, 1);
+					
+					if (!strcmp(attributes_fils->name,"ref")){
+						// Key
+						val = malloc(strlen(value_fils)+1);
+						strcpy(val, value_fils);
+					}
+					
+					// Memory managment 
+					xmlFree(value_fils);
+					
+		 			attributes_fils = attributes_fils->next;
+				}
+				if(nb_added_nds==ways[ways_i].nb_nds){
+					//printf("On realloc");
+					ways[ways_i].nds = realloc(ways[ways_i].nds, ways[ways_i].nb_nds*ways[ways_i].nb_nds*sizeof(int));
+					ways[ways_i].nb_nds = ways[ways_i].nb_nds*ways[ways_i].nb_nds;
+				}
+				ways[ways_i].nds[nb_added_nds-1]= atoi(val);
+							
+			}
+			// Process tags
+			else if (!strcmp(n_fils->name,"tag")){
+				char * key;
+				char * val;
+								
+				while(attributes_fils)
+				{
+					xmlChar* value_fils = xmlNodeListGetString(n_fils->doc, attributes_fils->children, 1);
+					
+					if (!strcmp(attributes_fils->name,"k")){
+						// Key
+						key = malloc(strlen(value_fils)+1);
+						strcpy(key, value_fils);
+					} else {
+						// Value
+						val = malloc(strlen(value_fils)+1);
+						strcpy(val,  value_fils);
+					}
+					
+					// Memory managment 
+					xmlFree(value_fils);
+					
+		 			attributes_fils = attributes_fils->next;
+				}
+				nb_added_tags++;
+				//printf("nb_tags: %d; added_tags: %d \n",nb_added_tags,ways[ways_i].nb_tags);
+				if(nb_added_tags==ways[ways_i].nb_tags){
+					//printf("On realloc");
+					ways[ways_i].tags = realloc(ways[ways_i].tags, ways[ways_i].nb_tags*ways[ways_i].nb_tags*sizeof(Tag));
+					ways[ways_i].nb_tags = ways[ways_i].nb_tags*ways[ways_i].nb_tags;
+				}
+				
+				// should be changed
+				ways[ways_i].tags[nb_added_tags-1].key= key;
+				ways[ways_i].tags[nb_added_tags-1].val= val;
+				//wayss[ways_i].nb_tags++;
+				
+			}
+		}
+		int z;
+		for(z=0;z<nb_added_nds;z++){
+			//print_tag(ways[ways_i].tags[z]);
+			printf("nd = %d\n",ways[ways_i].nds[z]);
+		}
+		ways_i++;
+ 	}
+ 	
 // 	else{
 		
 // 	}
