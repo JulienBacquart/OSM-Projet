@@ -7,6 +7,7 @@
 void pause();
 int drawRoad(int xdeb, int ydeb, int xfin, int yfin, int ep, SDL_Renderer *);
 
+
 int main(int argc, char *argv[])
 {
         SDL_Window *window;
@@ -49,13 +50,14 @@ int main(int argc, char *argv[])
 
 		//Dessin d'une route horizontal en bleu
 		SDL_SetRenderDrawColor(renderer,0,0,255,255);
-		drawRoad(0,300,800,300,100,renderer);
+		drawRoad(0,300,800,300,20,renderer);
 
 		//Dessin d'une route en diagonale en noir
 		SDL_SetRenderDrawColor(renderer,0,0,0,255);
 		drawRoad(0,300,300,0,200,renderer);
 		
-
+		//thickLineRGBA(renderer,0,100,800,100,20,0,255,0,255);
+		
 		SDL_RenderPresent(renderer);
 
 		pause();
@@ -75,29 +77,16 @@ int drawRoad(int xdeb, int ydeb, int xfin, int yfin, int ep, SDL_Renderer *rende
 	if(xdeb < ydeb && xfin > yfin && ydeb != yfin)//Route en diagonale
 	{
 		SDL_RenderDrawLine(renderer,xdeb,ydeb+ep,xfin+ep,yfin);
-		//SDL_RenderDrawLine(renderer,130,300,150,280);
-		/*for(i = ydeb+30,j = ydeb+90;i<yfin,j<yfin;i+=110,j+=110)
-		{
-			SDL_RenderDrawLine(renderer,moy,i,moy,j);
-		}*/
 	}
 	else if(ydeb == yfin)//route horizontal
 	{
 		moy = (int)(ydeb*2+ep)/2;
 		SDL_RenderDrawLine(renderer,xdeb,ydeb+ep,xfin,yfin+ep);
-		for(i = xdeb+30,j = xdeb+90;i<xfin,j<xfin;i+=110,j+=110)
-		{
-			SDL_RenderDrawLine(renderer,i,moy,j,moy);
-		}
 	}
 	else
 	{
 		moy = (int)(xdeb*2+ep)/2;
 		SDL_RenderDrawLine(renderer,xdeb+ep,ydeb,xfin+ep,yfin);
-		for(i = ydeb+30,j = ydeb+90;i<yfin,j<yfin;i+=110,j+=110)
-		{
-			SDL_RenderDrawLine(renderer,moy,i,moy,j);
-		}
 	}
 	return 0;
 }
