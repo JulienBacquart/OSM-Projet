@@ -1,12 +1,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <SDL2/SDL.h>
-
-#define NB_PIXELS 28
+#include <SDL2/SDL2_gfxPrimitives.h>
 
 void pause();
-int drawRoad(int xdeb, int ydeb, int xfin, int yfin, int ep, SDL_Renderer *);
-
+int drawRoad(SDL_Renderer *renderer,SDL_Point *points,int width,int nbPoints,int r, int g, int b, int a);
 
 int main(int argc, char *argv[])
 {
@@ -27,37 +25,22 @@ int main(int argc, char *argv[])
 
 		SDL_SetRenderDrawColor(renderer,0,0,0,255);
 
-		hexa[0].x = 200;hexa[0].y = 100;
-		hexa[1].x = 350;hexa[1].y = 250;
-		hexa[2].x = 350;hexa[2].y = 450;
-		hexa[3].x = 200;hexa[3].y = 600;
-		hexa[4].x = 50;hexa[4].y = 450;
-		hexa[5].x = 50;hexa[5].y = 250;
-		hexa[6] = hexa[0];
-
-		SDL_RenderDrawLines(renderer,hexa,7);
-
-		SDL_Rect rect = {700,700,50,50};//Perau et de créer un rectangle vide au points 700,700 et de dimension 50,50 
-		SDL_RenderDrawRect(renderer,&rect);
-
 		SDL_SetRenderDrawColor(renderer,255,0,0,255);//On change la couleur pour le prochain rectangle
 
-		SDL_Rect rectFill = {600,700,50,50};
-		SDL_RenderFillRect(renderer,&rectFill);
+		SDL_Point test[10];//Definition d'un tableau de SDL_Point contenant chaque point a dessiner
+		test[0].x = test[0].y = 100;
+		test[1].x = 200;test[1].y = 150;
+		test[2].x = 250;test[2].y = 200;
+		test[3].x = 310;test[3].y = 260;
+		test[4].x = 420;test[4].y = 700;
+		test[5].x = 550;test[5].y = 500;
+		test[6].x = 600;test[6].y = 550;
+		test[7].x = 720;test[7].y = 670;
+		test[8].x = 770;test[8].y = 720;
+		test[9].x = 800;test[9].y = 750;
 
-		//Dessin d'une route vertical en rouge
-		drawRoad(400,0,400,800,100,renderer);
-
-		//Dessin d'une route horizontal en bleu
-		SDL_SetRenderDrawColor(renderer,0,0,255,255);
-		drawRoad(0,300,800,300,20,renderer);
-
-		//Dessin d'une route en diagonale en noir
-		SDL_SetRenderDrawColor(renderer,0,0,0,255);
-		drawRoad(0,300,300,0,200,renderer);
-		
-		//thickLineRGBA(renderer,0,100,800,100,20,0,255,0,255);
-		
+		//Fonction drawRoad qui prend en paramètre le renderer, le tableau de points, l'épaisseur du trait,le nombre de points a dessiner (taille du tableau), et les 4 entiers rgba
+		drawRoad(renderer,test,5,10,246,249,190,255);
 		SDL_RenderPresent(renderer);
 
 		pause();
@@ -68,25 +51,16 @@ int main(int argc, char *argv[])
         return 0;
 }
 
-//Rajouter le début et la fin en args
-int drawRoad(int xdeb, int ydeb, int xfin, int yfin, int ep, SDL_Renderer *renderer)
+int drawRoad(SDL_Renderer *renderer,SDL_Point *points,int width,int nbPoints,int r, int g, int b, int a)
 {
-	int i,j;
-	int moy = 0;
-	SDL_RenderDrawLine(renderer,xdeb,ydeb,xfin,yfin);
-	if(xdeb < ydeb && xfin > yfin && ydeb != yfin)//Route en diagonale
+	int i;
+	for(i = 0;i<nbPoints;i++)
 	{
-		SDL_RenderDrawLine(renderer,xdeb,ydeb+ep,xfin+ep,yfin);
-	}
-	else if(ydeb == yfin)//route horizontal
-	{
-		moy = (int)(ydeb*2+ep)/2;
-		SDL_RenderDrawLine(renderer,xdeb,ydeb+ep,xfin,yfin+ep);
-	}
-	else
-	{
-		moy = (int)(xdeb*2+ep)/2;
-		SDL_RenderDrawLine(renderer,xdeb+ep,ydeb,xfin+ep,yfin);
+		if(i == nbPoints-1)
+		{
+			break;
+		}
+		thickLineRGBA(renderer,points[i].x,points[i].y,points[i+1].x,points[i+1].y,width,r,g,b,a);
 	}
 	return 0;
 }
