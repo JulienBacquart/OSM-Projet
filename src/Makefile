@@ -1,8 +1,8 @@
 CC = gcc
-CFLAGS = -g -Wall
+CFLAGS = -g -Wall -Wextra -Werror
 CPPFLAGS = -I/usr/include/libxml2
-LDFLAGS = -lxml2 -lSDL2 -lSDL2_gfx
-EXEC = parsexml frame
+LDFLAGS = -lxml2 -lSDL2 -lSDL2_gfx -lSDL2_ttf
+EXEC = parsexml frame render_min
 
 all: $(EXEC)
 
@@ -13,6 +13,9 @@ frame: frame.c
 	$(CC) -o $@ $(CPPFLAGS) $< $(LDFLAGS)
 	
 test: test.c
+	$(CC) -o $@ $(CPPFLAGS) $< $(LDFLAGS)
+
+render_min: render_min.c
 	$(CC) -o $@ $(CPPFLAGS) $< $(LDFLAGS)
 	
 clean:

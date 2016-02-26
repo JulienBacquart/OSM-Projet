@@ -2,67 +2,45 @@
 #include <stdio.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL2_gfxPrimitives.h>
+#include <SDL2/SDL_ttf.h>
 
 void pause();
-int drawRoad(SDL_Renderer *renderer,SDL_Point *points,int width,int nbPoints,int r, int g, int b, int a);
+int writeText(SDL_Renderer *renderer,char *text,int fontWidth,int x, int y,int width,int height,int r,int g,int b);
 
 int main(int argc, char *argv[])
 {
-        SDL_Window *window;
-        SDL_Renderer *renderer;
-		SDL_Point hexa[7]; //Permet de faire un chemin de points
+	SDL_Window *window;
+	SDL_Renderer *renderer;
 
-        if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-                SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't initialize SDL: %s\n", SDL_GetError());
-                return 3;
-        }
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+            SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't initialize SDL: %s\n", SDL_GetError());
+            return 3;
+    }
 
-        window = SDL_CreateWindow("OpenStreetMap",SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,800, 800,SDL_WINDOW_SHOWN); //Création de la fenêtre
-        renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);//Création du renderer associé a la fenêtre
-
-        SDL_SetRenderDrawColor(renderer,233,234,237,255);//La couleur du fond
-		SDL_RenderClear(renderer);//Application de la couleur choisis
-
-		SDL_SetRenderDrawColor(renderer,0,0,0,255);
-
-		SDL_SetRenderDrawColor(renderer,255,0,0,255);//On change la couleur pour le prochain rectangle
-
-		SDL_Point test[10];//Definition d'un tableau de SDL_Point contenant chaque point a dessiner
-		test[0].x = test[0].y = 100;
-		test[1].x = 200;test[1].y = 150;
-		test[2].x = 250;test[2].y = 200;
-		test[3].x = 310;test[3].y = 260;
-		test[4].x = 420;test[4].y = 700;
-		test[5].x = 550;test[5].y = 500;
-		test[6].x = 600;test[6].y = 550;
-		test[7].x = 720;test[7].y = 670;
-		test[8].x = 770;test[8].y = 720;
-		test[9].x = 800;test[9].y = 750;
-
-		//Fonction drawRoad qui prend en paramètre le renderer, le tableau de points, l'épaisseur du trait,le nombre de points a dessiner (taille du tableau), et les 4 entiers rgba
-		drawRoad(renderer,test,5,10,246,249,190,255);
-		SDL_RenderPresent(renderer);
-
-		pause();
- 
-        SDL_DestroyRenderer(renderer);
-		SDL_DestroyWindow(window);
-        SDL_Quit();
-        return 0;
-}
-
-int drawRoad(SDL_Renderer *renderer,SDL_Point *points,int width,int nbPoints,int r, int g, int b, int a)
-{
-	int i;
-	for(i = 0;i<nbPoints;i++)
+	if(TTF_Init() == -1)
 	{
-		if(i == nbPoints-1)
-		{
-			break;
-		}
-		thickLineRGBA(renderer,points[i].x,points[i].y,points[i+1].x,points[i+1].y,width,r,g,b,a);
+		fprintf(stderr, "Erreur d'initialisation de TTF_Init : %s\n", TTF_GetError());
+		exit(EXIT_FAILURE);
 	}
-	return 0;
+
+    window = SDL_CreateWindow("OpenStreetMap",SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,800, 800,SDL_WINDOW_SHOWN); //Création de la fenêtre
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);//Création du renderer associé a la fenêtre
+
+    SDL_SetRenderDrawColor(renderer,233,234,237,255);//La couleur du fond
+	SDL_RenderClear(renderer);//Application de la couleur choisis
+
+	writeText(renderer,"Some text",60,250,300,300,100,0,0,0);
+	
+	SDL_RenderPresent(renderer);
+
+	pause();
+
+	TTF_Quit();
+    SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
+    SDL_Quit();
+
+    return 0;
 }
 
 void pause()
@@ -77,4 +55,24 @@ void pause()
 		if(evenements.window.event == SDL_WINDOWEVENT_CLOSE)
 			terminer = 1;
     }
+}
+
+int writeText(SDL_Renderer *renderer,char *text,int fontWidth,int x, int y,int width,int height,int r,int g,int b)
+{
+	TTF_Font *police = NULL;
+	police = TTF_OpenFont("/usr/share/fonts/truetype/dejavu/DejaVuSans-ExtraLight.ttf",fontWidth);	
+	SDL_Color coul = {r,g,b};
+	SDL_Surface* texte = TTF_RenderText_Blended(police,text,coul);
+	SDL_Texture* message = SDL_CreateTextureFromSurface(renderer,texte);
+
+	SDL_Rect message_rect; //create a rec
+	message_rect.x = x;  //controls the rect's x coordinate 
+	message_rect.y = y; // controls the rect's y coordinte
+	message_rect.w = width; // controls the width of the rect
+	message_rect.h = height; // controls the height of the rect
+
+	SDL_RenderCopy(renderer,message,NULL,&message_rect);
+
+	TTF_CloseFont(police);
+
 }
