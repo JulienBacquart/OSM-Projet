@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL2_gfxPrimitives.h>
+#include <SDL2/SDL2_rotozoom.h>
 #include <SDL2/SDL_ttf.h>
 
 #define WIDTH 800
@@ -10,7 +11,7 @@
 void pause();
 int drawLine(SDL_Renderer *renderer,int x1, int y1,int x2, int y2,int width,int r,int g, int b, int a);
 int drawRoad(SDL_Renderer *renderer,SDL_Point *points,int width,int nbPoints,int r, int g, int b, int a);
-int writeText(SDL_Renderer *renderer,char *text,int fontWidth,int x, int y,int width,int height,int r,int g,int b);
+int writeText(SDL_Renderer *renderer,char *text,int fontWidth,int x, int y,int width,int height,int r,int g,int b,double angle);
 
 int main(int argc, char **argv)
 {
@@ -36,16 +37,19 @@ int main(int argc, char **argv)
 	SDL_RenderClear(renderer);//Application de la couleur choisis
 
 	//Dessin des lignes pour le renderer minimal
-	drawLine(renderer,80,0,80,HEIGHT,10,255,255,179,255);
-	drawLine(renderer,500,0,500,HEIGHT,10,255,255,255,255);
-	drawLine(renderer,750,0,750,HEIGHT,10,255,255,255,255);
-	drawLine(renderer,0,150,WIDTH,150,10,255,255,255,255);
-	drawLine(renderer,0,400,WIDTH,400,10,255,255,255,255);
-	drawLine(renderer,0,750,WIDTH,750,10,255,255,255,255);
-	drawLine(renderer,290,150,290,HEIGHT,10,255,255,255,255);
+	drawLine(renderer,80,0,80,HEIGHT,20,255,255,179,255);
+	drawLine(renderer,500,0,500,HEIGHT,20,255,255,255,255);
+	drawLine(renderer,750,0,750,HEIGHT,20,255,255,255,255);
+	drawLine(renderer,0,150,WIDTH,150,20,255,255,255,255);
+	drawLine(renderer,0,400,WIDTH,400,20,255,255,255,255);
+	drawLine(renderer,0,750,WIDTH,750,20,255,255,255,255);
+	drawLine(renderer,290,150,290,HEIGHT,20,255,255,255,255);
 
-	writeText(renderer,"Some text",100,200,20,200,100,0,0,0);
+  	//writeText(renderer,"Some teeeeeeeext",font,x,y,width,height,r,g,b,angle)
+	writeText(renderer,"East 24th Avenue",30,120,140,130,20,0,0,0,0.0);
+	writeText(renderer,"Downing Street",30,70,20,20,100,0,0,0,90.0);
 
+	
 	SDL_RenderPresent(renderer);
 
 	pause();
@@ -92,13 +96,16 @@ int drawRoad(SDL_Renderer *renderer,SDL_Point *points,int width,int nbPoints,int
 	return 0;
 }
 
-int writeText(SDL_Renderer *renderer,char *text,int fontWidth,int x, int y,int width,int height,int r,int g,int b)
+int writeText(SDL_Renderer *renderer,char *text,int fontWidth,int x, int y,int width,int height,int r,int g,int b, double angle)
 {
 	TTF_Font *police = NULL;
 	police = TTF_OpenFont("DejaVuSans-ExtraLight.ttf",fontWidth);	
 	SDL_Color coul = {r,g,b};
 	SDL_Surface* texte = TTF_RenderText_Blended(police,text,coul);
-	SDL_Texture* message = SDL_CreateTextureFromSurface(renderer,texte);
+
+	SDL_Surface *textRot = rotozoomSurface(texte,angle,1.0,1);
+
+	SDL_Texture* message = SDL_CreateTextureFromSurface(renderer,textRot);
 
 	SDL_Rect message_rect; //create a rec
 	message_rect.x = x;  //controls the rect's x coordinate 
