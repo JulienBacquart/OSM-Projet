@@ -10,6 +10,8 @@
 
 # include <stdbool.h>
 
+#include "uthash.h"
+
 #define MAX_NODE_IN_WAY 2000
 #define MIN_LAT −90.0000000
 #define MAX_LAT 90.0000000
@@ -22,6 +24,16 @@ typedef struct{
 } Tag;
 
 typedef struct{
+	int id;		// key
+	bool visible;
+	double lat;
+	double lon;
+	int nb_tags;
+	Tag *tags;
+	UT_hash_handle hh;	// makes this structure hashable
+} Node;
+
+typedef struct{
 	int id;
 	bool visible;
 	int * nds;
@@ -30,16 +42,6 @@ typedef struct{
 	int nb_tags;
 	
 } Way;
-
-typedef struct{
-	int id;
-	bool visible;
-	int free_tags;	// need to be changed, this is actually the number of used tags (nb_tags?)
-	double lat;
-	double lon;
-	
-	Tag tags[10];
-} Node;
 
 typedef struct{
 	double minlat;
