@@ -34,39 +34,24 @@ void print_way(Way way){
 
 // Add a node to the hashtable 'nodes'
 void add_node(Node *nd) {
-// 	Node *nd;
-// 
-// 	nd = malloc(sizeof(Node));
-// 	nd->id = node_id;
-// 	nd->visible = node_visible;
-// 	nd->lat = node_lat;
-// 	nd->lon = node_lon;
-	//     strcpy(s->name, name);
+	// Maybe check uniqueness ?
 	HASH_ADD_INT(nodes, id, nd);  /* id: name of key field */
 	printf("Node %d added successfully to the table\n", nd->id);
 }
 
 void parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f) {
-//     Node nodes[177];   //ajouter malloc ici // in
-    Way ways[1000];
+    Way ways[1000];	// should be changed
     int ways_i=0;
-	
-//     int nodes_i=0;
+    
     xmlNodePtr n;
     
-    // We traverse the xml tree looking at each node
+    // We traverse the xml tree looking at each xml node
     for (n = noeud->children; n != NULL; n = n->next) {
-	// Case node
+	// The xml node is an OSM node
 	if (!strcmp(n->name,"node")){
 		
 		// Initialize
 		Node *nd = (Node *) malloc(sizeof(Node));
-		
-// 		int node_id;
-// 		double node_lat;
-// 		double node_lon;
-// 		bool node_visible;
-// 		int nb_tags = 0;
 		
 		// We extract the attributes of a node
 		xmlAttr* attribute = n->properties;
@@ -137,31 +122,21 @@ void parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f) {
 					// Double the size of the tags array
 					size_tags *= 2;
 					nd->tags = (Tag *) realloc(nd->tags, size_tags * sizeof(Tag));
-					printf("realloc taille: %d\n", size_tags);
+// 					printf("realloc taille: %d\n", size_tags);
 				}
 				
+				// Add the new tag to the current node
 				tg->key = key;
 				tg->val = val;
 // 				print_tag(*tg);
 				nd->tags[nd->nb_tags] = *tg;
 				nd->nb_tags++;
-				
-				// should be changed
-// 				nodes[nodes_i].tags[nodes[nodes_i].nb_tags].key= key;
-// 				nodes[nodes_i].tags[nodes[nodes_i].nb_tags].val= val;
-// 				nodes[nodes_i].nb_tags++;
 			}
 		}
-		
-		// should be changed
-// 		nodes[nodes_i].id= node_id;
-// 		nodes[nodes_i].lat= node_lat;
-// 		nodes[nodes_i].lon= node_lon;
-// 		nodes[nodes_i].visible = node_visible;
 	
+		// Add the current node to the hashtable
 		add_node(nd);
 		print_node(*nd);
-// 		nodes_i++;
 		
 	}
 
