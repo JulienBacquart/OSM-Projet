@@ -19,9 +19,9 @@ void print_node(Node node){
 	// For lat et long we need a precision to the 7 decimal place
 	printf("Node id: %d visible=%d lat=%.7f lon=%.7f nb_tags=%d\n", node.id, node.visible, node.lat, node.lon, node.nb_tags);
 	int i;
-// 	for(i = 0; i< node.nb_tags; i++){
-// 		print_tag(node.tags[i]);
-// 	}
+	for(i = 0; i< node.nb_tags; i++){
+		print_tag(node.tags[i]);
+	}
 }
 
 void print_way(Way way){
@@ -101,7 +101,7 @@ void parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f) {
 		xmlNodePtr n_fils;
 		nd->nb_tags = 0;
 		nd->tags = (Tag *)malloc(sizeof(Tag));
-// 		printf("Sizeof(*nd->tags): %lu\n", sizeof(nd->tags));
+		int size_tags = 1;
 		for (n_fils = n->children; n_fils != NULL; n_fils = n_fils->next) {
 
 			xmlAttr* attributes_fils = n_fils->properties;
@@ -131,14 +131,19 @@ void parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f) {
 		 			attributes_fils = attributes_fils->next;
 				}
 				
+				// If there is no space anymore in the tags array, we double it
+				if (nd->nb_tags == size_tags){
+					// Double the size of the tags array
+					size_tags *= 2;
+					nd->tags = (Tag *) realloc(nd->tags, size_tags * sizeof(Tag));
+					printf("realloc taille: %d\n", size_tags);
+				}
+				
 				tg->key = key;
 				tg->val = val;
 // 				print_tag(*tg);
 				nd->tags[nd->nb_tags] = *tg;
 				nd->nb_tags++;
-// 				printf("Sizeof(*nd->tags): %lu\n", sizeof(nd->tags));
-				nd->tags = (Tag *) realloc(nd->tags, 2 * nd->nb_tags * sizeof(Tag));	// not working correctly, need to be rewrote
-// 				printf("Sizeof(*nd->tags): %lu\n", sizeof(nd->tags));
 				
 				// should be changed
 // 				nodes[nodes_i].tags[nodes[nodes_i].nb_tags].key= key;
