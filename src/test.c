@@ -32,8 +32,8 @@ void print_way(Way way){
 	}
 }
 
-// // Add a node to the hashtable 'nodes'
-// void add_node(int node_id, bool node_visible, double node_lat, double node_lon, char *name) {
+// Add a node to the hashtable 'nodes'
+void add_node(Node *nd) {
 // 	Node *nd;
 // 
 // 	nd = malloc(sizeof(Node));
@@ -41,9 +41,10 @@ void print_way(Way way){
 // 	nd->visible = node_visible;
 // 	nd->lat = node_lat;
 // 	nd->lon = node_lon;
-// 	//     strcpy(s->name, name);
-// 	HASH_ADD_INT(nodes, id, nd);  /* id: name of key field */
-// }
+	//     strcpy(s->name, name);
+	HASH_ADD_INT(nodes, id, nd);  /* id: name of key field */
+	printf("Node %d added successfully to the table\n", nd->id);
+}
 
 void parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f) {
 //     Node nodes[177];   //ajouter malloc ici // in
@@ -158,6 +159,7 @@ void parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f) {
 // 		nodes[nodes_i].lon= node_lon;
 // 		nodes[nodes_i].visible = node_visible;
 	
+		add_node(nd);
 		print_node(*nd);
 // 		nodes_i++;
 		
@@ -290,8 +292,12 @@ void parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f) {
 // 		print_way(ways[ways_i]); // /!\ Make it crash, need a debug
 		ways_i++;
  	}
-
     }
+    
+	// Display the total number of nodes added to the hashtable 
+ 	unsigned int num_nodes;
+	num_nodes = HASH_COUNT(nodes);
+	printf("There are %u nodes in the table\n", num_nodes);
 }
 
 void afficher_noeud(xmlNodePtr noeud) {
