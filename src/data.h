@@ -40,7 +40,7 @@ typedef struct{
 	int nb_nds;
 	Tag * tags;
 	int nb_tags;
-	
+	UT_hash_handle hh;	// makes this structure hashable
 } Way;
 
 typedef struct{
