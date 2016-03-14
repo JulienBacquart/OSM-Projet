@@ -10,6 +10,8 @@ typedef void (*fct_parcours_t)(xmlNodePtr);
 
 // The hashtable holding the nodes
 Node *nodes = NULL;    /* important! initialize to NULL */
+// The hashtable holding the ways
+Way *ways = NULL;    /* important! initialize to NULL */
 
 void print_tag(Tag tag){
 	printf("Tag k: %s, v: %s\n", tag.key, tag.val);
@@ -24,11 +26,21 @@ void print_node(Node node){
 	}
 }
 
+Node *find_node(int node_id) {
+    Node *n;
+
+    HASH_FIND_INT(nodes, &node_id, n);  /* s: output pointer */
+    return n;
+}
+
 void print_way(Way way){
 	printf("Way id: %d visible=%d nb_nds=%d nb_tags=%d \n", way.id, way.visible, way.nb_nds, way.nb_tags);
 	int i;
 	for(i = 0; i< way.nb_tags; i++){
 		print_tag(way.tags[i]);
+	}
+	for(i = 0; i< way.nb_nds; i++){
+		print_node(way.nds[i]);
 	}
 }
 
@@ -36,12 +48,19 @@ void print_way(Way way){
 void add_node(Node *nd) {
 	// Maybe check uniqueness ?
 	HASH_ADD_INT(nodes, id, nd);  /* id: name of key field */
-	printf("Node %d added successfully to the table\n", nd->id);
+// 	printf("Node %d added successfully to the table\n", nd->id);
+}
+
+// Add a way to the hashtable 'ways'
+void add_way(Way *way) {
+	// Maybe check uniqueness ?
+	HASH_ADD_INT(ways, id, way);  /* id: name of key field */
+// 	printf("Way %d added successfully to the table\n", way->id);
 }
 
 void parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f) {
-    Way ways[1000];	// should be changed
-    int ways_i=0;
+//     Way ways[1000];	// should be changed
+//     int ways_i=0;
     
     xmlNodePtr n;
     
@@ -124,6 +143,7 @@ void parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f) {
 					nd->tags = (Tag *) realloc(nd->tags, size_tags * sizeof(Tag));
 // 					printf("realloc taille: %d\n", size_tags);
 				}
+				// Add check NULL
 				
 				// Add the new tag to the current node
 				tg->key = key;
@@ -139,32 +159,28 @@ void parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f) {
 		print_node(*nd);
 		
 	}
-
+	
+	// The xml node is an OSM way
  	else if (!strcmp(n->name,"way")){
- 		printf("************way found**************\n");
- 		// We get the attributes of the way
- 		int way_id;
-		bool way_visible;
-
-		ways[ways_i].nb_tags= 0;
-		ways[ways_i].nb_nds= 0;
-
- 		//xmlNodePtr n_fils;
+		
+		// Initialize
+		Way *way = (Way *) malloc(sizeof(Way));
  		
+		// We extract the attributes of a way
 		xmlAttr* attribute = n->properties;
 		while(attribute)
 		{
 			xmlChar* value = xmlNodeListGetString(n->doc, attribute->children, 1);
 			
 			if(!strcmp(attribute->name,"id")){
-				way_id= atoi(value);
+				way->id = atoi(value);
 			}
 			else if (!strcmp(attribute->name,"visible")){
 				// Check if the node is visible
 				if (strcmp(value,"true") == 0) {
-					way_visible = true;
+					way->visible = true;
 				} else {
-					way_visible = false;
+					way->visible = false;
 				}				
 			}
 			
@@ -172,38 +188,33 @@ void parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f) {
 		  	xmlFree(value); 
 		 	attribute = attribute->next;
 		}
- 		ways[ways_i].id= way_id;
-		ways[ways_i].visible= way_visible;
  		
-		xmlNodePtr n_fils;		
+		xmlNodePtr n_fils;
 		
-		ways[ways_i].tags = malloc(10*sizeof(Tag));
-		ways[ways_i].nds = malloc(10*sizeof(int));
-		ways[ways_i].nb_tags = 10;
-		ways[ways_i].nb_nds= 10;
-		int nb_added_tags = 0;
-		int nb_added_nds = 0;
-		if( ways[ways_i].tags == NULL )
-		{
-		     fprintf(stderr,"Allocation impossible");
-		     exit(EXIT_FAILURE);
-		}
+		// We extract the nodes and tags of a way
+ 		//xmlNodePtr n_fils;
+		way->nb_tags = 0;
+		way->tags = (Tag *) malloc(sizeof(Tag));
+		int size_tags = 1;
+		way->nb_nds = 0;
+		way->nds = (Node *) malloc(sizeof(Node));
+		int size_nds = 1;
 
 		for (n_fils = n->children; n_fils != NULL; n_fils = n_fils->next) {
 
 			xmlAttr* attributes_fils = n_fils->properties;
-			// Process nodes
+			// Process child nodes
 			if (!strcmp(n_fils->name,"nd")){
-				char * val;
-				nb_added_nds++;
+				int id;
+				Node *nd = (Node *) malloc(sizeof(Node));
+				
 				while(attributes_fils)
 				{
 					xmlChar* value_fils = xmlNodeListGetString(n_fils->doc, attributes_fils->children, 1);
 					
 					if (!strcmp(attributes_fils->name,"ref")){
-						// Key
-						val = malloc(strlen(value_fils)+1);
-						strcpy(val, value_fils);
+						// Node ID
+						id = atoi(value_fils);
 					}
 					
 					// Memory managment 
@@ -211,19 +222,29 @@ void parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f) {
 					
 		 			attributes_fils = attributes_fils->next;
 				}
-				if(nb_added_nds==ways[ways_i].nb_nds){
-					//printf("On realloc");
-					ways[ways_i].nds = realloc(ways[ways_i].nds, ways[ways_i].nb_nds*ways[ways_i].nb_nds*sizeof(int));
-					ways[ways_i].nb_nds = ways[ways_i].nb_nds*ways[ways_i].nb_nds;
+				
+				// If there is no space anymore in the nodes array, we double it
+				if (way->nb_nds == size_nds){
+					// Double the size of the nodes array
+					size_nds *= 2;
+					way->nds = (Node *) realloc(way->nds, size_nds * sizeof(Node));
+// 					printf("realloc taille: %d\n", size_tags);
 				}
-				ways[ways_i].nds[nb_added_nds-1]= atoi(val);
-							
+				// Add check NULL
+				
+				// Add the new node to the current way
+				// We get a pointer to a node from the hashtable of nodes
+				nd = find_node(id);
+				way->nds[way->nb_nds] = *nd;
+				way->nb_nds++;
+				
 			}
 			// Process tags
 			else if (!strcmp(n_fils->name,"tag")){
-				char * key;
-				char * val;
-								
+				Tag *tg = (Tag *) malloc(sizeof(Tag));
+				char *key;
+				char *val;
+				
 				while(attributes_fils)
 				{
 					xmlChar* value_fils = xmlNodeListGetString(n_fils->doc, attributes_fils->children, 1);
@@ -243,29 +264,29 @@ void parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f) {
 					
 		 			attributes_fils = attributes_fils->next;
 				}
-				nb_added_tags++;
-				//printf("nb_tags: %d; added_tags: %d \n",nb_added_tags,ways[ways_i].nb_tags);
-				if(nb_added_tags==ways[ways_i].nb_tags){
-					//printf("On realloc");
-					ways[ways_i].tags = realloc(ways[ways_i].tags, ways[ways_i].nb_tags*ways[ways_i].nb_tags*sizeof(Tag));
-					ways[ways_i].nb_tags = ways[ways_i].nb_tags*ways[ways_i].nb_tags;
+
+				// If there is no space anymore in the tags array, we double it
+				if (way->nb_tags == size_tags){
+					// Double the size of the tags array
+					size_tags *= 2;
+					way->tags = (Tag *) realloc(way->tags, size_tags * sizeof(Tag));
+// 					printf("realloc taille: %d\n", size_tags);
 				}
+				// Add check NULL
 				
-				// should be changed
-				ways[ways_i].tags[nb_added_tags-1].key= key;
-				ways[ways_i].tags[nb_added_tags-1].val= val;
-				//wayss[ways_i].nb_tags++;
+				// Add the new tag to the current node
+				tg->key = key;
+				tg->val = val;
+// 				print_tag(*tg);
+				way->tags[way->nb_tags] = *tg;
+				way->nb_tags++;
 				
 			}
 		}
-		int z;
-		for(z=0;z<nb_added_nds;z++){
-			//print_tag(ways[ways_i].tags[z]);
-			printf("nd = %d\n",ways[ways_i].nds[z]);
-		}
-		
-// 		print_way(ways[ways_i]); // /!\ Make it crash, need a debug
-		ways_i++;
+
+		// Add the current way to the hashtable
+		add_way(way);
+		print_way(*way);
  	}
     }
     
@@ -273,6 +294,11 @@ void parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f) {
  	unsigned int num_nodes;
 	num_nodes = HASH_COUNT(nodes);
 	printf("There are %u nodes in the table\n", num_nodes);
+	
+	// Display the total number of ways added to the hashtable 
+ 	unsigned int num_ways;
+	num_ways = HASH_COUNT(ways);
+	printf("There are %u ways in the table\n", num_ways);
 }
 
 void afficher_noeud(xmlNodePtr noeud) {

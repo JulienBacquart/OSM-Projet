@@ -34,9 +34,9 @@ typedef struct{
 } Node;
 
 typedef struct{
-	int id;
+	int id;		// key
 	bool visible;
-	int * nds;
+	Node * nds;
 	int nb_nds;
 	Tag * tags;
 	int nb_tags;
