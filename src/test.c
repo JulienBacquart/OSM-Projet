@@ -26,6 +26,7 @@ void print_node(Node node){
 	}
 }
 
+// Find a node in the hashtable nodes from its id
 Node *find_node(int node_id) {
     Node *n;
 
@@ -59,8 +60,6 @@ void add_way(Way *way) {
 }
 
 void parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f) {
-//     Way ways[1000];	// should be changed
-//     int ways_i=0;
     
     xmlNodePtr n;
     
@@ -142,8 +141,11 @@ void parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f) {
 					size_tags *= 2;
 					nd->tags = (Tag *) realloc(nd->tags, size_tags * sizeof(Tag));
 // 					printf("realloc taille: %d\n", size_tags);
+					if (nd->tags == NULL){
+						fprintf(stderr, "Echec realloc\n");
+						exit (EXIT_FAILURE);
+					}
 				}
-				// Add check NULL
 				
 				// Add the new tag to the current node
 				tg->key = key;
@@ -192,7 +194,7 @@ void parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f) {
 		xmlNodePtr n_fils;
 		
 		// We extract the nodes and tags of a way
- 		//xmlNodePtr n_fils;
+		// Should we increase the default value ?
 		way->nb_tags = 0;
 		way->tags = (Tag *) malloc(sizeof(Tag));
 		int size_tags = 1;
@@ -228,11 +230,14 @@ void parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f) {
 					// Double the size of the nodes array
 					size_nds *= 2;
 					way->nds = (Node *) realloc(way->nds, size_nds * sizeof(Node));
-// 					printf("realloc taille: %d\n", size_tags);
+					printf("realloc taille: %d\n", size_nds);
+					if (way->nds == NULL){
+						fprintf(stderr, "Echec realloc\n");
+						exit (EXIT_FAILURE);
+					}
 				}
-				// Add check NULL
 				
-				// Add the new node to the current way
+				// Add the node to the current way
 				// We get a pointer to a node from the hashtable of nodes
 				nd = find_node(id);
 				way->nds[way->nb_nds] = *nd;
@@ -270,9 +275,12 @@ void parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f) {
 					// Double the size of the tags array
 					size_tags *= 2;
 					way->tags = (Tag *) realloc(way->tags, size_tags * sizeof(Tag));
-// 					printf("realloc taille: %d\n", size_tags);
+					printf("realloc taille: %d\n", size_tags);
+					if (way->tags == NULL){
+						fprintf(stderr, "Echec realloc\n");
+						exit (EXIT_FAILURE);
+					}
 				}
-				// Add check NULL
 				
 				// Add the new tag to the current node
 				tg->key = key;
