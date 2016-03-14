@@ -13,6 +13,10 @@ Node *nodes = NULL;    /* important! initialize to NULL */
 // The hashtable holding the ways
 Way *ways = NULL;    /* important! initialize to NULL */
 
+void print_bounds(Bounds bds){
+	printf("Bound minlat: %.7f , minlon: %.7f , maxlat: %.7f , maxlon: %.7f\n", bds.minlat, bds.minlon, bds.maxlat, bds.maxlon);
+}
+
 void print_tag(Tag tag){
 	printf("Tag k: %s, v: %s\n", tag.key, tag.val);
 }
@@ -26,23 +30,23 @@ void print_node(Node node){
 	}
 }
 
-// Find a node in the hashtable nodes from its id
-Node *find_node(int node_id) {
-    Node *n;
-
-    HASH_FIND_INT(nodes, &node_id, n);  /* s: output pointer */
-    return n;
-}
-
 void print_way(Way way){
 	printf("Way id: %d visible=%d nb_nds=%d nb_tags=%d \n", way.id, way.visible, way.nb_nds, way.nb_tags);
 	int i;
 	for(i = 0; i< way.nb_tags; i++){
 		print_tag(way.tags[i]);
 	}
-	for(i = 0; i< way.nb_nds; i++){
-		print_node(way.nds[i]);
-	}
+// 	for(i = 0; i< way.nb_nds; i++){
+// 		print_node(way.nds[i]);
+// 	}
+}
+
+// Find a node in the hashtable nodes from its id
+Node *find_node(int node_id) {
+    Node *n;
+
+    HASH_FIND_INT(nodes, &node_id, n);  /* s: output pointer */
+    return n;
 }
 
 // Add a node to the hashtable 'nodes'
@@ -65,6 +69,40 @@ void parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f) {
     
     // We traverse the xml tree looking at each xml node
     for (n = noeud->children; n != NULL; n = n->next) {
+	// The xml node is 'bound'
+	if (!strcmp(n->name, "bounds")){
+		// Initialize
+		Bounds *bds = (Bounds *) malloc(sizeof(Bounds));
+		
+		// We extract the attributes of a bound
+		xmlAttr* attribute = n->properties;
+		while(attribute)
+		{
+			xmlChar* value = xmlNodeListGetString(n->doc, attribute->children, 1);
+			
+			if (!strcmp(attribute->name,"minlat")){
+				bds->minlat = atof(value);	
+			}
+			else if (!strcmp(attribute->name,"minlon")){
+				bds->minlon = atof(value);
+			}
+			else if (!strcmp(attribute->name,"maxlat")){
+				bds->maxlat = atof(value);	
+			}
+			else if (!strcmp(attribute->name,"maxlon")){
+				bds->maxlon = atof(value);
+			}
+			
+			// Memory managment 
+		  	xmlFree(value); 
+			
+		 	attribute = attribute->next;
+		}
+		
+		// Display the map boundaries
+		print_bounds(*bds);
+	}	
+	    
 	// The xml node is an OSM node
 	if (!strcmp(n->name,"node")){
 		
@@ -230,7 +268,7 @@ void parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f) {
 					// Double the size of the nodes array
 					size_nds *= 2;
 					way->nds = (Node *) realloc(way->nds, size_nds * sizeof(Node));
-					printf("realloc taille: %d\n", size_nds);
+// 					printf("realloc taille: %d\n", size_nds);
 					if (way->nds == NULL){
 						fprintf(stderr, "Echec realloc\n");
 						exit (EXIT_FAILURE);
@@ -275,7 +313,7 @@ void parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f) {
 					// Double the size of the tags array
 					size_tags *= 2;
 					way->tags = (Tag *) realloc(way->tags, size_tags * sizeof(Tag));
-					printf("realloc taille: %d\n", size_tags);
+// 					printf("realloc taille: %d\n", size_tags);
 					if (way->tags == NULL){
 						fprintf(stderr, "Echec realloc\n");
 						exit (EXIT_FAILURE);
