@@ -49,3 +49,9 @@ typedef struct{
 	double maxlat;
 	double maxlon;
 } Bounds;
+
+typedef struct{
+	Node *h_nodes;		// hastable containing all the nodes
+	Way *h_ways;		// hashtable containing all the ways
+	Bounds *m_bds;		// contains the map boundaries
+} Map;
