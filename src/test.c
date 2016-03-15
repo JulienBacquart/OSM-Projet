@@ -5,6 +5,7 @@
 #include <string.h>
 
 #include "data.h"
+#include "graphics.h"
 
 typedef void (*fct_parcours_t)(xmlNodePtr);
 
@@ -361,13 +362,87 @@ void afficher_noeud(xmlNodePtr noeud) {
     }
 }
 
-int main() {
-    xmlDocPtr doc;
+void pause()
+{
+	SDL_Event evenements;
+    int terminer = 0;
+
+	while(!terminer)
+    {
+		SDL_WaitEvent(&evenements);
+		
+		if(evenements.window.event == SDL_WINDOWEVENT_CLOSE)
+			terminer = 1;
+    }
+}
+
+int drawLine(SDL_Renderer *renderer, int x1, int y1, int x2, int y2, int width, int r, int g, int b, int a)
+{
+	thickLineRGBA(renderer,x1,y1,x2,y2,width,r,g,b,a);
+	return 0;
+}
+
+int drawRoad(SDL_Renderer *renderer,SDL_Point *points,int width,int nbPoints,int r, int g, int b, int a)
+{
+	int i;
+	for(i = 0;i<nbPoints;i++)
+	{
+		if(i == nbPoints-1)
+		{
+			break;
+		}
+		thickLineRGBA(renderer,points[i].x,points[i].y,points[i+1].x,points[i+1].y,width,r,g,b,a);
+	}
+	return 0;
+}
+
+int render_min()
+{
+	SDL_Window *window;
+	SDL_Renderer *renderer;
+
+	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	{
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't initialize SDL: %s\n", SDL_GetError());
+        return -1;
+    }
+	window = SDL_CreateWindow("OpenStreetMap - Renderer minimal",SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,WIDTH, HEIGHT,SDL_WINDOW_SHOWN); //Création de la fenêtre
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);//Création du renderer associé a la fenêtre
+
+	SDL_SetRenderDrawColor(renderer,242,239,233,0);//La couleur du fond
+	SDL_RenderClear(renderer);//Application de la couleur choisis
+
+	SDL_RenderPresent(renderer);
+
+	//boucle for avec drawRoad() sur chaque way
+	
+
+
+
+	pause();
+
+    //TTF_Quit();
+    SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
+    SDL_Quit();
+
+    return 0;
+	
+}
+
+int main(int argc, char *argv[]) {
+    
+	if(argc != 2)
+	{
+		fprintf(stderr,"Usage: %s <file>.osm\n",argv[0]);
+		exit(0);
+	}
+	xmlDocPtr doc;
     xmlNodePtr racine;
  
     // Ouverture du document
     xmlKeepBlanksDefault(0); // Ignore les noeuds texte composant la mise en forme
-    doc = xmlParseFile("../maps_test/02_paris_place_des_vosges.osm");
+    doc = xmlParseFile(argv[1]);
     if (doc == NULL) {
         fprintf(stderr, "Document XML invalide\n");
         return EXIT_FAILURE;
@@ -382,6 +457,8 @@ int main() {
 
     // Parcours
     parcours_prefixe(racine, afficher_noeud);
+
+	render_min();
 
     // Libération de la mémoire
     xmlFreeDoc(doc);
