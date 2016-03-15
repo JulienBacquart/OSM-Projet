@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -g -Wall -Wextra -Werror
 CPPFLAGS = -I/usr/include/libxml2
-LDFLAGS = -lxml2 -lSDL2 -lSDL2_gfx -lSDL2_ttf
+LDFLAGS = -lxml2 -lSDL2 -lSDL2_gfx -lSDL2_ttf -lm
 EXEC = parsexml frame render_min
 
 all: $(EXEC)
@@ -17,6 +17,13 @@ test: test.c
 
 render_min: render_min.c
 	$(CC) -o $@ $(CPPFLAGS) $< $(LDFLAGS)
+	
+calc_coord: calc_coord.c
+	$(CC) -o $@ $(CPPFLAGS) $< $(LDFLAGS)
+	
+run: test
+# 	./test ../maps_test/01_denver_lafayette.osm
+	./test ../maps_test/02_paris_place_des_vosges.osm
 	
 clean:
 	rm -f $(OBJECTS)
