@@ -9,9 +9,9 @@
 typedef void (*fct_parcours_t)(xmlNodePtr);
 
 // The hashtable holding the nodes
-Node *nodes = NULL;    /* important! initialize to NULL */
+Node *h_nodes = NULL;    /* important! initialize to NULL */
 // The hashtable holding the ways
-Way *ways = NULL;    /* important! initialize to NULL */
+Way *h_ways = NULL;    /* important! initialize to NULL */
 
 void print_bounds(Bounds bds){
 	printf("Bound minlat: %.7f , minlon: %.7f , maxlat: %.7f , maxlon: %.7f\n", bds.minlat, bds.minlon, bds.maxlat, bds.maxlon);
@@ -41,31 +41,38 @@ void print_way(Way way){
 // 	}
 }
 
+void print_map(Map map){
+	printf("Map nb_nodes: %u nb_ways: %u\n", HASH_COUNT(map.h_nodes), HASH_COUNT(map.h_ways));
+	print_bounds(*map.m_bds);
+}
+
 // Find a node in the hashtable nodes from its id
 Node *find_node(int node_id) {
     Node *n;
 
-    HASH_FIND_INT(nodes, &node_id, n);  /* s: output pointer */
+    HASH_FIND_INT(h_nodes, &node_id, n);  /* s: output pointer */
     return n;
 }
 
 // Add a node to the hashtable 'nodes'
 void add_node(Node *nd) {
 	// Maybe check uniqueness ?
-	HASH_ADD_INT(nodes, id, nd);  /* id: name of key field */
+	HASH_ADD_INT(h_nodes, id, nd);  /* id: name of key field */
 // 	printf("Node %d added successfully to the table\n", nd->id);
 }
 
 // Add a way to the hashtable 'ways'
 void add_way(Way *way) {
 	// Maybe check uniqueness ?
-	HASH_ADD_INT(ways, id, way);  /* id: name of key field */
+	HASH_ADD_INT(h_ways, id, way);  /* id: name of key field */
 // 	printf("Way %d added successfully to the table\n", way->id);
 }
 
 void parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f) {
     
+	// Initialize
     xmlNodePtr n;
+    Map *map = (Map *) malloc(sizeof(Map));
     
     // We traverse the xml tree looking at each xml node
     for (n = noeud->children; n != NULL; n = n->next) {
@@ -99,8 +106,10 @@ void parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f) {
 		 	attribute = attribute->next;
 		}
 		
+		map->m_bds = bds;
 		// Display the map boundaries
-		print_bounds(*bds);
+// 		print_bounds(*bds);
+		
 	}	
 	    
 	// The xml node is an OSM node
@@ -196,7 +205,7 @@ void parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f) {
 	
 		// Add the current node to the hashtable
 		add_node(nd);
-		print_node(*nd);
+// 		print_node(*nd);
 		
 	}
 	
@@ -332,19 +341,23 @@ void parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f) {
 
 		// Add the current way to the hashtable
 		add_way(way);
-		print_way(*way);
+// 		print_way(*way);
  	}
     }
     
-	// Display the total number of nodes added to the hashtable 
- 	unsigned int num_nodes;
-	num_nodes = HASH_COUNT(nodes);
-	printf("There are %u nodes in the table\n", num_nodes);
+// 	// Display the total number of nodes added to the hashtable 
+//  	unsigned int num_nodes;
+// 	num_nodes = HASH_COUNT(h_nodes);
+// 	printf("There are %u nodes in the table\n", num_nodes);
+// 	
+// 	// Display the total number of ways added to the hashtable 
+//  	unsigned int num_ways;
+// 	num_ways = HASH_COUNT(h_ways);
+// 	printf("There are %u ways in the table\n", num_ways);
 	
-	// Display the total number of ways added to the hashtable 
- 	unsigned int num_ways;
-	num_ways = HASH_COUNT(ways);
-	printf("There are %u ways in the table\n", num_ways);
+	map->h_nodes = h_nodes;
+	map->h_ways = h_ways;
+	print_map(*map);
 }
 
 void afficher_noeud(xmlNodePtr noeud) {
@@ -361,30 +374,37 @@ void afficher_noeud(xmlNodePtr noeud) {
     }
 }
 
-int main() {
+int main(int argc, char *argv[]) {
     xmlDocPtr doc;
     xmlNodePtr racine;
- 
-    // Ouverture du document
-    xmlKeepBlanksDefault(0); // Ignore les noeuds texte composant la mise en forme
-    doc = xmlParseFile("../maps_test/01_denver_lafayette.osm");
-    if (doc == NULL) {
-        fprintf(stderr, "Document XML invalide\n");
-        return EXIT_FAILURE;
+
+    if(argc > 1) {
+        
+	// Ouverture du document
+	xmlKeepBlanksDefault(0); // Ignore les noeuds texte composant la mise en forme
+	doc = xmlParseFile(argv[1]);
+	if (doc == NULL) {
+		fprintf(stderr, "Document XML invalide\n");
+		return EXIT_FAILURE;
+	}
+	// Récupération de la racine
+	racine = xmlDocGetRootElement(doc);
+	if (racine == NULL) {
+		fprintf(stderr, "Document XML vierge\n");
+		xmlFreeDoc(doc);
+		return EXIT_FAILURE;
+	}
+
+	// Parcours
+	parcours_prefixe(racine, afficher_noeud);
+
+	// Libération de la mémoire
+	xmlFreeDoc(doc);
     }
-    // Récupération de la racine
-    racine = xmlDocGetRootElement(doc);
-    if (racine == NULL) {
-        fprintf(stderr, "Document XML vierge\n");
-        xmlFreeDoc(doc);
-        return EXIT_FAILURE;
+    else {
+	fprintf(stderr, "Name of the map file expected as argument\n");
+	exit (EXIT_FAILURE);
     }
-
-    // Parcours
-    parcours_prefixe(racine, afficher_noeud);
-
-    // Libération de la mémoire
-    xmlFreeDoc(doc);
-
+    
     return EXIT_SUCCESS;
 }
