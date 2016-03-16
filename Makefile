@@ -6,7 +6,7 @@ EXEC = renderer
 
 all: $(EXEC)
 
-renderer: src/renderer.c  src/graphics.c src/parsexml.c
+renderer: src/renderer.c  src/graphics.c src/parsexml.c src/calcul.c
 	$(CC) -o $@ $(CPPFLAGS) $^ $(LDFLAGS)
 
 mrproper: clean
