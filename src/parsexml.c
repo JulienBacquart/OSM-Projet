@@ -1,6 +1,4 @@
-<<<<<<< HEAD
-#include "../include.parsexml.h"
-=======
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <libxml/tree.h>
@@ -8,7 +6,7 @@
 #include <string.h>
 
 #include "data.h"
->>>>>>> other_coord_calc
+#include "../include/parsexml.h"
 
 // The hashtable holding the nodes
 Node *nodes = NULL;    /* important! initialize to NULL */
