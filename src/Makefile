@@ -11,9 +11,6 @@ parsexml: parsexml.c
 
 frame: frame.c
 	$(CC) -o $@ $(CPPFLAGS) $< $(LDFLAGS)
-	
-test: test.c
-	$(CC) -o $@ $(CPPFLAGS) $< $(LDFLAGS)
 
 render_min: render_min.c
 	$(CC) -o $@ $(CPPFLAGS) $< $(LDFLAGS)
@@ -21,7 +18,7 @@ render_min: render_min.c
 calc_coord: calc_coord.c
 	$(CC) -o $@ $(CPPFLAGS) $< $(LDFLAGS)
 	
-run: test
+run: parsexml
 # 	./test ../maps_test/01_denver_lafayette.osm
 	./test ../maps_test/02_paris_place_des_vosges.osm
 	
