@@ -6,8 +6,8 @@ EXEC = renderer
 
 all: $(EXEC)
 
-renderer: src/renderer.c src/graphics.c src/parsexml.c
-	$(CC) -o $@ $(CPPFLAGS) $< $(LDFLAGS)
+renderer: src/renderer.c  src/graphics.c src/parsexml.c
+	$(CC) -o $@ $(CPPFLAGS) $^ $(LDFLAGS)
 
 mrproper: clean
 	rm -f $(EXEC)

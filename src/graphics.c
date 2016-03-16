@@ -1,4 +1,4 @@
-#include "graphics.h"
+#include "../include/graphics.h"
 
 int long2tilex(double lon, int z) 
 { 
@@ -21,7 +21,7 @@ double tiley2lat(int y, int z)
 	return 180.0 / M_PI * atan(0.5 * (exp(n) - exp(-n)));
 }
 
-void pause()
+void doPause()
 {
 	SDL_Event evenements;
     int terminer = 0;
