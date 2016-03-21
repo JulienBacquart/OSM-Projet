@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
 				SDL_RenderPresent(renderer);
 			}
 			else{
-				drawRoad(renderer,w->nds,1,w->nb_nds,255, 0, 0, 255, map.h_nodes,map.m_bds);
+				drawRoad(renderer,w->nds,1,w->nb_nds,255, 0, 0, 0, map.h_nodes,map.m_bds);
 				SDL_RenderPresent(renderer);			
 			}
 		}

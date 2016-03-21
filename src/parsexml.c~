@@ -357,7 +357,7 @@ Map parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f)
 	
 			map->h_nodes = h_nodes;
 			map->h_ways = h_ways;
-			//print_map(*map);
+			print_map(*map);
 	}
 	return *map;
 }
