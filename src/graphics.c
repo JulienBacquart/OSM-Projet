@@ -20,7 +20,7 @@ int drawLine(SDL_Renderer *renderer, int x1, int y1, int x2, int y2, int width, 
 	return 0;
 }
 
-int drawRoad(SDL_Renderer *renderer,SDL_Point *points,int width,int nbPoints,int r, int g, int b, int a)
+int drawRoad(SDL_Renderer *renderer,Node * nds,int width,int nbPoints,int r, int g, int b, int a, Node *h_nodes,Bounds *m_bds)
 {
 	int i;
 	for(i = 0;i<nbPoints;i++)
@@ -29,10 +29,83 @@ int drawRoad(SDL_Renderer *renderer,SDL_Point *points,int width,int nbPoints,int
 		{
 			break;
 		}
-		thickLineRGBA(renderer,points[i].x,points[i].y,points[i+1].x,points[i+1].y,width,r,g,b,a);
+		double minLat = m_bds->minlat;
+		double minLon= m_bds->minlon;
+		double maxLat = m_bds->maxlat;
+		double maxLon= m_bds->maxlon;
+		int height = 800;
+		int w = 800;
+		double diffLon = maxLon - minLon;   // pour x
+		double diffLat = maxLat - minLat;   //pour y
+
+		printf("diffLon = %f, diffLat = %f \n",diffLon,diffLat);
+
+		Node *n;
+    		HASH_FIND_INT(h_nodes, &nds[i], n);
+			
+		int xDeLon = ((n->lon-minLon)*w) /diffLon; //lon_to_pixels(n->lon, minLon, maxLon)*800;
+		int yDeLat = ((n->lat-minLat)*height) /diffLat;	//lat_to_pixels(n->lat, minLat, maxLat)*800; 
+
+		Node *nSuiv;
+    		HASH_FIND_INT(h_nodes, &nds[i+1], nSuiv);
+
+		int xDeLonSuiv = ((nSuiv->lon-minLon)*w) /diffLon; //lon_to_pixels(nSuiv->lon, minLon, maxLon)*800; //
+		int yDeLatSuiv = ((nSuiv->lat-minLat)*height) /diffLat; //lat_to_pixels(nSuiv->lat, minLat, maxLat)*800;// 		
+				
+		printf ("x = %d \n",xDeLon);
+		printf ("y = %d \n",yDeLat);
+
+		int y = 700-(yDeLat);
+		int x = (xDeLon);
+ 
+		thickLineRGBA(renderer,x,y,xDeLonSuiv,700-yDeLatSuiv,width,r,g,b,a);
 	}
 	return 0;
 }
+
+int drawMur(SDL_Renderer *renderer,Node * nds,int width,int nbPoints,int r, int g, int b, int a, Node *h_nodes,Bounds *m_bds)
+{
+	int i;
+	for(i = 0;i<nbPoints;i++)
+	{
+		if(i == nbPoints-1)
+		{
+			break;
+		}
+		double minLat = m_bds->minlat;
+		double minLon= m_bds->minlon;
+		double maxLat = m_bds->maxlat;
+		double maxLon= m_bds->maxlon;
+		int height = 800;
+		int w = 800;
+		double diffLon = maxLon - minLon;   // pour x
+		double diffLat = maxLat - minLat;   //pour y
+
+		printf("diffLon = %f, diffLat = %f \n",diffLon,diffLat);
+
+		Node *n;
+    		HASH_FIND_INT(h_nodes, &nds[i], n);
+			
+		int xDeLon = ((n->lon-minLon)*w) /diffLon;
+		int yDeLat = ((n->lat-minLat)*height) /diffLat;		
+
+		Node *nSuiv;
+    		HASH_FIND_INT(h_nodes, &nds[i+1], nSuiv);		
+		
+		int xDeLonSuiv = ((nSuiv->lon-minLon)*w) /diffLon;
+		int yDeLatSuiv = ((nSuiv->lat-minLat)*height) /diffLat;		
+				
+		printf ("x = %d \n",xDeLon);
+		printf ("y = %d \n",yDeLat);
+
+		int y = 700-(yDeLat);
+		int x = (xDeLon);
+ 
+		thickLineRGBA(renderer,x,y,xDeLonSuiv,700-yDeLatSuiv,1,0,0,0,a);
+	}
+	return 0;
+}
+
 
 /*int writeText(SDL_Renderer *renderer,char *text,int fontWidth,int x, int y,int width,int height,int r,int g,int b, double angle)
 {
