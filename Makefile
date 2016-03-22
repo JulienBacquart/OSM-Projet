@@ -8,6 +8,9 @@ all: $(EXEC)
 
 renderer: src/renderer.c  src/graphics.c src/parsexml.c src/calcul.c
 	$(CC) -o $@ $(CPPFLAGS) $^ $(LDFLAGS)
-
+	
+run: renderer
+	./renderer maps_test/02_paris_place_des_vosges.osm
+	
 mrproper: clean
 	rm -f $(EXEC)
