@@ -104,11 +104,11 @@ double lon_to_x(double lon) {
 // Convert a GPS lat to a "pixel" value (between 0 and 1)
 // we then just have to multiply this value by WIN_HEIGHT to know where we need to draw the point
 double lat_to_pixels(double lat, double map_minlat, double map_maxlat){
-	return (lat_to_y(lat) - lat_to_y(map_minlat)) / (lat_to_y(map_maxlat) - lat_to_y(map_minlat));
+	return 1 - ((lat_to_y(lat) - lat_to_y(map_minlat)) / (lat_to_y(map_maxlat) - lat_to_y(map_minlat)));
 }
 
 // Convert a GPS lon to a "pixel" value (between 0 and 1)
-// we then just have to multiply this value by WIN_HEIGHT to know where we need to draw the point
+// we then just have to multiply this value by WIN_WIDTH to know where we need to draw the point
 double lon_to_pixels(double lon, double map_minlon, double map_maxlon){
 	return (lon_to_x(lon) - lon_to_x(map_minlon)) / (lon_to_x(map_maxlon) - lon_to_x(map_minlon));
 }
