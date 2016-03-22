@@ -11,6 +11,8 @@
 Node *h_nodes = NULL;    /* important! initialize to NULL */
 // The hashtable holding the ways
 Way *h_ways = NULL;    /* important! initialize to NULL */
+// The hashtable holding the relations
+Relation *h_relations = NULL;    /* important! initialize to NULL */
 
 void print_bounds(Bounds bds){
 	printf("Bound minlat: %.7f , minlon: %.7f , maxlat: %.7f , maxlon: %.7f\n", bds.minlat, bds.minlon, bds.maxlat, bds.maxlon);
@@ -30,7 +32,7 @@ void print_node(Node node){
 }
 
 void print_way(Way way){
-	printf("Way id: %d visible=%d nb_nds=%d nb_tags=%d \n", way.id, way.visible, way.nb_nds, way.nb_tags);
+	printf("Way id: %d visible=%d nb_nds=%d nb_tags=%d\n", way.id, way.visible, way.nb_nds, way.nb_tags);
 	int i;
 	for(i = 0; i< way.nb_tags; i++){
 		print_tag(way.tags[i]);
@@ -40,8 +42,19 @@ void print_way(Way way){
 // 	}
 }
 
+void print_relation(Relation relation){
+	printf("Relation id: %d visible=%d nb_tags=%d nb_members=%d\n", relation.id, relation.visible, relation.nb_tags, relation.nb_members);
+	int i;
+	for(i = 0; i< relation.nb_tags; i++){
+		print_tag(relation.tags[i]);
+	}
+// 	for(i = 0; i< relation.nb_members; i++){
+// 		print_relation(relation.members[i]);
+// 	}
+}
+
 void print_map(Map map){
-	printf("Map nb_nodes: %u nb_ways: %u\n", HASH_COUNT(map.h_nodes), HASH_COUNT(map.h_ways));
+	printf("Map nb_nodes: %u nb_ways: %u nb_relations: %u\n", HASH_COUNT(map.h_nodes), HASH_COUNT(map.h_ways), HASH_COUNT(map.h_relations));
 	print_bounds(*map.m_bds);
 }
 
@@ -67,8 +80,14 @@ void add_way(Way *way) {
 // 	printf("Way %d added successfully to the table\n", way->id);
 }
 
-Map parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f)
-{
+void add_relation(Relation *relation) {
+	// Maybe check uniqueness ?
+	HASH_ADD_INT(h_relations, id, relation);  /* id: name of key field */
+// 	printf("Relation %d added successfully to the table\n", relation->id);
+	
+}
+
+Map parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f){
 	// Initialize
     xmlNodePtr n;
     Map *map = (Map *) malloc(sizeof(Map));
@@ -344,20 +363,149 @@ Map parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f)
 			add_way(way);
 	// 		print_way(*way);
  		}
-    
-		// 	// Display the total number of nodes added to the hashtable 
-		//  	unsigned int num_nodes;
-		// 	num_nodes = HASH_COUNT(h_nodes);
-		// 	printf("There are %u nodes in the table\n", num_nodes);
-		// 	
-		// 	// Display the total number of ways added to the hashtable 
-		//  	unsigned int num_ways;
-		// 	num_ways = HASH_COUNT(h_ways);
-		// 	printf("There are %u ways in the table\n", num_ways);
-	
-			map->h_nodes = h_nodes;
-			map->h_ways = h_ways;
-			//print_map(*map);
+ 		
+ 		// The xml node is an OSM relation
+	 	else if (!strcmp(n->name,"relation"))
+		{
+			// Initialize
+			Relation *relation = (Relation *) malloc(sizeof(Relation));
+	 		
+			// We extract the attributes of a way
+			xmlAttr* attribute = n->properties;
+			while(attribute)
+			{
+				xmlChar* value = xmlNodeListGetString(n->doc, attribute->children, 1);
+			
+				if(!strcmp(attribute->name,"id")){
+					relation->id = atoi(value);
+				}
+				else if (!strcmp(attribute->name,"visible")){
+					// Check if the relation is visible
+					if (strcmp(value,"true") == 0) {
+						relation->visible = true;
+					} else {
+						relation->visible = false;
+					}				
+				}
+			
+				// Memory managment 
+			  	xmlFree(value); 
+			 	attribute = attribute->next;
+			}
+	 		
+			xmlNodePtr n_fils;
+		
+			// We extract the nodes and tags of a way
+			// Should we increase the default value ?
+			relation->nb_tags = 0;
+			relation->tags = (Tag *) malloc(sizeof(Tag));
+			int size_tags = 1;
+			relation->nb_members = 0;
+// 			relation->members = (Member *) malloc(sizeof(Member));
+			int size_members = 1;
+
+			for (n_fils = n->children; n_fils != NULL; n_fils = n_fils->next)
+			{
+				xmlAttr* attributes_fils = n_fils->properties;
+				// Process child nodes
+				if (!strcmp(n_fils->name,"member"))
+				{
+// 					int id;
+// 					Node *nd = (Node *) malloc(sizeof(Node));
+// 				
+// 					while(attributes_fils)
+// 					{
+// 						xmlChar* value_fils = xmlNodeListGetString(n_fils->doc, attributes_fils->children, 1);
+// 					
+// 						if (!strcmp(attributes_fils->name,"ref")){
+// 							// Node ID
+// 							id = atoi(value_fils);
+// 						}
+// 					
+// 						// Memory managment 
+// 						xmlFree(value_fils);
+// 			 			attributes_fils = attributes_fils->next;
+// 					}
+// 				
+// 					// If there is no space anymore in the nodes array, we double it
+// 					if (way->nb_nds == size_nds)
+// 					{
+// 						// Double the size of the nodes array
+// 						size_nds *= 2;
+// 						way->nds = (Node *) realloc(way->nds, size_nds * sizeof(Node));
+// 	// 					printf("realloc taille: %d\n", size_nds);
+// 						if (way->nds == NULL){
+// 							fprintf(stderr, "Echec realloc\n");
+// 							exit (EXIT_FAILURE);
+// 						}
+// 					}
+// 				
+// 					// Add the node to the current way
+// 					// We get a pointer to a node from the hashtable of nodes
+// 					nd = find_node(id);
+// 					way->nds[way->nb_nds] = *nd;
+// 					way->nb_nds++;
+				
+				}
+				// Process tags
+				else if (!strcmp(n_fils->name,"tag"))
+				{
+					Tag *tg = (Tag *) malloc(sizeof(Tag));
+					char *key;
+					char *val;
+				
+					while(attributes_fils)
+					{
+						xmlChar* value_fils = xmlNodeListGetString(n_fils->doc, attributes_fils->children, 1);
+					
+						if (!strcmp(attributes_fils->name,"k")){
+							// Key
+							key = malloc(strlen(value_fils)+1);
+							strcpy(key, value_fils);
+						} else {
+							// Value
+							val = malloc(strlen(value_fils)+1);
+							strcpy(val,  value_fils);
+						}
+					
+						// Memory managment 
+						xmlFree(value_fils);
+					
+			 			attributes_fils = attributes_fils->next;
+					}
+
+					// If there is no space anymore in the tags array, we double it
+					if (relation->nb_tags == size_tags)
+					{
+						// Double the size of the tags array
+						size_tags *= 2;
+						relation->tags = (Tag *) realloc(relation->tags, size_tags * sizeof(Tag));
+	// 					printf("realloc taille: %d\n", size_tags);
+						if (relation->tags == NULL){
+							fprintf(stderr, "Echec realloc\n");
+							exit (EXIT_FAILURE);
+						}
+					}
+				
+					// Add the new tag to the current node
+					tg->key = key;
+					tg->val = val;
+	// 				print_tag(*tg);
+					relation->tags[relation->nb_tags] = *tg;
+					relation->nb_tags++;
+				
+				}
+			}
+
+			// Add the current relation to the hashtable
+			add_relation(relation);
+// 			print_relation(*relation);
+ 		}
+  
+		map->h_nodes = h_nodes;
+		map->h_ways = h_ways;
+		map->h_relations = h_relations;
+		//print_map(*map);
 	}
 	return *map;
 }
