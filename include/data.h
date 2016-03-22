@@ -1,7 +1,7 @@
 /**
  * \file data.h
  * \brief Header qui contient les structures de nos données
- * \authors
+ * \author Adel.Z
  * \version 0.1
  *
  * Fichier qui contient toutes les structures et maccros qui servent à stocker les données parser.
@@ -51,7 +51,18 @@ typedef struct{
 } Bounds;
 
 typedef struct{
+	int id;		// key
+	bool visible;
+	Tag * tags;
+	int nb_tags;
+// 	Member members;
+	int nb_members;
+	UT_hash_handle hh;	// makes this structure hashable
+} Relation;
+
+typedef struct{
 	Node *h_nodes;		// hastable containing all the nodes
 	Way *h_ways;		// hashtable containing all the ways
 	Bounds *m_bds;		// contains the map boundaries
+	Relation *h_relations; // hashable containing all the relations
 } Map;
