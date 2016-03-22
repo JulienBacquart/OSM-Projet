@@ -20,45 +20,31 @@ int drawLine(SDL_Renderer *renderer, int x1, int y1, int x2, int y2, int width, 
 	return 0;
 }
 
-int drawRoad(SDL_Renderer *renderer,Node * nds,int width,int nbPoints,int r, int g, int b, int a, Node *h_nodes,Bounds *m_bds)
-{
+int drawRoad(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, int draw_width ,int r, int g, int b, int alpha){
 	int i;
-	for(i = 0;i<nbPoints;i++)
-	{
-		if(i == nbPoints-1)
-		{
-			break;
-		}
-		double minLat = m_bds->minlat;
-		double minLon= m_bds->minlon;
-		double maxLat = m_bds->maxlat;
-		double maxLon= m_bds->maxlon;
-		int height = 800;
-		int w = 800;
-		double diffLon = maxLon - minLon;   // pour x
-		double diffLat = maxLat - minLat;   //pour y
-
-		printf("diffLon = %f, diffLat = %f \n",diffLon,diffLat);
-
+	double minLat = m_bds->minlat;
+	double minLon= m_bds->minlon;
+	double maxLat = m_bds->maxlat;
+	double maxLon= m_bds->maxlon;
+		
+	// Should be changed
+	int win_width = 800;
+	int win_height = 600;
+		
+	for(i = 0; i < (way->nb_nds - 1); i++){
 		Node *n;
-    		HASH_FIND_INT(h_nodes, &nds[i], n);
+    		HASH_FIND_INT(h_nodes, &way->nds[i], n);
 			
-		int xDeLon = ((n->lon-minLon)*w) /diffLon; //lon_to_pixels(n->lon, minLon, maxLon)*800;
-		int yDeLat = ((n->lat-minLat)*height) /diffLat;	//lat_to_pixels(n->lat, minLat, maxLat)*800; 
+		int x1 = lon_to_pixels(n->lon, minLon, maxLon) * win_width;
+		int y1 = lat_to_pixels(n->lat, minLat, maxLat) * win_height;
 
 		Node *nSuiv;
-    		HASH_FIND_INT(h_nodes, &nds[i+1], nSuiv);
+    		HASH_FIND_INT(h_nodes, &way->nds[i+1], nSuiv);
 
-		int xDeLonSuiv = ((nSuiv->lon-minLon)*w) /diffLon; //lon_to_pixels(nSuiv->lon, minLon, maxLon)*800; //
-		int yDeLatSuiv = ((nSuiv->lat-minLat)*height) /diffLat; //lat_to_pixels(nSuiv->lat, minLat, maxLat)*800;// 		
-				
-		printf ("x = %d \n",xDeLon);
-		printf ("y = %d \n",yDeLat);
-
-		int y = 700-(yDeLat);
-		int x = (xDeLon);
+		int x2 = lon_to_pixels(nSuiv->lon, minLon, maxLon) * win_width;
+		int y2 = lat_to_pixels(nSuiv->lat, minLat, maxLat) * win_height;
  
-		thickLineRGBA(renderer,x,y,xDeLonSuiv,700-yDeLatSuiv,width,r,g,b,a);
+		drawLine(renderer, x1, y1, x2, y2, draw_width, r, g, b, alpha);
 	}
 	return 0;
 }
