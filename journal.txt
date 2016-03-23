@@ -14,3 +14,13 @@
 * Pour le 17/02/2016:
 -Parser le document
 -Faire des fonctions de dessin
+
+TODO List:
+- Relations (WIP)
+- Polygons remplis (WIP)
+- Ratio de la fenetre
+- Ligne pointillé
+- Angle route propre (en dessinant un rond)
+- rivieres, lacs
+- Z levels
+- feuilles de style externe
