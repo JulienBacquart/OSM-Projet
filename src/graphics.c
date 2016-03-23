@@ -63,37 +63,22 @@ int drawBuilding(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds,
 	double maxLon= m_bds->maxlon;
 	
 	Node *n;
-	Node *nSuiv;
 	short *x_tab;
 	short *y_tab;
 	
 	x_tab = malloc(way->nb_nds * sizeof(short *));
 	y_tab = malloc(way->nb_nds * sizeof(short *));
 	
-		
-	for(i = 0; i < (way->nb_nds - 1); i++){
+	for(i = 0; i < (way->nb_nds); i++){
 		
 		HASH_FIND_INT(h_nodes, &way->nds[i], n);
-// 			
-// 		x_tab[i] = lon_to_pixels(n->lon, minLon, maxLon) * WIN_WIDTH;
-// 		y_tab[i] = lat_to_pixels(n->lat, minLat, maxLat) * WIN_HEIGHT;
-		
-		int x1 = lon_to_pixels(n->lon, minLon, maxLon) * WIN_WIDTH;
-		int y1 = lat_to_pixels(n->lat, minLat, maxLat) * WIN_HEIGHT;
-		x_tab[i] = x1;
-		y_tab[i] = y1;
-
-		Node *nSuiv;
-    		HASH_FIND_INT(h_nodes, &way->nds[i+1], nSuiv);
-
-		int x2 = lon_to_pixels(nSuiv->lon, minLon, maxLon) * WIN_WIDTH;
-		int y2 = lat_to_pixels(nSuiv->lat, minLat, maxLat) * WIN_HEIGHT;
- 
-		drawLine(renderer, x1, y1, x2, y2, 1, r, g, b, alpha);
+			
+		x_tab[i] = lon_to_pixels(n->lon, minLon, maxLon) * WIN_WIDTH;
+		y_tab[i] = lat_to_pixels(n->lat, minLat, maxLat) * WIN_HEIGHT;
 		
 	}
 	
-// 	drawPolygon(renderer, x_tab, y_tab, way->nb_nds, r, g, b, alpha);
+	drawPolygon(renderer, x_tab, y_tab, way->nb_nds, r, g, b, alpha);
 	
 	SDL_RenderPresent(renderer);
 	return 0;
