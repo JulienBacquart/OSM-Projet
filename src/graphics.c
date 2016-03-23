@@ -20,75 +20,82 @@ int drawLine(SDL_Renderer *renderer, int x1, int y1, int x2, int y2, int width, 
 	return 0;
 }
 
+int drawPolygon(SDL_Renderer *renderer, short *x_tab, short *y_tab, int nb_pts, int r, int g, int b, int a)
+{
+	filledPolygonRGBA(renderer, x_tab, y_tab, nb_pts, r, g, b, a);
+	return 0;
+}
+
 int drawRoad(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, int draw_width ,int r, int g, int b, int alpha){
 	int i;
 	double minLat = m_bds->minlat;
 	double minLon= m_bds->minlon;
 	double maxLat = m_bds->maxlat;
 	double maxLon= m_bds->maxlon;
-		
-	// Should be changed
-	int win_width = 800;
-	int win_height = 600;
-		
+	
+	Node *n;
+	Node *nSuiv;
+	
 	for(i = 0; i < (way->nb_nds - 1); i++){
-		Node *n;
-    		HASH_FIND_INT(h_nodes, &way->nds[i], n);
+		
+		HASH_FIND_INT(h_nodes, &way->nds[i], n);
 			
-		int x1 = lon_to_pixels(n->lon, minLon, maxLon) * win_width;
-		int y1 = lat_to_pixels(n->lat, minLat, maxLat) * win_height;
+		int x1 = lon_to_pixels(n->lon, minLon, maxLon) * WIN_WIDTH;
+		int y1 = lat_to_pixels(n->lat, minLat, maxLat) * WIN_HEIGHT;
 
-		Node *nSuiv;
+		
     		HASH_FIND_INT(h_nodes, &way->nds[i+1], nSuiv);
 
-		int x2 = lon_to_pixels(nSuiv->lon, minLon, maxLon) * win_width;
-		int y2 = lat_to_pixels(nSuiv->lat, minLat, maxLat) * win_height;
+		int x2 = lon_to_pixels(nSuiv->lon, minLon, maxLon) * WIN_WIDTH;
+		int y2 = lat_to_pixels(nSuiv->lat, minLat, maxLat) * WIN_HEIGHT;
  
 		drawLine(renderer, x1, y1, x2, y2, draw_width, r, g, b, alpha);
+		SDL_RenderPresent(renderer);
 	}
 	return 0;
 }
 
-int drawMur(SDL_Renderer *renderer,Node * nds,int width,int nbPoints,int r, int g, int b, int a, Node *h_nodes,Bounds *m_bds)
-{
+int drawBuilding(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, int r, int g, int b, int alpha) {
 	int i;
-	for(i = 0;i<nbPoints;i++)
-	{
-		if(i == nbPoints-1)
-		{
-			break;
-		}
-		double minLat = m_bds->minlat;
-		double minLon= m_bds->minlon;
-		double maxLat = m_bds->maxlat;
-		double maxLon= m_bds->maxlon;
-		int height = 800;
-		int w = 800;
-		double diffLon = maxLon - minLon;   // pour x
-		double diffLat = maxLat - minLat;   //pour y
-
-		printf("diffLon = %f, diffLat = %f \n",diffLon,diffLat);
-
-		Node *n;
-    		HASH_FIND_INT(h_nodes, &nds[i], n);
-			
-		int xDeLon = ((n->lon-minLon)*w) /diffLon;
-		int yDeLat = ((n->lat-minLat)*height) /diffLat;		
+	double minLat = m_bds->minlat;
+	double minLon= m_bds->minlon;
+	double maxLat = m_bds->maxlat;
+	double maxLon= m_bds->maxlon;
+	
+	Node *n;
+	Node *nSuiv;
+	short *x_tab;
+	short *y_tab;
+	
+	x_tab = malloc(way->nb_nds * sizeof(short *));
+	y_tab = malloc(way->nb_nds * sizeof(short *));
+	
+		
+	for(i = 0; i < (way->nb_nds - 1); i++){
+		
+		HASH_FIND_INT(h_nodes, &way->nds[i], n);
+// 			
+// 		x_tab[i] = lon_to_pixels(n->lon, minLon, maxLon) * WIN_WIDTH;
+// 		y_tab[i] = lat_to_pixels(n->lat, minLat, maxLat) * WIN_HEIGHT;
+		
+		int x1 = lon_to_pixels(n->lon, minLon, maxLon) * WIN_WIDTH;
+		int y1 = lat_to_pixels(n->lat, minLat, maxLat) * WIN_HEIGHT;
+		x_tab[i] = x1;
+		y_tab[i] = y1;
 
 		Node *nSuiv;
-    		HASH_FIND_INT(h_nodes, &nds[i+1], nSuiv);		
-		
-		int xDeLonSuiv = ((nSuiv->lon-minLon)*w) /diffLon;
-		int yDeLatSuiv = ((nSuiv->lat-minLat)*height) /diffLat;		
-				
-		printf ("x = %d \n",xDeLon);
-		printf ("y = %d \n",yDeLat);
+    		HASH_FIND_INT(h_nodes, &way->nds[i+1], nSuiv);
 
-		int y = 700-(yDeLat);
-		int x = (xDeLon);
+		int x2 = lon_to_pixels(nSuiv->lon, minLon, maxLon) * WIN_WIDTH;
+		int y2 = lat_to_pixels(nSuiv->lat, minLat, maxLat) * WIN_HEIGHT;
  
-		thickLineRGBA(renderer,x,y,xDeLonSuiv,700-yDeLatSuiv,1,0,0,0,a);
+		drawLine(renderer, x1, y1, x2, y2, 1, r, g, b, alpha);
+		
 	}
+	
+// 	drawPolygon(renderer, x_tab, y_tab, way->nb_nds, r, g, b, alpha);
+	
+	SDL_RenderPresent(renderer);
 	return 0;
 }
 
