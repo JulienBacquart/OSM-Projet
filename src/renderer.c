@@ -1,9 +1,6 @@
 #include "../include/parsexml.h"
 //#include "../include/graphics.h"
 
-#define WIN_WIDTH 800
-#define WIN_HEIGHT 600
-
 int main(int argc, char *argv[]) {
 	
 	if(argc > 1) {
@@ -64,35 +61,30 @@ int main(int argc, char *argv[]) {
 					// Primary road
 					if(strcmp(w->tags[i].val,"primary") == 0){
 						drawRoad(renderer, w, map.h_nodes, map.m_bds, 15, 255, 161, 144, 255);
-						SDL_RenderPresent(renderer);
 						break;
 					}
 					
 					// Tertiary road
 					if(strcmp(w->tags[i].val,"tertiary") == 0){
 						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, 255, 255, 150, 255);
-						SDL_RenderPresent(renderer);
 						break;
 					}
 					
 					// residential road
 					else if(strcmp(w->tags[i].val,"residential") == 0){
 						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, 255, 255, 255, 255);
-						SDL_RenderPresent(renderer);
 						break;
 					}
 					
 					// pedestrian road
 					else if(strcmp(w->tags[i].val,"pedestrian") == 0){
 						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, 215, 215, 215, 255);
-						SDL_RenderPresent(renderer);
 						break;
 					}
 					
 					// service road
 					else if(strcmp(w->tags[i].val,"service") == 0){
 						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, 195, 195, 195, 255);
-						SDL_RenderPresent(renderer);
 						break;
 					}
 					
@@ -100,15 +92,13 @@ int main(int argc, char *argv[]) {
 					else if(strcmp(w->tags[i].val,"footway") == 0){
 						// Should be dashed line
 						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, 0, 195, 195, 255);
-						SDL_RenderPresent(renderer);
 						break;
 					}
 					
 					// cycleway road
 					else if(strcmp(w->tags[i].val,"cycleway") == 0){
 						// Should be dotted line
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, 0, 0, 195, 255);
-						SDL_RenderPresent(renderer);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 5, 0, 0, 195, 255);
 						break;
 					}
 					
@@ -116,17 +106,30 @@ int main(int argc, char *argv[]) {
 					else if(strcmp(w->tags[i].val,"unclassified") == 0){
 						// Should be dashed line
 						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, 195, 195, 0, 255);
-						SDL_RenderPresent(renderer);
 						break;
 					}
 					
 					else {
 						printf("highway value:%s\n", w->tags[i].val); 
 						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, 195, 0, 0, 255);
-						SDL_RenderPresent(renderer);
+						break;
+					}
+				} 
+				// The way is a river
+				else if(strcmp(w->tags[i].key,"waterway") == 0){
+					// Different case: river, riverbank
+					if(strcmp(w->tags[i].val,"river") == 0){
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 15, 0, 0, 255, 255);
 						break;
 					}
 				}
+				// The way is a bulding
+				else if(strcmp(w->tags[i].key,"building") == 0){
+// 					printf("building:\n");
+// 					print_way(*w);
+					drawBuilding(renderer, w, map.h_nodes, map.m_bds, 191, 174, 174, 255);
+				}
+				
 			}
 		}
 		
