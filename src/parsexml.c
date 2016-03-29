@@ -5,7 +5,7 @@
 #include <string.h>
 
 #include "../include/parsexml.h"
-#include "../include/calcul.h"
+// #include "../include/calcul.h"
 
 // The hashtable holding the nodes
 Node *h_nodes = NULL;    /* important! initialize to NULL */
