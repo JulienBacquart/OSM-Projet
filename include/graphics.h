@@ -10,6 +10,7 @@
 
 #define WIN_WIDTH 800
 #define WIN_HEIGHT 600
+// extern int WIN_WIDTH;
 
 void doPause();
 int drawLine(SDL_Renderer *renderer,int x1, int y1,int x2, int y2,int width,int r,int g, int b, int a);
