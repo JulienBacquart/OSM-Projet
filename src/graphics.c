@@ -36,22 +36,30 @@ int drawRoad(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, int
 	Node *n;
 	Node *nSuiv;
 	
+	int x1, y1;
+	int x2, y2;
+	
 	for(i = 0; i < (way->nb_nds - 1); i++){
 		
 		HASH_FIND_INT(h_nodes, &way->nds[i], n);
 			
-		int x1 = lon_to_pixels(n->lon, minLon, maxLon) * WIN_WIDTH;
-		int y1 = lat_to_pixels(n->lat, minLat, maxLat) * WIN_HEIGHT;
+		x1 = lon_to_pixels(n->lon, minLon, maxLon) * WIN_WIDTH;
+		y1 = lat_to_pixels(n->lat, minLat, maxLat) * WIN_HEIGHT;
 
-		
     		HASH_FIND_INT(h_nodes, &way->nds[i+1], nSuiv);
 
-		int x2 = lon_to_pixels(nSuiv->lon, minLon, maxLon) * WIN_WIDTH;
-		int y2 = lat_to_pixels(nSuiv->lat, minLat, maxLat) * WIN_HEIGHT;
+		x2 = lon_to_pixels(nSuiv->lon, minLon, maxLon) * WIN_WIDTH;
+		y2 = lat_to_pixels(nSuiv->lat, minLat, maxLat) * WIN_HEIGHT;
  
 		drawLine(renderer, x1, y1, x2, y2, draw_width, r, g, b, alpha);
-		SDL_RenderPresent(renderer);
+		
+		// Draw a circle to make angles more smooth
+		if (i < (way->nb_nds - 2)){
+			filledCircleRGBA(renderer, x2, y2, draw_width/2, r, g, b, alpha);
+		}
 	}
+	SDL_RenderPresent(renderer);
+	
 	return 0;
 }
 
@@ -63,8 +71,10 @@ int drawBuilding(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds,
 	double maxLon= m_bds->maxlon;
 	
 	Node *n;
+	Node *nSuiv;
+	
 	short *x_tab;
-	short *y_tab;
+	short *y_tab;	
 	
 	x_tab = malloc(way->nb_nds * sizeof(short *));
 	y_tab = malloc(way->nb_nds * sizeof(short *));
@@ -75,10 +85,14 @@ int drawBuilding(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds,
 			
 		x_tab[i] = lon_to_pixels(n->lon, minLon, maxLon) * WIN_WIDTH;
 		y_tab[i] = lat_to_pixels(n->lat, minLat, maxLat) * WIN_HEIGHT;
-		
 	}
 	
 	drawPolygon(renderer, x_tab, y_tab, way->nb_nds, r, g, b, alpha);
+	
+	// Draw the external border of the building
+	for(i = 0; i < (way->nb_nds - 1); i++){
+		aalineColor(renderer, x_tab[i], y_tab[i], x_tab[i+1], y_tab[i+1], 0xFF000000);
+	}
 	
 	SDL_RenderPresent(renderer);
 	return 0;
