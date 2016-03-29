@@ -1,5 +1,5 @@
 #include "../include/parsexml.h"
-//#include "../include/graphics.h"
+// #include "../include/graphics.h"
 
 int main(int argc, char *argv[]) {
 	
@@ -30,6 +30,13 @@ int main(int argc, char *argv[]) {
 		printf("Document parsed successfully, data extracted:\n");
 		print_map(map);
 		
+		// Find map ratio to know the ratio we should use for the window
+		double ratio_wh = (map.m_bds->maxlon - map.m_bds->minlon) / (map.m_bds->maxlat - map.m_bds->minlat); 
+		// use lat_to_y and lon_to_x
+		printf("Ratio: %f\n", ratio_wh);
+		int width = ratio_wh * WIN_HEIGHT;
+		printf("Size window w x h: %d x %d\n", width, WIN_HEIGHT);
+		
 		// Create display window
 		SDL_Window *window;
 		SDL_Renderer *renderer;
@@ -39,7 +46,7 @@ int main(int argc, char *argv[]) {
 			return -1;
 		}
 
-		window = SDL_CreateWindow("OpenStreetMap - Renderer",40,-105,WIN_WIDTH, WIN_HEIGHT,SDL_WINDOW_SHOWN); //Création de la fenêtre
+		window = SDL_CreateWindow("OpenStreetMap - Renderer",40,-105, WIN_WIDTH, WIN_HEIGHT,SDL_WINDOW_SHOWN); //Création de la fenêtre
 		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);//Création du renderer associé a la fenêtre
 	
 		SDL_SetRenderDrawColor(renderer,242,239,233,0);
