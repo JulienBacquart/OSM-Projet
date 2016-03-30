@@ -15,7 +15,7 @@ void doPause()
     }
 }
 
-int drawRoad(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, int draw_width ,int r, int g, int b, int alpha){
+int drawRoad(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, int draw_width, Uint32 color){
 	int i;
 	double minLat = m_bds->minlat;
 	double minLon= m_bds->minlon;
@@ -40,18 +40,18 @@ int drawRoad(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, int
 		x2 = lon_to_pixels(nSuiv->lon, minLon, maxLon) * WIN_WIDTH;
 		y2 = lat_to_pixels(nSuiv->lat, minLat, maxLat) * WIN_HEIGHT;
  
-		thickLineRGBA(renderer, x1, y1, x2, y2, draw_width, r, g, b, alpha);
+		thickLineColor(renderer, x1, y1, x2, y2, draw_width, color);
 		
-		// Draw a circle to make angles more smooth
-		filledCircleRGBA(renderer, x1, y1, draw_width/2, r, g, b, alpha);
-		filledCircleRGBA(renderer, x2, y2, draw_width/2, r, g, b, alpha);
+		// Draw two circles at each extremity to make angles more smooth
+		filledCircleColor(renderer, x1, y1, draw_width/2, color);
+		filledCircleColor(renderer, x2, y2, draw_width/2, color);
 	}
 	SDL_RenderPresent(renderer);
 	
 	return 0;
 }
 
-int drawBuilding(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, int r, int g, int b, int alpha) {
+int drawBuilding(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, Uint32 color) {
 	int i;
 	double minLat = m_bds->minlat;
 	double minLon= m_bds->minlon;
@@ -75,7 +75,7 @@ int drawBuilding(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds,
 		y_tab[i] = lat_to_pixels(n->lat, minLat, maxLat) * WIN_HEIGHT;
 	}
 	
-	filledPolygonRGBA(renderer, x_tab, y_tab, way->nb_nds, r, g, b, alpha);
+	filledPolygonColor(renderer, x_tab, y_tab, way->nb_nds, color);
 	
 	// Draw the external border of the building
 	for(i = 0; i < (way->nb_nds - 1); i++){

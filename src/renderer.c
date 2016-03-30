@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
 		// Find map ratio to know the ratio we should use for the window
 		double ratio_wh = (lon_to_x(map.m_bds->maxlon) - lon_to_x(map.m_bds->minlon)) / (lat_to_y(map.m_bds->maxlat) - lat_to_y(map.m_bds->minlat)); 
 		// use lat_to_y and lon_to_x
-		printf("Ratio: %f\n", ratio_wh);
+		printf("Ratio W/H: %f\n", ratio_wh);
 		WIN_WIDTH = ratio_wh * WIN_HEIGHT;
 		printf("Size window W x H: %d x %d\n", WIN_WIDTH, WIN_HEIGHT);
 		
@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
 		window = SDL_CreateWindow("OpenStreetMap - Renderer",40,-105, WIN_WIDTH, WIN_HEIGHT,SDL_WINDOW_SHOWN); //Création de la fenêtre
 		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);//Création du renderer associé a la fenêtre
 	
-		SDL_SetRenderDrawColor(renderer,242,239,233,0);
+		SDL_SetRenderDrawColor(renderer, 242, 239, 233, 255);
 		SDL_RenderClear(renderer);
 		SDL_RenderPresent(renderer);
 		
@@ -70,58 +70,71 @@ int main(int argc, char *argv[]) {
 					
 					// Primary road
 					if(strcmp(w->tags[i].val,"primary") == 0){
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 15, 255, 161, 144, 255);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 15, 0xFF9A98EC);
+						break;
+					}
+					
+					// Secondary road
+					if(strcmp(w->tags[i].val,"secondary") == 0){
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, 0xFFA5D7FE);
 						break;
 					}
 					
 					// Tertiary road
 					if(strcmp(w->tags[i].val,"tertiary") == 0){
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, 255, 255, 150, 255);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, 0xFFB3FFFF);
 						break;
 					}
 					
 					// residential road
 					else if(strcmp(w->tags[i].val,"residential") == 0){
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, 255, 255, 255, 255);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, 0xFFFFFFFF);
 						break;
 					}
 					
 					// pedestrian road
 					else if(strcmp(w->tags[i].val,"pedestrian") == 0){
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, 215, 215, 215, 255);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, 0xFFFFFFFF);
 						break;
 					}
 					
 					// service road
 					else if(strcmp(w->tags[i].val,"service") == 0){
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, 195, 195, 195, 255);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 5, 0xFFFFFFFF);
 						break;
 					}
 					
 					// footway road
 					else if(strcmp(w->tags[i].val,"footway") == 0){
 						// Should be dashed line
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, 0, 195, 195, 255);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 5, 0xFF0000FF);
 						break;
 					}
 					
 					// cycleway road
 					else if(strcmp(w->tags[i].val,"cycleway") == 0){
 						// Should be dotted line
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 5, 0, 0, 195, 255);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 1, 0xFFFF0000);
 						break;
 					}
 					
 					// unclassified road
 					else if(strcmp(w->tags[i].val,"unclassified") == 0){
 						// Should be dashed line
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, 195, 195, 0, 255);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, 0xFFFFFFFF);
+						break;
+					}
+					
+					// steps
+					else if(strcmp(w->tags[i].val,"steps") == 0){
+						// Should be dashed line
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, 0xFF7280FA);
 						break;
 					}
 					
 					else {
-						printf("highway value:%s\n", w->tags[i].val); 
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, 195, 0, 0, 255);
+						printf("highway value:%s\n", w->tags[i].val);
+// 						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, 0xFF00FF00);
 						break;
 					}
 				} 
@@ -129,11 +142,11 @@ int main(int argc, char *argv[]) {
 				else if(strcmp(w->tags[i].key,"waterway") == 0){
 					// Different case: river, riverbank
 					if(strcmp(w->tags[i].val,"river") == 0){
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 15, 0, 0, 255, 255);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 15, 0xFFD0D0B5);
 						break;
 					}
 					if(strcmp(w->tags[i].val,"riverbank") == 0){
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 15, 0, 0, 255, 255);
+// 						drawRoad(renderer, w, map.h_nodes, map.m_bds, 15, 0xFFD0D0B5);
 						break;
 					}
 				}
@@ -141,7 +154,7 @@ int main(int argc, char *argv[]) {
 				else if(strcmp(w->tags[i].key,"building") == 0){
 // 					printf("building:\n");
 // 					print_way(*w);
-					drawBuilding(renderer, w, map.h_nodes, map.m_bds, 191, 174, 174, 255);
+					drawBuilding(renderer, w, map.h_nodes, map.m_bds, 0xFFAEAEBF);
 				}
 				
 			}
