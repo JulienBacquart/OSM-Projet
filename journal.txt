@@ -17,10 +17,12 @@
 
 TODO List:
 - Relations (WIP)
-- Polygons remplis (WIP)
-- Ratio de la fenetre
 - Ligne pointillé
-- Angle route propre (en dessinant un rond)
+- Angle route propre (en dessinant un rond) (WIP)
 - rivieres, lacs
 - Z levels
 - feuilles de style externe
+
+DONE:
+- Polygons remplis (23/03)
+- Ratio de la fenetre (30/03)
