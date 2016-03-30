@@ -7,6 +7,8 @@
  * Fichier qui contient toutes les structures et maccros qui servent à stocker les données parser.
  *
  */
+#ifndef _DATA_H_
+#define _DATA_H_
 
 # include <stdbool.h>
 
@@ -66,3 +68,5 @@ typedef struct{
 	Bounds *m_bds;		// contains the map boundaries
 	Relation *h_relations; // hashable containing all the relations
 } Map;
+
+#endif // #ifndef _DATA_H_

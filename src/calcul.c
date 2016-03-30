@@ -1,6 +1,5 @@
 #include "../include/calcul.h"
 
-
 int tileLon2pixel(double lon){
 		int mapH = 800;
 		int mapW = 800;

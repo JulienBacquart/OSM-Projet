@@ -3,9 +3,7 @@
 #include <libxml/tree.h>
 #include <libxml/parser.h>
 
-#include "../include/graphics.h"
-
-// #include "data.h"
+#include "data.h"
 
 typedef void (*fct_parcours_t)(xmlNodePtr);
 

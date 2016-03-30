@@ -1,5 +1,8 @@
 #include "../include/parsexml.h"
-// #include "../include/graphics.h"
+#include "../include/graphics.h"
+#include "../include/calcul.h"
+
+int WIN_WIDTH;
 
 int main(int argc, char *argv[]) {
 	
@@ -31,11 +34,11 @@ int main(int argc, char *argv[]) {
 		print_map(map);
 		
 		// Find map ratio to know the ratio we should use for the window
-		double ratio_wh = (map.m_bds->maxlon - map.m_bds->minlon) / (map.m_bds->maxlat - map.m_bds->minlat); 
+		double ratio_wh = (lon_to_x(map.m_bds->maxlon) - lon_to_x(map.m_bds->minlon)) / (lat_to_y(map.m_bds->maxlat) - lat_to_y(map.m_bds->minlat)); 
 		// use lat_to_y and lon_to_x
 		printf("Ratio: %f\n", ratio_wh);
-		int width = ratio_wh * WIN_HEIGHT;
-		printf("Size window w x h: %d x %d\n", width, WIN_HEIGHT);
+		WIN_WIDTH = ratio_wh * WIN_HEIGHT;
+		printf("Size window W x H: %d x %d\n", WIN_WIDTH, WIN_HEIGHT);
 		
 		// Create display window
 		SDL_Window *window;
@@ -126,6 +129,10 @@ int main(int argc, char *argv[]) {
 				else if(strcmp(w->tags[i].key,"waterway") == 0){
 					// Different case: river, riverbank
 					if(strcmp(w->tags[i].val,"river") == 0){
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 15, 0, 0, 255, 255);
+						break;
+					}
+					if(strcmp(w->tags[i].val,"riverbank") == 0){
 						drawRoad(renderer, w, map.h_nodes, map.m_bds, 15, 0, 0, 255, 255);
 						break;
 					}

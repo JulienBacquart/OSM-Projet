@@ -1,4 +1,5 @@
 #include "../include/graphics.h"
+#include "../include/calcul.h"
 
 void doPause()
 {
@@ -12,18 +13,6 @@ void doPause()
 		if(evenements.window.event == SDL_WINDOWEVENT_CLOSE)
 			terminer = 1;
     }
-}
-
-int drawLine(SDL_Renderer *renderer, int x1, int y1, int x2, int y2, int width, int r, int g, int b, int a)
-{
-	thickLineRGBA(renderer,x1,y1,x2,y2,width,r,g,b,a);
-	return 0;
-}
-
-int drawPolygon(SDL_Renderer *renderer, short *x_tab, short *y_tab, int nb_pts, int r, int g, int b, int a)
-{
-	filledPolygonRGBA(renderer, x_tab, y_tab, nb_pts, r, g, b, a);
-	return 0;
 }
 
 int drawRoad(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, int draw_width ,int r, int g, int b, int alpha){
@@ -51,12 +40,11 @@ int drawRoad(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, int
 		x2 = lon_to_pixels(nSuiv->lon, minLon, maxLon) * WIN_WIDTH;
 		y2 = lat_to_pixels(nSuiv->lat, minLat, maxLat) * WIN_HEIGHT;
  
-		drawLine(renderer, x1, y1, x2, y2, draw_width, r, g, b, alpha);
+		thickLineRGBA(renderer, x1, y1, x2, y2, draw_width, r, g, b, alpha);
 		
 		// Draw a circle to make angles more smooth
-		if (i < (way->nb_nds - 2)){
-			filledCircleRGBA(renderer, x2, y2, draw_width/2, r, g, b, alpha);
-		}
+		filledCircleRGBA(renderer, x1, y1, draw_width/2, r, g, b, alpha);
+		filledCircleRGBA(renderer, x2, y2, draw_width/2, r, g, b, alpha);
 	}
 	SDL_RenderPresent(renderer);
 	
@@ -87,7 +75,7 @@ int drawBuilding(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds,
 		y_tab[i] = lat_to_pixels(n->lat, minLat, maxLat) * WIN_HEIGHT;
 	}
 	
-	drawPolygon(renderer, x_tab, y_tab, way->nb_nds, r, g, b, alpha);
+	filledPolygonRGBA(renderer, x_tab, y_tab, way->nb_nds, r, g, b, alpha);
 	
 	// Draw the external border of the building
 	for(i = 0; i < (way->nb_nds - 1); i++){
