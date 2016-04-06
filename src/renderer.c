@@ -74,68 +74,131 @@ int main(int argc, char *argv[]) {
 				
 				// The way is a road
 				if(strcmp(w->tags[i].key,"highway") == 0){
+					// Motorway
+					if(strcmp(w->tags[i].val,"motorway") == 0){
+						// Draw as a double line
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 15, MOTORWAY_COLOR);
+						break;
+					}
+					
+					// Motorway link
+					else if(strcmp(w->tags[i].val,"motorway_link") == 0){
+						// Draw as a double line
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, MOTORWAY_LINK_COLOR);
+						break;
+					}
+					
+					// Trunk
+					else if(strcmp(w->tags[i].val,"trunk") == 0){
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 15, TRUNK_COLOR);
+						break;
+					}
+					
+					// Trunk link
+					else if(strcmp(w->tags[i].val,"trunk_link") == 0){
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, TRUNK_LINK_COLOR);
+						break;
+					}
 					
 					// Primary road
-					if(strcmp(w->tags[i].val,"primary") == 0){
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 15, 0xFF9A98EC);
+					else if(strcmp(w->tags[i].val,"primary") == 0){
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 15, PRIMARY_COLOR);
+						break;
+					}
+					
+					// Primary link
+					else if(strcmp(w->tags[i].val,"primary_link") == 0){
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 15, PRIMARY_LINK_COLOR);
 						break;
 					}
 					
 					// Secondary road
-					if(strcmp(w->tags[i].val,"secondary") == 0){
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, 0xFFA5D7FE);
+					else if(strcmp(w->tags[i].val,"secondary") == 0){
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, SECONDARY_COLOR);
+						break;
+					}
+					
+					// Secondary link
+					else if(strcmp(w->tags[i].val,"secondary_link") == 0){
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, SECONDARY_LINK_COLOR);
 						break;
 					}
 					
 					// Tertiary road
-					if(strcmp(w->tags[i].val,"tertiary") == 0){
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, 0xFFB3FFFF);
+					else if(strcmp(w->tags[i].val,"tertiary") == 0){
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, TERTIARY_COLOR);
 						break;
 					}
 					
-					// residential road
-					else if(strcmp(w->tags[i].val,"residential") == 0){
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, 0xFFFFFFFF);
-						break;
-					}
-					
-					// pedestrian road
-					else if(strcmp(w->tags[i].val,"pedestrian") == 0){
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, 0xFFFFFFFF);
-						break;
-					}
-					
-					// service road
-					else if(strcmp(w->tags[i].val,"service") == 0){
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 5, 0xFFFFFFFF);
-						break;
-					}
-					
-					// footway road
-					else if(strcmp(w->tags[i].val,"footway") == 0){
-						// Should be dashed line
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 5, 0xFF0000FF);
-						break;
-					}
-					
-					// cycleway road
-					else if(strcmp(w->tags[i].val,"cycleway") == 0){
-						// Should be dotted line
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 1, 0xFFFF0000);
+					// Tertiary link
+					else if(strcmp(w->tags[i].val,"tertiary_link") == 0){
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, TERTIARY_LINK_COLOR);
 						break;
 					}
 					
 					// unclassified road
 					else if(strcmp(w->tags[i].val,"unclassified") == 0){
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, UNCLASSIFIED_COLOR);
+						break;
+					}
+					
+					// residential road
+					else if(strcmp(w->tags[i].val,"residential") == 0){
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, RESIDENTIAL_COLOR);
+						break;
+					}
+					
+					// service road
+					else if(strcmp(w->tags[i].val,"service") == 0){
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 5, SERVICE_COLOR);
+						break;
+					}
+					
+					// living street road
+					else if(strcmp(w->tags[i].val,"living_street") == 0){
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, LIVING_STREET_COLOR);
+						break;
+					}
+					
+					// pedestrian road
+					else if(strcmp(w->tags[i].val,"pedestrian") == 0){
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, PEDESTRIAN_COLOR);
+						break;
+					}
+					
+					// track
+					else if(strcmp(w->tags[i].val,"track") == 0){
+						// Should be dotted-dashed line
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, TRACK_COLOR);
+						break;
+					}
+										
+					// footway road
+					else if(strcmp(w->tags[i].val,"footway") == 0){
 						// Should be dashed line
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, 0xFFFFFFFF);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 5, FOOTWAY_COLOR);
 						break;
 					}
 					
 					// steps
 					else if(strcmp(w->tags[i].val,"steps") == 0){
 						// Should be dashed line
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, 0xFF7280FA);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, STEPS_COLOR);
+						break;
+					}
+// 					
+					
+					// cycleway road
+					else if(strcmp(w->tags[i].val,"cycleway") == 0){
+						// Should be dotted line
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 1, CYCLEWAY_COLOR);
+						break;
+					}
+					
+					// path
+					else if(strcmp(w->tags[i].val,"path") == 0){
+						// Should be dotted line
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, 1, PATH_COLOR);
 						break;
 					}
 					
@@ -149,11 +212,11 @@ int main(int argc, char *argv[]) {
 				else if(strcmp(w->tags[i].key,"waterway") == 0){
 					// Different case: river, riverbank
 					if(strcmp(w->tags[i].val,"river") == 0){
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 15, 0xFFD0D0B5);
+// 						drawRoad(renderer, w, map.h_nodes, map.m_bds, 15, 0xFFD0D0B5);
 						break;
 					}
 					if(strcmp(w->tags[i].val,"riverbank") == 0){
-						drawFilledPolygon(renderer, w, map.h_nodes, map.m_bds, 0xFFD0D0B5);
+						drawFilledPolygon(renderer, w, map.h_nodes, map.m_bds, RIVER_COLOR);
 						break;
 					}
 				}
@@ -161,7 +224,7 @@ int main(int argc, char *argv[]) {
 				else if(strcmp(w->tags[i].key,"building") == 0){
 // 					printf("building:\n");
 // 					print_way(*w);
-					drawBuilding(renderer, w, map.h_nodes, map.m_bds, 0xFFAEAEBF);
+					drawBuilding(renderer, w, map.h_nodes, map.m_bds, BUILDING_COLOR);
 				}
 				
 			}

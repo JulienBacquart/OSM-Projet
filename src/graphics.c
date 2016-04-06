@@ -1,6 +1,28 @@
 #include "../include/graphics.h"
 #include "../include/calcul.h"
 
+int html_to_rgba(char *str, Uint8* r, Uint8* g, Uint8* b, Uint8* a){
+	Uint32 color;
+	
+	int res = sscanf(str, "#%"SCNx32, &color);
+	if (1 == res) {
+		// color now contains the value from the string
+// 		printf("Color: %#08x\n", color);
+		
+		*r = (Uint8) ((color & 0xFF0000) >> 16);// Extract the RR byte
+		*g = (Uint8) ((color >> 8) & 0xFF);	// Extract the GG byte
+		*b = (Uint8) ((color) & 0xFF);		// Extract the BB byte
+		*a = (Uint8) (0xFF);			// Always 255 by default
+		
+// 		printf("Red: %d\n", *r);
+// 		printf("Green: %d\n", *g);
+// 		printf("Blue: %d\n", *b);
+// 		printf("Alpha: %d\n", *a); 
+	}
+	
+	return res;
+}
+
 void doPause()
 {
 	SDL_Event evenements;
@@ -15,12 +37,18 @@ void doPause()
     }
 }
 
-int drawRoad(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, int draw_width, Uint32 color){
+int drawRoad(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, int draw_width, char* color){
 	int i;
 	double minLat = m_bds->minlat;
 	double minLon= m_bds->minlon;
 	double maxLat = m_bds->maxlat;
 	double maxLon= m_bds->maxlon;
+	
+	Uint8 *r = (Uint8 *)malloc(sizeof(Uint8));
+	Uint8 *g = (Uint8 *)malloc(sizeof(Uint8));
+	Uint8 *b = (Uint8 *)malloc(sizeof(Uint8));
+	Uint8 *a = (Uint8 *)malloc(sizeof(Uint8));
+	html_to_rgba(color, r, g, b, a);
 	
 	Node *n;
 	Node *nSuiv;
@@ -40,23 +68,29 @@ int drawRoad(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, int
 		x2 = lon_to_pixels(nSuiv->lon, minLon, maxLon) * WIN_WIDTH;
 		y2 = lat_to_pixels(nSuiv->lat, minLat, maxLat) * WIN_HEIGHT;
  
-		thickLineColor(renderer, x1, y1, x2, y2, draw_width, color);
+		thickLineRGBA(renderer, x1, y1, x2, y2, draw_width, *r, *g, *b, *a);
 		
 		// Draw two circles at each extremity to make angles more smooth
-		filledCircleColor(renderer, x1, y1, draw_width/2, color);
-		filledCircleColor(renderer, x2, y2, draw_width/2, color);
+		filledCircleRGBA(renderer, x1, y1, draw_width/2, *r, *g, *b, *a);
+		filledCircleRGBA(renderer, x2, y2, draw_width/2, *r, *g, *b, *a);
 	}
 	SDL_RenderPresent(renderer);
 	
 	return 0;
 }
 
-int drawBuilding(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, Uint32 color) {
+int drawBuilding(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char* color) {
 	int i;
 	double minLat = m_bds->minlat;
 	double minLon= m_bds->minlon;
 	double maxLat = m_bds->maxlat;
 	double maxLon= m_bds->maxlon;
+	
+	Uint8 *r = (Uint8 *)malloc(sizeof(Uint8));
+	Uint8 *g = (Uint8 *)malloc(sizeof(Uint8));
+	Uint8 *b = (Uint8 *)malloc(sizeof(Uint8));
+	Uint8 *a = (Uint8 *)malloc(sizeof(Uint8));
+	html_to_rgba(color, r, g, b, a);
 	
 	Node *n;
 	Node *nSuiv;
@@ -75,23 +109,30 @@ int drawBuilding(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds,
 		y_tab[i] = lat_to_pixels(n->lat, minLat, maxLat) * WIN_HEIGHT;
 	}
 	
-	filledPolygonColor(renderer, x_tab, y_tab, way->nb_nds, color);
+	filledPolygonRGBA(renderer, x_tab, y_tab, way->nb_nds, *r, *g, *b, *a);
 	
 	// Draw the external border of the building
+	html_to_rgba("#8f7599", r, g, b, a);
 	for(i = 0; i < (way->nb_nds - 1); i++){
-		aalineColor(renderer, x_tab[i], y_tab[i], x_tab[i+1], y_tab[i+1], 0xFF000000);
+		aalineRGBA(renderer, x_tab[i], y_tab[i], x_tab[i+1], y_tab[i+1], *r, *g, *b, *a);
 	}
 	
 	SDL_RenderPresent(renderer);
 	return 0;
 }
 
-int drawFilledPolygon(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, Uint32 color) {
+int drawFilledPolygon(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char* color) {
 	int i;
 	double minLat = m_bds->minlat;
 	double minLon= m_bds->minlon;
 	double maxLat = m_bds->maxlat;
 	double maxLon= m_bds->maxlon;
+	
+	Uint8 *r = (Uint8 *)malloc(sizeof(Uint8));
+	Uint8 *g = (Uint8 *)malloc(sizeof(Uint8));
+	Uint8 *b = (Uint8 *)malloc(sizeof(Uint8));
+	Uint8 *a = (Uint8 *)malloc(sizeof(Uint8));
+	html_to_rgba(color, r, g, b, a);
 	
 	Node *n;
 	Node *nSuiv;
@@ -110,7 +151,7 @@ int drawFilledPolygon(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m
 		y_tab[i] = lat_to_pixels(n->lat, minLat, maxLat) * WIN_HEIGHT;
 	}
 	
-	filledPolygonColor(renderer, x_tab, y_tab, way->nb_nds, color);
+	filledPolygonRGBA(renderer, x_tab, y_tab, way->nb_nds, *r, *g, *b, *a);
 	
 	SDL_RenderPresent(renderer);
 	return 0;
