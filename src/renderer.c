@@ -34,11 +34,18 @@ int main(int argc, char *argv[]) {
 		print_map(map);
 		
 		// Find map ratio to know the ratio we should use for the window
-		double ratio_wh = (lon_to_x(map.m_bds->maxlon) - lon_to_x(map.m_bds->minlon)) / (lat_to_y(map.m_bds->maxlat) - lat_to_y(map.m_bds->minlat)); 
-		// use lat_to_y and lon_to_x
+		double delta_x_meter = lon_to_x(map.m_bds->maxlon) - lon_to_x(map.m_bds->minlon);
+		double delta_y_meter = lat_to_y(map.m_bds->maxlat) - lat_to_y(map.m_bds->minlat);
+		double ratio_wh = delta_x_meter / delta_y_meter;
 		printf("Ratio W/H: %f\n", ratio_wh);
 		WIN_WIDTH = ratio_wh * WIN_HEIGHT;
 		printf("Size window W x H: %d x %d\n", WIN_WIDTH, WIN_HEIGHT);
+		
+		// Calculate the 'scale' of the map in pixel/meter
+		// For example if we have a road with a width of 5 meter, it size on the screen will be:
+		// 5m x scale = nb of pixels
+		double scale = WIN_HEIGHT / delta_y_meter;
+		printf("Scale: 1 px = %f meter\n", 1/scale);
 		
 		// Create display window
 		SDL_Window *window;
@@ -146,7 +153,7 @@ int main(int argc, char *argv[]) {
 						break;
 					}
 					if(strcmp(w->tags[i].val,"riverbank") == 0){
-// 						drawRoad(renderer, w, map.h_nodes, map.m_bds, 15, 0xFFD0D0B5);
+						drawFilledPolygon(renderer, w, map.h_nodes, map.m_bds, 0xFFD0D0B5);
 						break;
 					}
 				}
