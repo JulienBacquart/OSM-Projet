@@ -86,6 +86,35 @@ int drawBuilding(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds,
 	return 0;
 }
 
+int drawFilledPolygon(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, Uint32 color) {
+	int i;
+	double minLat = m_bds->minlat;
+	double minLon= m_bds->minlon;
+	double maxLat = m_bds->maxlat;
+	double maxLon= m_bds->maxlon;
+	
+	Node *n;
+	Node *nSuiv;
+	
+	short *x_tab;
+	short *y_tab;	
+	
+	x_tab = malloc(way->nb_nds * sizeof(short *));
+	y_tab = malloc(way->nb_nds * sizeof(short *));
+	
+	for(i = 0; i < (way->nb_nds); i++){
+		
+		HASH_FIND_INT(h_nodes, &way->nds[i], n);
+			
+		x_tab[i] = lon_to_pixels(n->lon, minLon, maxLon) * WIN_WIDTH;
+		y_tab[i] = lat_to_pixels(n->lat, minLat, maxLat) * WIN_HEIGHT;
+	}
+	
+	filledPolygonColor(renderer, x_tab, y_tab, way->nb_nds, color);
+	
+	SDL_RenderPresent(renderer);
+	return 0;
+}
 
 /*int writeText(SDL_Renderer *renderer,char *text,int fontWidth,int x, int y,int width,int height,int r,int g,int b, double angle)
 {
