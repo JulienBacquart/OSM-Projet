@@ -97,7 +97,7 @@ double lat_to_y(double lat) {
 
 // Convert a GPS longitude to a mercator projection (in meter)
 double lon_to_x(double lon) { 
-	return degrees_to_radian(lon) * earth_radius; 
+	return degrees_to_radian(lon) * earth_radius;
 }
 
 // Convert a GPS lat to a "pixel" value (between 0 and 1)
