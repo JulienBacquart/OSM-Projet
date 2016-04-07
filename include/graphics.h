@@ -9,8 +9,12 @@
 #include "data.h"
 
 // #define WIN_WIDTH 800
-#define WIN_HEIGHT 600
+#define MAX_WIN_HEIGHT 600
+#define MAX_WIN_WIDTH 1200
+extern int WIN_HEIGHT;
 extern int WIN_WIDTH;
+
+#define BACKGROUND_COLOR "#F2EFE9"
 
 #define MOTORWAY_COLOR "#E990A0"
 #define MOTORWAY_WIDTH 20

@@ -3,6 +3,7 @@
 #include "../include/calcul.h"
 
 int WIN_WIDTH;
+int WIN_HEIGHT;
 
 int main(int argc, char *argv[]) {
 	
@@ -38,7 +39,14 @@ int main(int argc, char *argv[]) {
 		double delta_y_meter = lat_to_y(map.m_bds->maxlat) - lat_to_y(map.m_bds->minlat);
 		double ratio_wh = delta_x_meter / delta_y_meter;
 		printf("Ratio W/H: %f\n", ratio_wh);
-		WIN_WIDTH = ratio_wh * WIN_HEIGHT;
+		
+		// Select the correct windows size based on the map ratio
+		WIN_HEIGHT = MAX_WIN_HEIGHT;
+		WIN_WIDTH = ratio_wh * MAX_WIN_HEIGHT;
+		if (WIN_WIDTH > MAX_WIN_WIDTH){
+			WIN_WIDTH = MAX_WIN_WIDTH;
+			WIN_HEIGHT = WIN_WIDTH / ratio_wh;
+		}
 		printf("Size window W x H: %d x %d\n", WIN_WIDTH, WIN_HEIGHT);
 		
 		// Calculate the 'scale' of the map in pixel/meter
@@ -58,8 +66,14 @@ int main(int argc, char *argv[]) {
 
 		window = SDL_CreateWindow("OpenStreetMap - Renderer",40,-105, WIN_WIDTH, WIN_HEIGHT,SDL_WINDOW_SHOWN); //Création de la fenêtre
 		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);//Création du renderer associé a la fenêtre
-	
-		SDL_SetRenderDrawColor(renderer, 242, 239, 233, 255);
+		
+		// Select the background color
+		Uint8 *r = (Uint8 *)malloc(sizeof(Uint8));
+		Uint8 *g = (Uint8 *)malloc(sizeof(Uint8));
+		Uint8 *b = (Uint8 *)malloc(sizeof(Uint8));
+		Uint8 *a = (Uint8 *)malloc(sizeof(Uint8));
+		html_to_rgba(BACKGROUND_COLOR, r, g, b, a);
+		SDL_SetRenderDrawColor(renderer, *r, *g, *b, *a);
 		SDL_RenderClear(renderer);
 		SDL_RenderPresent(renderer);
 		
@@ -229,11 +243,19 @@ int main(int argc, char *argv[]) {
 				
 			}
 		}
+		// Render
+		SDL_RenderPresent(renderer);
 		
 		doPause();
 		
 		// Libération de la mémoire		
 		xmlFreeDoc(doc);
+		
+		free(r);
+		free(g);
+		free(b);
+		free(a);
+		
 		SDL_DestroyRenderer(renderer);
 		SDL_DestroyWindow(window);
 		SDL_Quit();

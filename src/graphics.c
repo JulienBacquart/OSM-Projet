@@ -74,7 +74,11 @@ int drawRoad(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, int
 		filledCircleRGBA(renderer, x1, y1, draw_width/2, *r, *g, *b, *a);
 		filledCircleRGBA(renderer, x2, y2, draw_width/2, *r, *g, *b, *a);
 	}
-	SDL_RenderPresent(renderer);
+	
+	free(r);
+	free(g);
+	free(b);
+	free(a);
 	
 	return 0;
 }
@@ -117,7 +121,13 @@ int drawBuilding(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds,
 		aalineRGBA(renderer, x_tab[i], y_tab[i], x_tab[i+1], y_tab[i+1], *r, *g, *b, *a);
 	}
 	
-	SDL_RenderPresent(renderer);
+	free(r);
+	free(g);
+	free(b);
+	free(a);
+	free(x_tab);
+	free(y_tab);
+	
 	return 0;
 }
 
@@ -153,7 +163,13 @@ int drawFilledPolygon(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m
 	
 	filledPolygonRGBA(renderer, x_tab, y_tab, way->nb_nds, *r, *g, *b, *a);
 	
-	SDL_RenderPresent(renderer);
+	free(r);
+	free(g);
+	free(b);
+	free(a);
+	free(x_tab);
+	free(y_tab);
+	
 	return 0;
 }
 
