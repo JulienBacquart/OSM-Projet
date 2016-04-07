@@ -77,113 +77,113 @@ int main(int argc, char *argv[]) {
 					// Motorway
 					if(strcmp(w->tags[i].val,"motorway") == 0){
 						// Draw as a double line
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 15, MOTORWAY_COLOR);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, MOTORWAY_WIDTH * scale, MOTORWAY_COLOR);
 						break;
 					}
 					
 					// Motorway link
 					else if(strcmp(w->tags[i].val,"motorway_link") == 0){
 						// Draw as a double line
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, MOTORWAY_LINK_COLOR);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, MOTORWAY_LINK_WIDTH * scale, MOTORWAY_LINK_COLOR);
 						break;
 					}
 					
 					// Trunk
 					else if(strcmp(w->tags[i].val,"trunk") == 0){
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 15, TRUNK_COLOR);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, TRUNK_WIDTH * scale, TRUNK_COLOR);
 						break;
 					}
 					
 					// Trunk link
 					else if(strcmp(w->tags[i].val,"trunk_link") == 0){
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, TRUNK_LINK_COLOR);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, TRUNK_LINK_WIDTH * scale, TRUNK_LINK_COLOR);
 						break;
 					}
 					
 					// Primary road
 					else if(strcmp(w->tags[i].val,"primary") == 0){
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 15, PRIMARY_COLOR);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, PRIMARY_WIDTH * scale, PRIMARY_COLOR);
 						break;
 					}
 					
 					// Primary link
 					else if(strcmp(w->tags[i].val,"primary_link") == 0){
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 15, PRIMARY_LINK_COLOR);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, PRIMARY_LINK_WIDTH * scale, PRIMARY_LINK_COLOR);
 						break;
 					}
 					
 					// Secondary road
 					else if(strcmp(w->tags[i].val,"secondary") == 0){
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, SECONDARY_COLOR);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, SECONDARY_WIDTH * scale, SECONDARY_COLOR);
 						break;
 					}
 					
 					// Secondary link
 					else if(strcmp(w->tags[i].val,"secondary_link") == 0){
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, SECONDARY_LINK_COLOR);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, SECONDARY_LINK_WIDTH * scale, SECONDARY_LINK_COLOR);
 						break;
 					}
 					
 					// Tertiary road
 					else if(strcmp(w->tags[i].val,"tertiary") == 0){
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, TERTIARY_COLOR);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, TERTIARY_WIDTH * scale, TERTIARY_COLOR);
 						break;
 					}
 					
 					// Tertiary link
 					else if(strcmp(w->tags[i].val,"tertiary_link") == 0){
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, TERTIARY_LINK_COLOR);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, TERTIARY_LINK_WIDTH * scale, TERTIARY_LINK_COLOR);
 						break;
 					}
 					
 					// unclassified road
 					else if(strcmp(w->tags[i].val,"unclassified") == 0){
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, UNCLASSIFIED_COLOR);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, UNCLASSIFIED_WIDTH * scale, UNCLASSIFIED_COLOR);
 						break;
 					}
 					
 					// residential road
 					else if(strcmp(w->tags[i].val,"residential") == 0){
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, RESIDENTIAL_COLOR);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, RESIDENTIAL_WIDTH * scale, RESIDENTIAL_COLOR);
 						break;
 					}
 					
 					// service road
 					else if(strcmp(w->tags[i].val,"service") == 0){
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 5, SERVICE_COLOR);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, SERVICE_WIDTH * scale, SERVICE_COLOR);
 						break;
 					}
 					
 					// living street road
 					else if(strcmp(w->tags[i].val,"living_street") == 0){
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, LIVING_STREET_COLOR);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, LIVING_STREET_WIDTH * scale, LIVING_STREET_COLOR);
 						break;
 					}
 					
 					// pedestrian road
 					else if(strcmp(w->tags[i].val,"pedestrian") == 0){
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, PEDESTRIAN_COLOR);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, PEDESTRIAN_WIDTH * scale, PEDESTRIAN_COLOR);
 						break;
 					}
 					
 					// track
 					else if(strcmp(w->tags[i].val,"track") == 0){
 						// Should be dotted-dashed line
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, TRACK_COLOR);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, TRACK_WIDTH * scale, TRACK_COLOR);
 						break;
 					}
 										
 					// footway road
 					else if(strcmp(w->tags[i].val,"footway") == 0){
 						// Should be dashed line
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 5, FOOTWAY_COLOR);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, FOOTWAY_WIDTH * scale, FOOTWAY_COLOR);
 						break;
 					}
 					
 					// steps
 					else if(strcmp(w->tags[i].val,"steps") == 0){
 						// Should be dashed line
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, STEPS_COLOR);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, STEPS_WIDTH * scale, STEPS_COLOR);
 						break;
 					}
 // 					
@@ -191,14 +191,14 @@ int main(int argc, char *argv[]) {
 					// cycleway road
 					else if(strcmp(w->tags[i].val,"cycleway") == 0){
 						// Should be dotted line
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 1, CYCLEWAY_COLOR);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, CYCLEWAY_WIDTH * scale, CYCLEWAY_COLOR);
 						break;
 					}
 					
 					// path
 					else if(strcmp(w->tags[i].val,"path") == 0){
 						// Should be dotted line
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, 1, PATH_COLOR);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, PATH_WIDTH * scale, PATH_COLOR);
 						break;
 					}
 					
