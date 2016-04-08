@@ -17,15 +17,15 @@
 
 TODO List:
 - Relations (WIP)
-- Ligne pointillé
-- rivieres, lacs
+- rivieres, lacs (WIP)
 - Z levels
-- feuilles de style externe
-- pkg-config
-- tests
+- feuilles de style externe (WIP)
+- tests (WIP) (NEED: lib check installed)
 
 
 DONE:
 - Polygons remplis (23/03)
 - Ratio de la fenetre (30/03)
 - Angle route propre (en dessinant un rond) (30/03)
+- pkg-config (08/04)
+- Ligne pointillé (08/04)
