@@ -112,31 +112,31 @@ double lon_to_pixels(double lon, double map_minlon, double map_maxlon){
 	return (lon_to_x(lon) - lon_to_x(map_minlon)) / (lon_to_x(map_maxlon) - lon_to_x(map_minlon));
 }
 
-/*int main(){
-	
-	double map_minlat = 48.8542200; 
-	double map_maxlat = 48.8569130;
-	
-	double map_minlon = 2.3625300;
-	double map_maxlon = 2.3688710;
-	
-	double lat = 48.8546405;
-	double lon = 2.3685569;
-	
-	double mx = lon_to_pixels(lon, map_minlon, map_maxlon);
-	printf("mx: %.7f\n", mx);
-	double my = lat_to_pixels(lat, map_minlat, map_maxlat);
-	printf("my: %.7f\n", my);
-	
-	mx = lon_to_pixels(map_minlon, map_minlon, map_maxlon);
-	printf("mx: %.7f\n", mx);
-	my = lat_to_pixels(map_minlat, map_minlat, map_maxlat);
-	printf("my: %.7f\n", my);
-	
-	mx = lon_to_pixels(map_maxlon, map_minlon, map_maxlon);
-	printf("mx: %.7f\n", mx);
-	my = lat_to_pixels(map_maxlat, map_minlat, map_maxlat);
-	printf("my: %.7f\n", my);
-	
-	return EXIT_SUCCESS;
-}*/
+// int main(){
+// 	
+// 	double map_minlat = 48.8542200; 
+// 	double map_maxlat = 48.8569130;
+// 	
+// 	double map_minlon = 2.3625300;
+// 	double map_maxlon = 2.3688710;
+// 	
+// 	double lat = 48.8546405;
+// 	double lon = 2.3685569;
+// 	
+// 	double mx = lon_to_pixels(lon, map_minlon, map_maxlon);
+// 	printf("mx: %.7f\n", mx);
+// 	double my = lat_to_pixels(lat, map_minlat, map_maxlat);
+// 	printf("my: %.7f\n", my);
+// 	
+// 	mx = lon_to_pixels(map_minlon, map_minlon, map_maxlon);
+// 	printf("mx: %.7f\n", mx);
+// 	my = lat_to_pixels(map_minlat, map_minlat, map_maxlat);
+// 	printf("my: %.7f\n", my);
+// 	
+// 	mx = lon_to_pixels(map_maxlon, map_minlon, map_maxlon);
+// 	printf("mx: %.7f\n", mx);
+// 	my = lat_to_pixels(map_maxlat, map_minlat, map_maxlat);
+// 	printf("my: %.7f\n", my);
+// 	
+// 	return EXIT_SUCCESS;
+// }

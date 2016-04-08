@@ -173,6 +173,201 @@ int drawFilledPolygon(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m
 	return 0;
 }
 
+int drawDashedLine(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char* color, int dash_length){
+	int i;
+	
+	double minLat = m_bds->minlat;
+	double minLon= m_bds->minlon;
+	double maxLat = m_bds->maxlat;
+	double maxLon= m_bds->maxlon;
+	
+	Uint8 *r = (Uint8 *)malloc(sizeof(Uint8));
+	Uint8 *g = (Uint8 *)malloc(sizeof(Uint8));
+	Uint8 *b = (Uint8 *)malloc(sizeof(Uint8));
+	Uint8 *a = (Uint8 *)malloc(sizeof(Uint8));
+	html_to_rgba(color, r, g, b, a);
+	
+	Node *n;
+	Node *nSuiv;
+	
+	int x1, y1;
+	int x2, y2;
+	
+	bool visible = true;
+	double offset = 0;
+	
+	for(i = 0; i < (way->nb_nds - 1); i++){
+		
+		HASH_FIND_INT(h_nodes, &way->nds[i], n);
+			
+		x1 = lon_to_pixels(n->lon, minLon, maxLon) * WIN_WIDTH;
+		y1 = lat_to_pixels(n->lat, minLat, maxLat) * WIN_HEIGHT;
+
+    		HASH_FIND_INT(h_nodes, &way->nds[i+1], nSuiv);
+
+		x2 = lon_to_pixels(nSuiv->lon, minLon, maxLon) * WIN_WIDTH;
+		y2 = lat_to_pixels(nSuiv->lat, minLat, maxLat) * WIN_HEIGHT;
+		
+		int delta_x = x2 - x1;
+		int delta_y = y2 - y1;
+	
+		double alpha = atan2(delta_y, delta_x);
+// 		printf("Alpha: %f\n", alpha);
+ 
+		double d = sqrt((delta_x * delta_x) + (delta_y * delta_y));
+// 		printf("distance: %f\n", d);
+		
+		double num_dash = (d / dash_length);
+// 		printf("num_dash: %f\n", num_dash);
+		
+		double mx1 = x1;
+		double my1 = y1;
+		double mx2;
+		double my2;
+		int j;
+		
+		for (j=0; j < (num_dash - 1); j++){
+			if (offset != 0){
+				// Draw the first partial dash		
+				mx2 = mx1 + offset * dash_length * cos(alpha);
+				my2 = my1 + offset * dash_length * sin(alpha);
+				offset = 0;
+			} else {
+				// Draw a normal complete dash
+				mx2 = mx1 + dash_length * cos(alpha);
+				my2 = my1 + dash_length * sin(alpha);
+			}
+			
+// 			printf("j: %d, mx1: %f, my1: %f, mx2: %f, my2: %f, visible: %d\n", j, mx1, my1,  mx2, my2, visible);
+			
+			if (visible){
+// 				thickLineRGBA(renderer, mx1, my1, mx2, my2, draw_width, *r, *g, *b, *a);
+				aalineRGBA(renderer, (int)mx1, (int)my1, (int)mx2, (int)my2, *r, *g, *b, *a);
+			}
+			
+			mx1 = mx2;
+			my1 = my2;
+			
+			visible = !visible;
+			
+		}
+		
+		// Draw the last partial dash
+		double decimal_part = fmod(num_dash, 1.);
+// 		printf("Decimal: %f\n", decimal_part);
+		
+		if (decimal_part > 0){
+			mx2 = mx1 + decimal_part * dash_length * cos(alpha);
+			my2 = my1 + decimal_part * dash_length * sin(alpha);
+			
+			if (visible){
+// 					thickLineRGBA(renderer, mx1, my1, mx2, my2, draw_width, *r, *g, *b, *a);
+					aalineRGBA(renderer, (int)mx1, (int)my1, (int)mx2, (int)my2, *r, *g, *b, *a);
+			}
+			
+			offset = (1 - decimal_part);
+		}
+	}
+	
+	free(r);
+	free(g);
+	free(b);
+	free(a);
+	
+	return 0;
+}
+
+int drawDottedLine(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char* color, int dot_radius){
+	int i;
+	
+	double minLat = m_bds->minlat;
+	double minLon= m_bds->minlon;
+	double maxLat = m_bds->maxlat;
+	double maxLon= m_bds->maxlon;
+	
+	Uint8 *r = (Uint8 *)malloc(sizeof(Uint8));
+	Uint8 *g = (Uint8 *)malloc(sizeof(Uint8));
+	Uint8 *b = (Uint8 *)malloc(sizeof(Uint8));
+	Uint8 *a = (Uint8 *)malloc(sizeof(Uint8));
+	html_to_rgba(color, r, g, b, a);
+	
+	Node *n;
+	Node *nSuiv;
+	
+	int x1, y1;
+	int x2, y2;
+	
+	bool visible = true;
+	double offset = 0;
+	
+	for(i = 0; i < (way->nb_nds - 1); i++){
+		
+		HASH_FIND_INT(h_nodes, &way->nds[i], n);
+			
+		x1 = lon_to_pixels(n->lon, minLon, maxLon) * WIN_WIDTH;
+		y1 = lat_to_pixels(n->lat, minLat, maxLat) * WIN_HEIGHT;
+
+    		HASH_FIND_INT(h_nodes, &way->nds[i+1], nSuiv);
+
+		x2 = lon_to_pixels(nSuiv->lon, minLon, maxLon) * WIN_WIDTH;
+		y2 = lat_to_pixels(nSuiv->lat, minLat, maxLat) * WIN_HEIGHT;
+		
+		int delta_x = x2 - x1;
+		int delta_y = y2 - y1;
+	
+		double alpha = atan2(delta_y, delta_x);
+// 		printf("Alpha: %f\n", alpha);
+ 
+		double d = sqrt((delta_x * delta_x) + (delta_y * delta_y));
+// 		printf("distance: %f\n", d);
+		
+		double num_dot = (d / (dot_radius));
+// 		printf("num_dot: %f\n", num_dot);
+		
+		double mx1 = x1;
+		double my1 = y1;
+		
+		int j;
+		for (j=0; j < (num_dot/2); j++){
+			if (visible){
+				aacircleRGBA(renderer, mx1, my1, dot_radius, *r, *g, *b, *a);
+// 				filledCircleRGBA(renderer, mx1, my1, dot_radius, *r, *g, *b, *a);
+			}
+			
+			if (offset != 0){
+				// Leave an offset from the beginning
+				mx1 = mx1 + offset * 2 * dot_radius * cos(alpha);
+				my1 = my1 + offset * 2 * dot_radius * sin(alpha);
+				offset = 0;
+			} else {
+				// Draw a normal dot
+				mx1 = mx1 + 2 * dot_radius * cos(alpha);
+				my1 = my1 + 2 * dot_radius * sin(alpha);
+			}
+// 			
+// 			printf("j: %d, mx1: %f, my1: %f, mx2: %f, my2: %f, visible: %d\n", j, mx1, my1,  mx2, my2, visible);
+			
+			visible = !visible;
+			
+		}
+		
+		// Calculate the offset
+		double decimal_part = fmod(num_dot, 1.);
+// 		printf("Decimal: %f\n", decimal_part);
+		
+		if (decimal_part > 0){			
+			offset = (1 - decimal_part);
+		}
+	}
+	
+	free(r);
+	free(g);
+	free(b);
+	free(a);
+	
+	return 0;
+}
+
 /*int writeText(SDL_Renderer *renderer,char *text,int fontWidth,int x, int y,int width,int height,int r,int g,int b, double angle)
 {
 	TTF_Font *police = NULL;

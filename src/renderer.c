@@ -189,15 +189,16 @@ int main(int argc, char *argv[]) {
 										
 					// footway road
 					else if(strcmp(w->tags[i].val,"footway") == 0){
-						// Should be dashed line
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, FOOTWAY_WIDTH * scale, FOOTWAY_COLOR);
+						// Should be dotted line
+// 						drawRoad(renderer, w, map.h_nodes, map.m_bds, FOOTWAY_WIDTH * scale, FOOTWAY_COLOR);
+						drawDottedLine(renderer, w, map.h_nodes, map.m_bds, FOOTWAY_COLOR, FOOTWAY_DOT_RADIUS);
 						break;
 					}
 					
 					// steps
 					else if(strcmp(w->tags[i].val,"steps") == 0){
 						// Should be dashed line
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, STEPS_WIDTH * scale, STEPS_COLOR);
+						drawRoad(renderer, w, map.h_nodes, map.m_bds, STEPS_WIDTH, STEPS_COLOR);
 						break;
 					}
 // 					
@@ -205,14 +206,14 @@ int main(int argc, char *argv[]) {
 					// cycleway road
 					else if(strcmp(w->tags[i].val,"cycleway") == 0){
 						// Should be dotted line
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, CYCLEWAY_WIDTH * scale, CYCLEWAY_COLOR);
+						drawDashedLine(renderer, w, map.h_nodes, map.m_bds, CYCLEWAY_COLOR, CYCLEWAY_DASH_LENGTH);
 						break;
 					}
 					
 					// path
 					else if(strcmp(w->tags[i].val,"path") == 0){
 						// Should be dotted line
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, PATH_WIDTH * scale, PATH_COLOR);
+						drawDashedLine(renderer, w, map.h_nodes, map.m_bds, PATH_COLOR, PATH_DASH_LENGTH);
 						break;
 					}
 					
@@ -243,6 +244,7 @@ int main(int argc, char *argv[]) {
 				
 			}
 		}
+				
 		// Render
 		SDL_RenderPresent(renderer);
 		

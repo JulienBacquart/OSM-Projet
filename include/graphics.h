@@ -65,16 +65,16 @@ extern int WIN_WIDTH;
 #define TRACK_WIDTH 5
 
 #define FOOTWAY_COLOR "#FA8072"
-#define FOOTWAY_WIDTH 5
+#define FOOTWAY_DOT_RADIUS 2
 
 #define STEPS_COLOR "#FC7F6F"
 #define STEPS_WIDTH 5
 
 #define PATH_COLOR "#FA8072"
-#define PATH_WIDTH 5
+#define PATH_DASH_LENGTH 5
 
 #define CYCLEWAY_COLOR "#3333FC"
-#define CYCLEWAY_WIDTH 5
+#define CYCLEWAY_DASH_LENGTH 5
 
 #define RIVER_COLOR "#B5D0D0"
 
@@ -86,4 +86,6 @@ void doPause();
 int drawRoad(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, int draw_width, char* color);
 int drawBuilding(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char* color);
 int drawFilledPolygon(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char* color);
+int drawDashedLine(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char* color, int dash_length);
+int drawDashedLine(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char* color, int dot_radius);
 //int writeText(SDL_Renderer *renderer,char *text,int fontWidth,int x, int y,int width,int height,int r,int g,int b,double angle);
