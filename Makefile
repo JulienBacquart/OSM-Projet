@@ -1,13 +1,13 @@
 CC = gcc
 CFLAGS = -g -Wall -Wextra -Werror
 CPPFLAGS = -I/usr/include/libxml2
-LDFLAGS = -lxml2 -lSDL2 -lSDL2_gfx -lm
-EXEC = renderer
+LDFLAGS = $(shell pkg-config --libs SDL2_gfx) $(shell pkg-config --libs libxml-2.0) $(shell pkg-config --libs check)
+EXEC = renderer check_calcul
 
 all: $(EXEC)
 
 parsexml.o: include/parsexml.h src/parsexml.c
-	gcc -c src/parsexml.c -lxml2 -I/usr/include/libxml2
+	gcc -c src/parsexml.c $(LDFLAGS) $(CPPFLAGS)
 	
 calcul.o: include/calcul.h src/calcul.c
 	gcc -c src/calcul.c
@@ -15,8 +15,14 @@ calcul.o: include/calcul.h src/calcul.c
 graphics.o: include/calcul.h include/graphics.h src/graphics.c
 	gcc -c src/graphics.c
 
+check_calcul.o: include/calcul.h tests/check_calcul.c
+	gcc -c tests/check_calcul.c $(LDFLAGS)
+
 renderer: parsexml.o calcul.o graphics.o src/renderer.c
-	gcc -o renderer -I/usr/include/libxml2 src/renderer.c parsexml.o calcul.o graphics.o -lSDL2 -lSDL2_gfx -lm -lxml2
+	gcc -o $@ $(CPPFLAGS) $^ $(LDFLAGS)
+
+check_calcul: check_calcul.o calcul.o
+	gcc -o $@ $^ $(LDFLAGS)
 	
 run: renderer
 	./renderer maps_test/02_paris_place_des_vosges.osm 
