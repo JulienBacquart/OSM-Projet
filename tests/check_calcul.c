@@ -38,7 +38,6 @@ Suite *calcul_suite(void)
 
 int main()
 {
-	printf("%f\n",lat_to_pixels(39.7525610,39.7492900,39.7525610));
 	int failures;
 	Suite *s;
 	SRunner *sr;
