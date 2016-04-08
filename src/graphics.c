@@ -257,8 +257,8 @@ int drawDashedLine(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bd
 // 		printf("Decimal: %f\n", decimal_part);
 		
 		if (decimal_part > 0){
-			mx2 = mx1 + decimal_part * dash_length * cos(alpha);
-			my2 = my1 + decimal_part * dash_length * sin(alpha);
+			mx2 = x2;
+			my2 = y2;
 			
 			if (visible){
 // 					thickLineRGBA(renderer, mx1, my1, mx2, my2, draw_width, *r, *g, *b, *a);
