@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -g -Wall -Wextra -Werror
 CPPFLAGS = -I/usr/include/libxml2
-LDFLAGS = -lSDL2 -lSDL2_gfx -lxml2 -lpthread -lcheck_pic -lrt -lm
+LDFLAGS = -lSDL2 -lSDL2_gfx -lxml2 $(shell pkg-config --libs check)
 EXEC = renderer check_calcul
 
 all: $(EXEC)
