@@ -248,7 +248,7 @@ int main(int argc, char *argv[]) {
 		// Render
 		SDL_RenderPresent(renderer);
 		
-		doPause();
+		catchEvents(renderer);
 		
 		// Libération de la mémoire		
 		xmlFreeDoc(doc);

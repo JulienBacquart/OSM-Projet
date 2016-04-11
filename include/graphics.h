@@ -82,7 +82,7 @@ extern int WIN_WIDTH;
 
 
 int hex_to_rgba(Uint32 color, Uint8* r, Uint8* g, Uint8* b, Uint8* a);
-void doPause();
+void catchEvents(SDL_Renderer * renderer);
 int drawRoad(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, int draw_width, char* color);
 int drawBuilding(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char* color);
 int drawFilledPolygon(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char* color);

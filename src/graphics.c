@@ -23,17 +23,54 @@ int html_to_rgba(char *str, Uint8* r, Uint8* g, Uint8* b, Uint8* a){
 	return res;
 }
 
-void doPause()
+void catchEvents(SDL_Renderer * renderer)
 {
-	SDL_Event evenements;
-    int terminer = 0;
+	SDL_Event event;
+	int terminer = 0;
 
 	while(!terminer)
     {
-		SDL_WaitEvent(&evenements);
+		SDL_WaitEvent(&event);
 		
-		if(evenements.window.event == SDL_WINDOWEVENT_CLOSE)
+		if(event.window.event == SDL_WINDOWEVENT_CLOSE)
 			terminer = 1;
+		switch(event.type)
+		{
+			case SDL_QUIT:
+				terminer = 1;
+				break;
+			case SDL_KEYDOWN:
+				switch(event.key.keysym.sym)
+				{
+					case SDLK_ESCAPE:
+						terminer = 1;
+						break;
+					case SDLK_UP: // Flèche haut
+						printf("Flèche haut");
+						break;
+					case SDLK_DOWN: // Flèche bas
+						printf("Flèche bas");
+						break;
+					case SDLK_RIGHT: // Flèche droite
+						printf("Flèche droite");
+						break;
+					case SDLK_LEFT: // Flèche gauche
+						printf("Flèche gauche");
+						break;
+					case SDLK_PLUS: // On zoom
+						printf("On zoom");
+						break;
+					case SDLK_MINUS:
+						printf("On dezoom");
+						break;
+				}
+
+				break;
+		}
+		
+		
+		
+
     }
 }
 
