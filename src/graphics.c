@@ -23,10 +23,25 @@ int html_to_rgba(char *str, Uint8* r, Uint8* g, Uint8* b, Uint8* a){
 	return res;
 }
 
-void catchEvents(SDL_Renderer * renderer)
+void catchEvents(SDL_Renderer * renderer, SDL_Texture *texture)
 {
 	SDL_Event event;
 	int terminer = 0;
+	
+	SDL_Rect DestR;
+	SDL_Rect r;
+  	r.w = 5;
+        r.h = 5;
+	r.x = 500;
+	r.y = 500;
+	DestR.x = 500;
+	DestR.y = 500;
+	DestR.w = 300;
+	DestR.h = 300;
+	
+       SDL_SetRenderTarget(renderer, NULL);
+       SDL_RenderCopy(renderer, texture, &DestR, NULL);
+       SDL_RenderPresent(renderer);
 
 	while(!terminer)
     {
@@ -47,15 +62,32 @@ void catchEvents(SDL_Renderer * renderer)
 						break;
 					case SDLK_UP: // Flèche haut
 						printf("Flèche haut");
+						DestR.y -= 10;
+						SDL_SetRenderTarget(renderer, NULL);
+						SDL_RenderCopy(renderer, texture, &DestR, NULL);
+						SDL_RenderPresent(renderer);
 						break;
 					case SDLK_DOWN: // Flèche bas
 						printf("Flèche bas");
+						DestR.y += 10;
+						SDL_SetRenderTarget(renderer, NULL);
+						SDL_RenderCopy(renderer, texture, &DestR, NULL);
+						SDL_RenderPresent(renderer);
 						break;
 					case SDLK_RIGHT: // Flèche droite
 						printf("Flèche droite");
+						DestR.x += 10;
+						SDL_SetRenderTarget(renderer, NULL);
+						SDL_RenderCopy(renderer, texture, &DestR, NULL);
+						SDL_RenderPresent(renderer);
 						break;
 					case SDLK_LEFT: // Flèche gauche
 						printf("Flèche gauche");
+						DestR.x -= 10;
+						SDL_SetRenderTarget(renderer, NULL);
+						SDL_RenderCopy(renderer, texture, &DestR, NULL);
+						SDL_RenderPresent(renderer);
+
 						break;
 					case SDLK_PLUS: // On zoom
 						printf("On zoom");
