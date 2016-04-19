@@ -78,6 +78,8 @@ extern int WIN_WIDTH;
 
 #define RIVER_COLOR "#B5D0D0"
 
+#define GRASS_COLOR "#8ef484"
+
 #define BUILDING_COLOR "#BFAEAE"
 
 

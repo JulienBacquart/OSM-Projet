@@ -242,6 +242,25 @@ int main(int argc, char *argv[]) {
 					drawBuilding(renderer, w, map.h_nodes, map.m_bds, BUILDING_COLOR);
 				}
 				
+				// Green spaces
+				else if(strcmp(w->tags[i].key,"landuse") == 0){
+					if(strcmp(w->tags[i].val,"grass") == 0){
+						
+						drawBuilding(renderer, w, map.h_nodes, map.m_bds, GRASS_COLOR);
+						break;
+					}
+				}
+
+				// Coastline
+				else if(strcmp(w->tags[i].key,"natural") == 0){
+					if(strcmp(w->tags[i].val,"coastline") == 0){
+						
+						//drawFilledPolygon(renderer, w, map.h_nodes, map.m_bds, GRASS_COLOR);
+						drawBuilding(renderer, w, map.h_nodes, map.m_bds, "ffffff");
+						break;
+					}
+				}
+
 			}
 		}
 				
