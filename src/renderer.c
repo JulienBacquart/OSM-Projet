@@ -1,3 +1,9 @@
+/**
+* \file renderer.c
+* \brief contient la fonction main
+* \author Adel.Z Julien.B Charles.R
+*/
+
 #include "../include/parsexml.h"
 #include "../include/graphics.h"
 #include "../include/calcul.h"
@@ -5,6 +11,15 @@
 int WIN_WIDTH;
 int WIN_HEIGHT;
 
+
+/**
+ * \fn int main (int argc, char **argv)
+ * \brief Entrée du programme.
+ * \return 0 - Arrêt normal du programme.
+ *
+ * Lit un fichier .osm au format XML, remplit les structures en conséquence, appel la partie graphique pour lancer la frame et affiche chaque elements sur la frame. 
+ * Attend la fermeture du programme
+ */
 int main(int argc, char *argv[]) {
 	
 	if(argc > 1) {

@@ -1,3 +1,9 @@
+/**
+ * \file graphics.h
+ * \brief Contient les signatures et directives de préprocesseur pour la partie graphique(affichage)
+ * \author Adel.Z Julien.B Charles.R
+ */
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -90,4 +96,4 @@ int drawBuilding(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds,
 int drawFilledPolygon(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char* color);
 int drawDashedLine(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char* color, int dash_length);
 int drawDashedLine(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char* color, int dot_radius);
-//int writeText(SDL_Renderer *renderer,char *text,int fontWidth,int x, int y,int width,int height,int r,int g,int b,double angle);
+int writeText(SDL_Renderer *renderer,char *text,int fontWidth,int x, int y,int width,int height,int r,int g,int b,double angle);

@@ -1,0 +1,123 @@
+\hypertarget{struct_u_t__hash__table}{}\section{U\+T\+\_\+hash\+\_\+table Struct Reference}
+\label{struct_u_t__hash__table}\index{U\+T\+\_\+hash\+\_\+table@{U\+T\+\_\+hash\+\_\+table}}
+
+
+{\ttfamily \#include $<$uthash.\+h$>$}
+
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{struct_u_t__hash__bucket}{U\+T\+\_\+hash\+\_\+bucket} $\ast$ \hyperlink{struct_u_t__hash__table_ab8166e712e5eff3106991bec13d9ab20}{buckets}
+\item 
+unsigned \hyperlink{struct_u_t__hash__table_a5f0f25a07827aacb7af4ba2fc4afb5fe}{num\+\_\+buckets}
+\item 
+unsigned \hyperlink{struct_u_t__hash__table_a1e4983525460bc9180bbb5e7b404cdbb}{log2\+\_\+num\+\_\+buckets}
+\item 
+unsigned \hyperlink{struct_u_t__hash__table_a0f665ec9c648f93c0c529372051e79e7}{num\+\_\+items}
+\item 
+struct \hyperlink{struct_u_t__hash__handle}{U\+T\+\_\+hash\+\_\+handle} $\ast$ \hyperlink{struct_u_t__hash__table_af2d4a4fd9335f9813df1ecd3d7124f24}{tail}
+\item 
+ptrdiff\+\_\+t \hyperlink{struct_u_t__hash__table_af7a888099092eb93f240f1b2bfcc2708}{hho}
+\item 
+unsigned \hyperlink{struct_u_t__hash__table_a0eed5348057e127cdc2fe87bc635a7ac}{ideal\+\_\+chain\+\_\+maxlen}
+\item 
+unsigned \hyperlink{struct_u_t__hash__table_a57d93a760aeccec5dad6fac71e9d92ad}{nonideal\+\_\+items}
+\item 
+unsigned \hyperlink{struct_u_t__hash__table_ad2dea912f78ea416489b0a386ad0daf9}{ineff\+\_\+expands}
+\item 
+unsigned \hyperlink{struct_u_t__hash__table_a35073018f3ebb189c76eed44ff19899a}{noexpand}
+\item 
+\hyperlink{uthash_8h_a435d1572bf3f880d55459d9805097f62}{uint32\+\_\+t} \hyperlink{struct_u_t__hash__table_acd2a6284879dded65f0b8daa7c68485a}{signature}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 922 of file uthash.\+h.
+
+
+
+\subsection{Field Documentation}
+\index{U\+T\+\_\+hash\+\_\+table@{U\+T\+\_\+hash\+\_\+table}!buckets@{buckets}}
+\index{buckets@{buckets}!U\+T\+\_\+hash\+\_\+table@{U\+T\+\_\+hash\+\_\+table}}
+\subsubsection[{\texorpdfstring{buckets}{buckets}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf U\+T\+\_\+hash\+\_\+bucket}$\ast$ buckets}\hypertarget{struct_u_t__hash__table_ab8166e712e5eff3106991bec13d9ab20}{}\label{struct_u_t__hash__table_ab8166e712e5eff3106991bec13d9ab20}
+
+
+Definition at line 923 of file uthash.\+h.
+
+\index{U\+T\+\_\+hash\+\_\+table@{U\+T\+\_\+hash\+\_\+table}!hho@{hho}}
+\index{hho@{hho}!U\+T\+\_\+hash\+\_\+table@{U\+T\+\_\+hash\+\_\+table}}
+\subsubsection[{\texorpdfstring{hho}{hho}}]{\setlength{\rightskip}{0pt plus 5cm}ptrdiff\+\_\+t hho}\hypertarget{struct_u_t__hash__table_af7a888099092eb93f240f1b2bfcc2708}{}\label{struct_u_t__hash__table_af7a888099092eb93f240f1b2bfcc2708}
+
+
+Definition at line 927 of file uthash.\+h.
+
+\index{U\+T\+\_\+hash\+\_\+table@{U\+T\+\_\+hash\+\_\+table}!ideal\+\_\+chain\+\_\+maxlen@{ideal\+\_\+chain\+\_\+maxlen}}
+\index{ideal\+\_\+chain\+\_\+maxlen@{ideal\+\_\+chain\+\_\+maxlen}!U\+T\+\_\+hash\+\_\+table@{U\+T\+\_\+hash\+\_\+table}}
+\subsubsection[{\texorpdfstring{ideal\+\_\+chain\+\_\+maxlen}{ideal_chain_maxlen}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned ideal\+\_\+chain\+\_\+maxlen}\hypertarget{struct_u_t__hash__table_a0eed5348057e127cdc2fe87bc635a7ac}{}\label{struct_u_t__hash__table_a0eed5348057e127cdc2fe87bc635a7ac}
+
+
+Definition at line 931 of file uthash.\+h.
+
+\index{U\+T\+\_\+hash\+\_\+table@{U\+T\+\_\+hash\+\_\+table}!ineff\+\_\+expands@{ineff\+\_\+expands}}
+\index{ineff\+\_\+expands@{ineff\+\_\+expands}!U\+T\+\_\+hash\+\_\+table@{U\+T\+\_\+hash\+\_\+table}}
+\subsubsection[{\texorpdfstring{ineff\+\_\+expands}{ineff_expands}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned ineff\+\_\+expands}\hypertarget{struct_u_t__hash__table_ad2dea912f78ea416489b0a386ad0daf9}{}\label{struct_u_t__hash__table_ad2dea912f78ea416489b0a386ad0daf9}
+
+
+Definition at line 944 of file uthash.\+h.
+
+\index{U\+T\+\_\+hash\+\_\+table@{U\+T\+\_\+hash\+\_\+table}!log2\+\_\+num\+\_\+buckets@{log2\+\_\+num\+\_\+buckets}}
+\index{log2\+\_\+num\+\_\+buckets@{log2\+\_\+num\+\_\+buckets}!U\+T\+\_\+hash\+\_\+table@{U\+T\+\_\+hash\+\_\+table}}
+\subsubsection[{\texorpdfstring{log2\+\_\+num\+\_\+buckets}{log2_num_buckets}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned log2\+\_\+num\+\_\+buckets}\hypertarget{struct_u_t__hash__table_a1e4983525460bc9180bbb5e7b404cdbb}{}\label{struct_u_t__hash__table_a1e4983525460bc9180bbb5e7b404cdbb}
+
+
+Definition at line 924 of file uthash.\+h.
+
+\index{U\+T\+\_\+hash\+\_\+table@{U\+T\+\_\+hash\+\_\+table}!noexpand@{noexpand}}
+\index{noexpand@{noexpand}!U\+T\+\_\+hash\+\_\+table@{U\+T\+\_\+hash\+\_\+table}}
+\subsubsection[{\texorpdfstring{noexpand}{noexpand}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned noexpand}\hypertarget{struct_u_t__hash__table_a35073018f3ebb189c76eed44ff19899a}{}\label{struct_u_t__hash__table_a35073018f3ebb189c76eed44ff19899a}
+
+
+Definition at line 944 of file uthash.\+h.
+
+\index{U\+T\+\_\+hash\+\_\+table@{U\+T\+\_\+hash\+\_\+table}!nonideal\+\_\+items@{nonideal\+\_\+items}}
+\index{nonideal\+\_\+items@{nonideal\+\_\+items}!U\+T\+\_\+hash\+\_\+table@{U\+T\+\_\+hash\+\_\+table}}
+\subsubsection[{\texorpdfstring{nonideal\+\_\+items}{nonideal_items}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned nonideal\+\_\+items}\hypertarget{struct_u_t__hash__table_a57d93a760aeccec5dad6fac71e9d92ad}{}\label{struct_u_t__hash__table_a57d93a760aeccec5dad6fac71e9d92ad}
+
+
+Definition at line 936 of file uthash.\+h.
+
+\index{U\+T\+\_\+hash\+\_\+table@{U\+T\+\_\+hash\+\_\+table}!num\+\_\+buckets@{num\+\_\+buckets}}
+\index{num\+\_\+buckets@{num\+\_\+buckets}!U\+T\+\_\+hash\+\_\+table@{U\+T\+\_\+hash\+\_\+table}}
+\subsubsection[{\texorpdfstring{num\+\_\+buckets}{num_buckets}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned num\+\_\+buckets}\hypertarget{struct_u_t__hash__table_a5f0f25a07827aacb7af4ba2fc4afb5fe}{}\label{struct_u_t__hash__table_a5f0f25a07827aacb7af4ba2fc4afb5fe}
+
+
+Definition at line 924 of file uthash.\+h.
+
+\index{U\+T\+\_\+hash\+\_\+table@{U\+T\+\_\+hash\+\_\+table}!num\+\_\+items@{num\+\_\+items}}
+\index{num\+\_\+items@{num\+\_\+items}!U\+T\+\_\+hash\+\_\+table@{U\+T\+\_\+hash\+\_\+table}}
+\subsubsection[{\texorpdfstring{num\+\_\+items}{num_items}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned num\+\_\+items}\hypertarget{struct_u_t__hash__table_a0f665ec9c648f93c0c529372051e79e7}{}\label{struct_u_t__hash__table_a0f665ec9c648f93c0c529372051e79e7}
+
+
+Definition at line 925 of file uthash.\+h.
+
+\index{U\+T\+\_\+hash\+\_\+table@{U\+T\+\_\+hash\+\_\+table}!signature@{signature}}
+\index{signature@{signature}!U\+T\+\_\+hash\+\_\+table@{U\+T\+\_\+hash\+\_\+table}}
+\subsubsection[{\texorpdfstring{signature}{signature}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32\+\_\+t} signature}\hypertarget{struct_u_t__hash__table_acd2a6284879dded65f0b8daa7c68485a}{}\label{struct_u_t__hash__table_acd2a6284879dded65f0b8daa7c68485a}
+
+
+Definition at line 946 of file uthash.\+h.
+
+\index{U\+T\+\_\+hash\+\_\+table@{U\+T\+\_\+hash\+\_\+table}!tail@{tail}}
+\index{tail@{tail}!U\+T\+\_\+hash\+\_\+table@{U\+T\+\_\+hash\+\_\+table}}
+\subsubsection[{\texorpdfstring{tail}{tail}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf U\+T\+\_\+hash\+\_\+handle}$\ast$ tail}\hypertarget{struct_u_t__hash__table_af2d4a4fd9335f9813df1ecd3d7124f24}{}\label{struct_u_t__hash__table_af2d4a4fd9335f9813df1ecd3d7124f24}
+
+
+Definition at line 926 of file uthash.\+h.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{uthash_8h}{uthash.\+h}\end{DoxyCompactItemize}

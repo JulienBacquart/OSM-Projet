@@ -1,28 +1,47 @@
+/**
+ * \file graphics.c
+ * \brief Contient les signatures et directives de préprocesseur pour la partie graphique(affichage)
+ * \author Adel.Z Julien.B Charles.R
+ */
+
 #include "../include/graphics.h"
 #include "../include/calcul.h"
 
+
+/**
+ * \fn html_to_rgba(char *str, Uint8* r, Uint8* g, Uint8* b, Uint8* a)
+ * \brief Fonction qui convertit une écriture de couleur html héxadécimal en 4 entiers rgba
+ *
+ * \param str la chaine html héxadécimal
+ * \param r la couleur rouge a remplir grace a la chaine extraite
+ * \param g la couleur verte a remplir grace a la chaine extraite
+ * \param b la couleur bleu a remplir grace a la chaine extraite
+ * \param a la transparence alpha a remplir grace a la chaine extraite
+ * \return int si tout c'est bien passé
+ */
 int html_to_rgba(char *str, Uint8* r, Uint8* g, Uint8* b, Uint8* a){
 	Uint32 color;
 	
 	int res = sscanf(str, "#%"SCNx32, &color);
 	if (1 == res) {
-		// color now contains the value from the string
-// 		printf("Color: %#08x\n", color);
-		
+		// color now contains the value from the string	
 		*r = (Uint8) ((color & 0xFF0000) >> 16);// Extract the RR byte
 		*g = (Uint8) ((color >> 8) & 0xFF);	// Extract the GG byte
 		*b = (Uint8) ((color) & 0xFF);		// Extract the BB byte
 		*a = (Uint8) (0xFF);			// Always 255 by default
-		
-// 		printf("Red: %d\n", *r);
-// 		printf("Green: %d\n", *g);
-// 		printf("Blue: %d\n", *b);
-// 		printf("Alpha: %d\n", *a); 
 	}
 	
 	return res;
 }
 
+
+
+/**
+ * \fn doPause()
+ * \brief Fonction qui permet de mettre en pause le programme et d'attendre l'évènement de fermeture de la fenêtre
+ *
+ * \return void
+ */
 void doPause()
 {
 	SDL_Event evenements;
@@ -37,6 +56,19 @@ void doPause()
     }
 }
 
+
+/**
+ * \fn drawRoad(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, int draw_width, char* color)
+ * \brief Fonction qui permet de dessiner une route sur la frame
+ *
+ * \param renderer le renderer sur lequel dessiner
+ * \param way la way qui contient le nombre de noeud de la route
+ * \param h_nodes la table de hashage 'nodes'
+ * \param m_bds les bounds de la map
+ * \param draw_width l'épaisseur de la route
+ * \param color la couleur de la route au format html
+ * \return int si tout c'est bien passé
+ */
 int drawRoad(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, int draw_width, char* color){
 	int i;
 	double minLat = m_bds->minlat;
@@ -83,7 +115,19 @@ int drawRoad(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, int
 	return 0;
 }
 
-int drawBuilding(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char* color) {
+
+/**
+ * \fn drawBuilding(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char* color)
+ * \brief Fonction qui permet de dessiner une route sur la frame
+ *
+ * \param renderer le renderer sur lequel dessiner
+ * \param way la way qui contient le nombre de noeud du batiment
+ * \param h_nodes la table de hashage 'nodes'
+ * \param m_bds les bounds de la map
+ * \param color la couleur du batiment au format html
+ * \return int si tout c'est bien passé
+ */
+int drawBuilding(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char* color){
 	int i;
 	double minLat = m_bds->minlat;
 	double minLon= m_bds->minlon;
@@ -131,7 +175,19 @@ int drawBuilding(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds,
 	return 0;
 }
 
-int drawFilledPolygon(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char* color) {
+
+/**
+ * \fn drawFilledPolygon(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char* color)
+ * \brief Fonction qui permet de dessiner un polygone remplit
+ *
+ * \param renderer le renderer sur lequel dessiner
+ * \param way la way qui contient le nombre de noeud du polygone
+ * \param h_nodes la table de hashage 'nodes'
+ * \param m_bds les bounds de la map
+ * \param color la couleur du polygone au format html
+ * \return int si tout c'est bien passé
+ */
+int drawFilledPolygon(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char* color){
 	int i;
 	double minLat = m_bds->minlat;
 	double minLon= m_bds->minlon;
@@ -173,6 +229,19 @@ int drawFilledPolygon(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m
 	return 0;
 }
 
+
+/**
+ * \fn drawDashedLine(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char* color, int dash_length)
+ * \brief Fonction qui permet de dessiner une ligne pointillet ( __ __ __ __ __ __ )
+ *
+ * \param renderer le renderer sur lequel dessiner
+ * \param way la way qui contient le nombre de noeud da la ligne
+ * \param h_nodes la table de hashage 'nodes'
+ * \param m_bds les bounds de la map
+ * \param color la couleur de la route au format html
+ * \param dash_length la taile d'un pointillet ( __ )
+ * \return int si tout c'est bien passé
+ */
 int drawDashedLine(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char* color, int dash_length){
 	int i;
 	
@@ -212,13 +281,8 @@ int drawDashedLine(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bd
 		int delta_y = y2 - y1;
 	
 		double alpha = atan2(delta_y, delta_x);
-// 		printf("Alpha: %f\n", alpha);
- 
 		double d = sqrt((delta_x * delta_x) + (delta_y * delta_y));
-// 		printf("distance: %f\n", d);
-		
 		double num_dash = (d / dash_length);
-// 		printf("num_dash: %f\n", num_dash);
 		
 		double mx1 = x1;
 		double my1 = y1;
@@ -238,8 +302,6 @@ int drawDashedLine(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bd
 				my2 = my1 + dash_length * sin(alpha);
 			}
 			
-// 			printf("j: %d, mx1: %f, my1: %f, mx2: %f, my2: %f, visible: %d\n", j, mx1, my1,  mx2, my2, visible);
-			
 			if (visible){
 // 				thickLineRGBA(renderer, mx1, my1, mx2, my2, draw_width, *r, *g, *b, *a);
 				aalineRGBA(renderer, (int)mx1, (int)my1, (int)mx2, (int)my2, *r, *g, *b, *a);
@@ -254,7 +316,6 @@ int drawDashedLine(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bd
 		
 		// Draw the last partial dash
 		double decimal_part = fmod(num_dash, 1.);
-// 		printf("Decimal: %f\n", decimal_part);
 		
 		if (decimal_part > 0){
 			mx2 = mx1 + decimal_part * dash_length * cos(alpha);
@@ -277,6 +338,19 @@ int drawDashedLine(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bd
 	return 0;
 }
 
+
+/**
+ * \fn drawDottedLine(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char* color, int dot_radius)
+ * \brief Fonction qui permet de dessiner une ligne pointillet avec des points ( . . . . . . . )
+ *
+ * \param renderer le renderer sur lequel dessiner
+ * \param way la way qui contient le nombre de noeud da la ligne
+ * \param h_nodes la table de hashage 'nodes'
+ * \param m_bds les bounds de la map
+ * \param color la couleur de la route au format html
+ * \param dot_radius le rayon d'un point ( . )
+ * \return int si tout c'est bien passé
+ */
 int drawDottedLine(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char* color, int dot_radius){
 	int i;
 	
@@ -316,13 +390,8 @@ int drawDottedLine(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bd
 		int delta_y = y2 - y1;
 	
 		double alpha = atan2(delta_y, delta_x);
-// 		printf("Alpha: %f\n", alpha);
- 
 		double d = sqrt((delta_x * delta_x) + (delta_y * delta_y));
-// 		printf("distance: %f\n", d);
-		
 		double num_dot = (d / (dot_radius));
-// 		printf("num_dot: %f\n", num_dot);
 		
 		double mx1 = x1;
 		double my1 = y1;
@@ -344,8 +413,6 @@ int drawDottedLine(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bd
 				mx1 = mx1 + 2 * dot_radius * cos(alpha);
 				my1 = my1 + 2 * dot_radius * sin(alpha);
 			}
-// 			
-// 			printf("j: %d, mx1: %f, my1: %f, mx2: %f, my2: %f, visible: %d\n", j, mx1, my1,  mx2, my2, visible);
 			
 			visible = !visible;
 			
@@ -353,7 +420,6 @@ int drawDottedLine(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bd
 		
 		// Calculate the offset
 		double decimal_part = fmod(num_dot, 1.);
-// 		printf("Decimal: %f\n", decimal_part);
 		
 		if (decimal_part > 0){			
 			offset = (1 - decimal_part);
@@ -368,7 +434,23 @@ int drawDottedLine(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bd
 	return 0;
 }
 
-/*int writeText(SDL_Renderer *renderer,char *text,int fontWidth,int x, int y,int width,int height,int r,int g,int b, double angle)
+
+/**
+ * \fn writeText(SDL_Renderer *renderer,char *text,int fontWidth,int x, int y,int width,int height,int r,int g,int b, double angle)
+ * \brief Fonction qui permet d'écrire du texte sur la fenêtre
+ *
+ * \param renderer le renderer sur lequel dessiner
+ * \param text le texte a afficher
+ * \param fontWidth la police d'écriture
+ * \param x la coordonnées x pour placer le texte
+ * \param y la coordonnées y pour placer le texte
+ * \param width la largeur du texte
+ * \param height la longueur du texte
+ * \param r,g,b,a la couleur du texte
+ * \param angle la rotation du texte
+ * \return int si tout c'est bien passé
+ */
+int writeText(SDL_Renderer *renderer,char *text,int fontWidth,int x, int y,int width,int height,int r,int g,int b, double angle)
 {
 	TTF_Font *police = NULL;
 	police = TTF_OpenFont("DejaVuSans-ExtraLight.ttf",fontWidth);	
@@ -388,4 +470,4 @@ int drawDottedLine(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bd
 	SDL_RenderCopy(renderer,message,NULL,&message_rect);
 
 	TTF_CloseFont(police);
-}*/
+}

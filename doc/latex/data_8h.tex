@@ -1,0 +1,83 @@
+\hypertarget{data_8h}{}\section{include/data.h File Reference}
+\label{data_8h}\index{include/data.\+h@{include/data.\+h}}
+
+
+Contient les signatures et directives de préprocesseur pour le calcul et le stockage des données xml.  
+
+
+{\ttfamily \#include $<$stdbool.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}uthash.\+h\char`\"{}}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_tag}{Tag}
+\begin{DoxyCompactList}\small\item\em permet de stocker les tags en fonctions de leurs clé et de leur valeur \end{DoxyCompactList}\item 
+struct \hyperlink{struct_node}{Node}
+\begin{DoxyCompactList}\small\item\em permet de stocker les \hyperlink{struct_node}{Node} du fichier xml et le rendre hashable \end{DoxyCompactList}\item 
+struct \hyperlink{struct_way}{Way}
+\begin{DoxyCompactList}\small\item\em permet de stocker les \hyperlink{struct_way}{Way} du fichier xml et la rendre hashable \end{DoxyCompactList}\item 
+struct \hyperlink{struct_bounds}{Bounds}
+\begin{DoxyCompactList}\small\item\em permet de stocker les bounds du fichier xml \end{DoxyCompactList}\item 
+struct \hyperlink{struct_relation}{Relation}
+\begin{DoxyCompactList}\small\item\em permet de stocker les relations du fichier xml \end{DoxyCompactList}\item 
+struct \hyperlink{struct_map}{Map}
+\begin{DoxyCompactList}\small\item\em permet de stocker les détails de la map \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{data_8h_ac9846e87a76697b818f85308f49e70c8}{M\+A\+X\+\_\+\+N\+O\+D\+E\+\_\+\+I\+N\+\_\+\+W\+AY}~2000
+\item 
+\#define \hyperlink{data_8h_afb7fd15722eccf2cd90338aac9f88318}{M\+I\+N\+\_\+\+L\+AT}~−90.\+0000000
+\item 
+\#define \hyperlink{data_8h_a7ce12d8a28541150544bc0dfeb789e13}{M\+A\+X\+\_\+\+L\+AT}~90.\+0000000
+\item 
+\#define \hyperlink{data_8h_a4ca049c4214c92678b8916d12e048f77}{M\+I\+N\+\_\+\+L\+ON}~−180.\+0000000
+\item 
+\#define \hyperlink{data_8h_a358c78b75d5814dfa0a6f64113344e3f}{M\+A\+X\+\_\+\+L\+ON}~180.\+0000000
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Contient les signatures et directives de préprocesseur pour le calcul et le stockage des données xml. 
+
+\begin{DoxyAuthor}{Author}
+Adel.\+Z Julien.\+B Charles.\+R 
+\end{DoxyAuthor}
+
+
+\subsection{Macro Definition Documentation}
+\index{data.\+h@{data.\+h}!M\+A\+X\+\_\+\+L\+AT@{M\+A\+X\+\_\+\+L\+AT}}
+\index{M\+A\+X\+\_\+\+L\+AT@{M\+A\+X\+\_\+\+L\+AT}!data.\+h@{data.\+h}}
+\subsubsection[{\texorpdfstring{M\+A\+X\+\_\+\+L\+AT}{MAX_LAT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+X\+\_\+\+L\+AT~90.\+0000000}\hypertarget{data_8h_a7ce12d8a28541150544bc0dfeb789e13}{}\label{data_8h_a7ce12d8a28541150544bc0dfeb789e13}
+
+
+Definition at line 16 of file data.\+h.
+
+\index{data.\+h@{data.\+h}!M\+A\+X\+\_\+\+L\+ON@{M\+A\+X\+\_\+\+L\+ON}}
+\index{M\+A\+X\+\_\+\+L\+ON@{M\+A\+X\+\_\+\+L\+ON}!data.\+h@{data.\+h}}
+\subsubsection[{\texorpdfstring{M\+A\+X\+\_\+\+L\+ON}{MAX_LON}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+X\+\_\+\+L\+ON~180.\+0000000}\hypertarget{data_8h_a358c78b75d5814dfa0a6f64113344e3f}{}\label{data_8h_a358c78b75d5814dfa0a6f64113344e3f}
+
+
+Definition at line 18 of file data.\+h.
+
+\index{data.\+h@{data.\+h}!M\+A\+X\+\_\+\+N\+O\+D\+E\+\_\+\+I\+N\+\_\+\+W\+AY@{M\+A\+X\+\_\+\+N\+O\+D\+E\+\_\+\+I\+N\+\_\+\+W\+AY}}
+\index{M\+A\+X\+\_\+\+N\+O\+D\+E\+\_\+\+I\+N\+\_\+\+W\+AY@{M\+A\+X\+\_\+\+N\+O\+D\+E\+\_\+\+I\+N\+\_\+\+W\+AY}!data.\+h@{data.\+h}}
+\subsubsection[{\texorpdfstring{M\+A\+X\+\_\+\+N\+O\+D\+E\+\_\+\+I\+N\+\_\+\+W\+AY}{MAX_NODE_IN_WAY}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+X\+\_\+\+N\+O\+D\+E\+\_\+\+I\+N\+\_\+\+W\+AY~2000}\hypertarget{data_8h_ac9846e87a76697b818f85308f49e70c8}{}\label{data_8h_ac9846e87a76697b818f85308f49e70c8}
+
+
+Definition at line 14 of file data.\+h.
+
+\index{data.\+h@{data.\+h}!M\+I\+N\+\_\+\+L\+AT@{M\+I\+N\+\_\+\+L\+AT}}
+\index{M\+I\+N\+\_\+\+L\+AT@{M\+I\+N\+\_\+\+L\+AT}!data.\+h@{data.\+h}}
+\subsubsection[{\texorpdfstring{M\+I\+N\+\_\+\+L\+AT}{MIN_LAT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+I\+N\+\_\+\+L\+AT~−90.\+0000000}\hypertarget{data_8h_afb7fd15722eccf2cd90338aac9f88318}{}\label{data_8h_afb7fd15722eccf2cd90338aac9f88318}
+
+
+Definition at line 15 of file data.\+h.
+
+\index{data.\+h@{data.\+h}!M\+I\+N\+\_\+\+L\+ON@{M\+I\+N\+\_\+\+L\+ON}}
+\index{M\+I\+N\+\_\+\+L\+ON@{M\+I\+N\+\_\+\+L\+ON}!data.\+h@{data.\+h}}
+\subsubsection[{\texorpdfstring{M\+I\+N\+\_\+\+L\+ON}{MIN_LON}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+I\+N\+\_\+\+L\+ON~−180.\+0000000}\hypertarget{data_8h_a4ca049c4214c92678b8916d12e048f77}{}\label{data_8h_a4ca049c4214c92678b8916d12e048f77}
+
+
+Definition at line 17 of file data.\+h.
+

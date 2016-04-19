@@ -1,3 +1,9 @@
+/**
+ * \file calcul.h
+ * \brief Contient les signatures et directives de préprocesseur pour les calculs
+ * \author Adel.Z Julien.B Charles.R
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>

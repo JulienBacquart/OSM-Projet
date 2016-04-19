@@ -1,0 +1,159 @@
+\hypertarget{calcul_8c}{}\section{src/calcul.c File Reference}
+\label{calcul_8c}\index{src/calcul.\+c@{src/calcul.\+c}}
+
+
+Contient des fonctions qui permettent de manipuler les calculs des latitudes, longitudes en pixels et calcul d\textquotesingle{}angle.  
+
+
+{\ttfamily \#include \char`\"{}../include/calcul.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{calcul_8c_ab7e76782e68837ebc794f1aa22f54320}{degrees\+\_\+to\+\_\+radian} (double degrees)
+\begin{DoxyCompactList}\small\item\em Fonction qui convertit un angle en degrès vers un angle en radian. \end{DoxyCompactList}\item 
+double \hyperlink{calcul_8c_a0d05fa75dd55628afb68661beab3170f}{lat\+\_\+to\+\_\+y} (double lat)
+\begin{DoxyCompactList}\small\item\em Fonction qui convertit une latitude G\+PS en une projection de mercator en mètre. \end{DoxyCompactList}\item 
+double \hyperlink{calcul_8c_a62bd9cd9f8002b0c2a5156c3bdd0428a}{lon\+\_\+to\+\_\+x} (double lon)
+\begin{DoxyCompactList}\small\item\em Fonction qui convertit une longitude G\+PS en une projection de mercator en mètre. \end{DoxyCompactList}\item 
+double \hyperlink{calcul_8c_aafe911f833e3fce12901551744bab3d4}{lat\+\_\+to\+\_\+pixels} (double lat, double map\+\_\+minlat, double map\+\_\+maxlat)
+\begin{DoxyCompactList}\small\item\em Fonction qui convertit une latitude G\+PS en une valeur en pixel (entre 0 et 1) \end{DoxyCompactList}\item 
+double \hyperlink{calcul_8c_afde04fa6d990694534c17dbd10d2827e}{lon\+\_\+to\+\_\+pixels} (double lon, double map\+\_\+minlon, double map\+\_\+maxlon)
+\begin{DoxyCompactList}\small\item\em Fonction qui convertit une longitude G\+PS en une valeur en pixel (entre 0 et 1) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Contient des fonctions qui permettent de manipuler les calculs des latitudes, longitudes en pixels et calcul d\textquotesingle{}angle. 
+
+\begin{DoxyAuthor}{Author}
+Adel.\+Z Julien.\+B Charles.\+R 
+\end{DoxyAuthor}
+
+
+\subsection{Function Documentation}
+\index{calcul.\+c@{calcul.\+c}!degrees\+\_\+to\+\_\+radian@{degrees\+\_\+to\+\_\+radian}}
+\index{degrees\+\_\+to\+\_\+radian@{degrees\+\_\+to\+\_\+radian}!calcul.\+c@{calcul.\+c}}
+\subsubsection[{\texorpdfstring{degrees\+\_\+to\+\_\+radian(double degrees)}{degrees_to_radian(double degrees)}}]{\setlength{\rightskip}{0pt plus 5cm}double degrees\+\_\+to\+\_\+radian (
+\begin{DoxyParamCaption}
+\item[{double}]{degrees}
+\end{DoxyParamCaption}
+)}\hypertarget{calcul_8c_ab7e76782e68837ebc794f1aa22f54320}{}\label{calcul_8c_ab7e76782e68837ebc794f1aa22f54320}
+
+
+Fonction qui convertit un angle en degrès vers un angle en radian. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em degrees} & angle de type double a convertir. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Retourne un double correspondant a l\textquotesingle{}angle en radian 
+\end{DoxyReturn}
+
+
+Definition at line 16 of file calcul.\+c.
+
+\index{calcul.\+c@{calcul.\+c}!lat\+\_\+to\+\_\+pixels@{lat\+\_\+to\+\_\+pixels}}
+\index{lat\+\_\+to\+\_\+pixels@{lat\+\_\+to\+\_\+pixels}!calcul.\+c@{calcul.\+c}}
+\subsubsection[{\texorpdfstring{lat\+\_\+to\+\_\+pixels(double lat, double map\+\_\+minlat, double map\+\_\+maxlat)}{lat_to_pixels(double lat, double map_minlat, double map_maxlat)}}]{\setlength{\rightskip}{0pt plus 5cm}double lat\+\_\+to\+\_\+pixels (
+\begin{DoxyParamCaption}
+\item[{double}]{lat, }
+\item[{double}]{map\+\_\+minlat, }
+\item[{double}]{map\+\_\+maxlat}
+\end{DoxyParamCaption}
+)}\hypertarget{calcul_8c_aafe911f833e3fce12901551744bab3d4}{}\label{calcul_8c_aafe911f833e3fce12901551744bab3d4}
+
+
+Fonction qui convertit une latitude G\+PS en une valeur en pixel (entre 0 et 1) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lat} & latitude de type double a convertir. \\
+\hline
+{\em map\+\_\+minlat} & la latitude minimum de la map \\
+\hline
+{\em map\+\_\+maxlat} & la latitude maximal de la map \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Retourne un double correspondant a la latitude G\+PS convertit en pixel 
+\end{DoxyReturn}
+
+
+Definition at line 51 of file calcul.\+c.
+
+\index{calcul.\+c@{calcul.\+c}!lat\+\_\+to\+\_\+y@{lat\+\_\+to\+\_\+y}}
+\index{lat\+\_\+to\+\_\+y@{lat\+\_\+to\+\_\+y}!calcul.\+c@{calcul.\+c}}
+\subsubsection[{\texorpdfstring{lat\+\_\+to\+\_\+y(double lat)}{lat_to_y(double lat)}}]{\setlength{\rightskip}{0pt plus 5cm}double lat\+\_\+to\+\_\+y (
+\begin{DoxyParamCaption}
+\item[{double}]{lat}
+\end{DoxyParamCaption}
+)}\hypertarget{calcul_8c_a0d05fa75dd55628afb68661beab3170f}{}\label{calcul_8c_a0d05fa75dd55628afb68661beab3170f}
+
+
+Fonction qui convertit une latitude G\+PS en une projection de mercator en mètre. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lat} & latitude de type double a convertir. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Retourne un double correspondant a une projection de mercator de la latitude 
+\end{DoxyReturn}
+
+
+Definition at line 27 of file calcul.\+c.
+
+\index{calcul.\+c@{calcul.\+c}!lon\+\_\+to\+\_\+pixels@{lon\+\_\+to\+\_\+pixels}}
+\index{lon\+\_\+to\+\_\+pixels@{lon\+\_\+to\+\_\+pixels}!calcul.\+c@{calcul.\+c}}
+\subsubsection[{\texorpdfstring{lon\+\_\+to\+\_\+pixels(double lon, double map\+\_\+minlon, double map\+\_\+maxlon)}{lon_to_pixels(double lon, double map_minlon, double map_maxlon)}}]{\setlength{\rightskip}{0pt plus 5cm}double lon\+\_\+to\+\_\+pixels (
+\begin{DoxyParamCaption}
+\item[{double}]{lon, }
+\item[{double}]{map\+\_\+minlon, }
+\item[{double}]{map\+\_\+maxlon}
+\end{DoxyParamCaption}
+)}\hypertarget{calcul_8c_afde04fa6d990694534c17dbd10d2827e}{}\label{calcul_8c_afde04fa6d990694534c17dbd10d2827e}
+
+
+Fonction qui convertit une longitude G\+PS en une valeur en pixel (entre 0 et 1) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lon} & longitude de type double a convertir. \\
+\hline
+{\em map\+\_\+minlon} & la longitude minimum de la map \\
+\hline
+{\em map\+\_\+maxlon} & la longitude maximal de la map \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Retourne un double correspondant a la longitude G\+PS convertit en pixel 
+\end{DoxyReturn}
+
+
+Definition at line 64 of file calcul.\+c.
+
+\index{calcul.\+c@{calcul.\+c}!lon\+\_\+to\+\_\+x@{lon\+\_\+to\+\_\+x}}
+\index{lon\+\_\+to\+\_\+x@{lon\+\_\+to\+\_\+x}!calcul.\+c@{calcul.\+c}}
+\subsubsection[{\texorpdfstring{lon\+\_\+to\+\_\+x(double lon)}{lon_to_x(double lon)}}]{\setlength{\rightskip}{0pt plus 5cm}double lon\+\_\+to\+\_\+x (
+\begin{DoxyParamCaption}
+\item[{double}]{lon}
+\end{DoxyParamCaption}
+)}\hypertarget{calcul_8c_a62bd9cd9f8002b0c2a5156c3bdd0428a}{}\label{calcul_8c_a62bd9cd9f8002b0c2a5156c3bdd0428a}
+
+
+Fonction qui convertit une longitude G\+PS en une projection de mercator en mètre. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lon} & longitude de type double a convertir. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Retourne un double correspondant a une projection de mercator de la longitude 
+\end{DoxyReturn}
+
+
+Definition at line 38 of file calcul.\+c.
+

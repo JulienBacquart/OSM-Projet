@@ -1,3 +1,9 @@
+/**
+ * \file parsexml.c
+ * \brief Contient des fonctions qui permettent de parser un fichier xml
+ * \author Adel.Z Julien.B Charles.R
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <libxml/tree.h>
@@ -13,14 +19,38 @@ Way *h_ways = NULL;    /* important! initialize to NULL */
 // The hashtable holding the relations
 Relation *h_relations = NULL;    /* important! initialize to NULL */
 
+
+/**
+ * \fn print_bounds(Bounds bds)
+ * \brief Fonction qui affiche sur la console la valeur d'un bounds
+ *
+ * \param bds le bounds à afficher
+ * \return void
+ */
 void print_bounds(Bounds bds){
 	printf("Bound minlat: %.7f , minlon: %.7f , maxlat: %.7f , maxlon: %.7f\n", bds.minlat, bds.minlon, bds.maxlat, bds.maxlon);
 }
 
+
+/**
+ * \fn print_tag(Tag tag)
+ * \brief Fonction qui affiche sur la console la valeur d'un tag
+ *
+ * \param tag le tag à afficher
+ * \return void
+ */
 void print_tag(Tag tag){
 	printf("Tag k: %s, v: %s\n", tag.key, tag.val);
 }
 
+
+/**
+ * \fn print_node(Node node)
+ * \brief Fonction qui affiche sur la console la valeur d'un node
+ *
+ * \param node le node à afficher
+ * \return void
+ */
 void print_node(Node node){
 	// For lat et long we need a precision to the 7 decimal place
 	printf("Node id: %d visible=%d lat=%.7f lon=%.7f nb_tags=%d\n", node.id, node.visible, node.lat, node.lon, node.nb_tags);
@@ -30,34 +60,59 @@ void print_node(Node node){
 	}
 }
 
+
+/**
+ * \fn print_way(Way way)
+ * \brief Fonction qui affiche sur la console la valeur d'une way
+ *
+ * \param way la way à afficher
+ * \return void
+ */
 void print_way(Way way){
 	printf("Way id: %d visible=%d nb_nds=%d nb_tags=%d\n", way.id, way.visible, way.nb_nds, way.nb_tags);
 	int i;
 	for(i = 0; i< way.nb_tags; i++){
 		print_tag(way.tags[i]);
 	}
-// 	for(i = 0; i< way.nb_nds; i++){
-// 		print_node(way.nds[i]);
-// 	}
 }
 
+
+/**
+ * \fn print_relation(Relation relation)
+ * \brief Fonction qui affiche sur la console la valeur d'une relation
+ *
+ * \param relation la relation a afficher
+ * \return void
+ */
 void print_relation(Relation relation){
 	printf("Relation id: %d visible=%d nb_tags=%d nb_members=%d\n", relation.id, relation.visible, relation.nb_tags, relation.nb_members);
 	int i;
 	for(i = 0; i< relation.nb_tags; i++){
 		print_tag(relation.tags[i]);
 	}
-// 	for(i = 0; i< relation.nb_members; i++){
-// 		print_relation(relation.members[i]);
-// 	}
 }
 
+
+/**
+ * \fn print_map(Map map)
+ * \brief Fonction qui affiche sur la console la valeur d'une map
+ *
+ * \param map la map a afficher
+ * \return void
+ */
 void print_map(Map map){
 	printf("Map nb_nodes: %u nb_ways: %u nb_relations: %u\n", HASH_COUNT(map.h_nodes), HASH_COUNT(map.h_ways), HASH_COUNT(map.h_relations));
 	print_bounds(*map.m_bds);
 }
 
-// Find a node in the hashtable nodes from its id
+
+/**
+ * \fn find_node(int node_id)
+ * \brief Fonction qui trouve un node dans la hashtable en fonction de son id
+ *
+ * \param node_id l'id d'une node
+ * \return Node* le noeud correspondant a l'id
+ */
 Node *find_node(int node_id) {
     Node *n;
 
@@ -65,27 +120,54 @@ Node *find_node(int node_id) {
     return n;
 }
 
-// Add a node to the hashtable 'nodes'
+
+/**
+ * \fn add_node(Node *nd)
+ * \brief Fonction qui ajoute un node dans la hashtable 'nodes'
+ *
+ * \param nd un pointeur de node a ajouter a la table de hashage
+ * \return void
+ */
 void add_node(Node *nd) {
 	// Maybe check uniqueness ?
 	HASH_ADD_INT(h_nodes, id, nd);  /* id: name of key field */
-// 	printf("Node %d added successfully to the table\n", nd->id);
 }
 
-// Add a way to the hashtable 'ways'
+
+/**
+ * \fn add_way(Way *way)
+ * \brief Fonction qui ajoute une way dans la table de hashage 'ways'
+ *
+ * \param way un pointeur de Way a ajouter a la table de hashage
+ * \return void
+ */
 void add_way(Way *way) {
 	// Maybe check uniqueness ?
 	HASH_ADD_INT(h_ways, id, way);  /* id: name of key field */
-// 	printf("Way %d added successfully to the table\n", way->id);
 }
 
+
+/**
+ * \fn add_relation(Relation *relation)
+ * \brief Fonction qui ajoute une relation dans la table de hashage 'relations'
+ *
+ * \param relation un pointeur de Relation a ajouter a la table de hashage
+ * \return void
+ */
 void add_relation(Relation *relation) {
 	// Maybe check uniqueness ?
 	HASH_ADD_INT(h_relations, id, relation);  /* id: name of key field */
-// 	printf("Relation %d added successfully to the table\n", relation->id);
-	
 }
 
+
+/**
+ * \fn parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f)
+ * \brief Fonction qui parcours un arbre xml et regarde tous les noeuds
+ *
+ * \param noeud 
+ * \param f 
+ * \return Map
+ */
 Map parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f){
 	// Initialize
     xmlNodePtr n;
@@ -509,6 +591,14 @@ Map parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f){
 	return *map;
 }
 
+
+/**
+ * \fn afficher_noeud(xmlNodePtr noeud)
+ * \brief Fonction qui affiche un noeud
+ *
+ * \param noeud le noeud a afficher
+ * \return void
+ */
 void afficher_noeud(xmlNodePtr noeud)
 {
     if (noeud->type == XML_ELEMENT_NODE)
@@ -527,38 +617,3 @@ void afficher_noeud(xmlNodePtr noeud)
         xmlFree(chemin);
     }
 }
-
-/*int main(int argc, char *argv[]) {
-    xmlDocPtr doc;
-    xmlNodePtr racine;
-
-    if(argc > 1) {
-        
-	// Ouverture du document
-	xmlKeepBlanksDefault(0); // Ignore les noeuds texte composant la mise en forme
-	doc = xmlParseFile(argv[1]);
-	if (doc == NULL) {
-		fprintf(stderr, "Document XML invalide\n");
-		return EXIT_FAILURE;
-	}
-	// Récupération de la racine
-	racine = xmlDocGetRootElement(doc);
-	if (racine == NULL) {
-		fprintf(stderr, "Document XML vierge\n");
-		xmlFreeDoc(doc);
-		return EXIT_FAILURE;
-	}
-
-	// Parcours
-	parcours_prefixe(racine, afficher_noeud);
-
-	// Libération de la mémoire
-	xmlFreeDoc(doc);
-    }
-    else {
-	fprintf(stderr, "Name of the map file expected as argument\n");
-	exit (EXIT_FAILURE);
-    }
-    
-    return EXIT_SUCCESS;
-}*/

@@ -1,3 +1,9 @@
+/**
+ * \file parsexml.h
+ * \brief Contient les signatures et directives de préprocesseur pour la parsage de document au format xml
+ * \author Adel.Z Julien.B Charles.R
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <libxml/tree.h>

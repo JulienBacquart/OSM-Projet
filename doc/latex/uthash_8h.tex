@@ -1,0 +1,1144 @@
+\hypertarget{uthash_8h}{}\section{include/uthash.h File Reference}
+\label{uthash_8h}\index{include/uthash.\+h@{include/uthash.\+h}}
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stddef.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_u_t__hash__bucket}{U\+T\+\_\+hash\+\_\+bucket}
+\item 
+struct \hyperlink{struct_u_t__hash__table}{U\+T\+\_\+hash\+\_\+table}
+\item 
+struct \hyperlink{struct_u_t__hash__handle}{U\+T\+\_\+hash\+\_\+handle}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{uthash_8h_a716ba290563c2d955cb0c90d85874073}{D\+E\+C\+L\+T\+Y\+PE}(x)~(\+\_\+\+\_\+typeof(x))
+\item 
+\#define \hyperlink{uthash_8h_a62b7458054779c4c315efc3edb7bd8da}{D\+E\+C\+L\+T\+Y\+P\+E\+\_\+\+A\+S\+S\+I\+GN}(dst,  src)                                                                                              
+\item 
+\#define \hyperlink{uthash_8h_aa56cef9cb86dc1f4b5d27ee3a691077e}{U\+T\+H\+A\+S\+H\+\_\+\+V\+E\+R\+S\+I\+ON}~1.\+9.\+9
+\item 
+\#define \hyperlink{uthash_8h_a03b52301b0ed976b6981ef33613320c1}{uthash\+\_\+fatal}(msg)~exit(-\/1)        /$\ast$ fatal error (out of memory,etc) $\ast$/
+\item 
+\#define \hyperlink{uthash_8h_a861013aff36c0448f1888a2b0b5836d8}{uthash\+\_\+malloc}(sz)~malloc(sz)      /$\ast$ malloc fcn                      $\ast$/
+\item 
+\#define \hyperlink{uthash_8h_a56cdf8c254fc700332c8e6a7263b4657}{uthash\+\_\+free}(ptr,  sz)~free(ptr)     /$\ast$ free fcn                        $\ast$/
+\item 
+\#define \hyperlink{uthash_8h_a6026a101a30983dd78f90948ac87c431}{uthash\+\_\+noexpand\+\_\+fyi}(tbl)                ~/$\ast$ can be defined to log noexpand  $\ast$/
+\item 
+\#define \hyperlink{uthash_8h_a0c3cd18ff68cefd621bb7c0761429065}{uthash\+\_\+expand\+\_\+fyi}(tbl)                    ~/$\ast$ can be defined to log expands   $\ast$/
+\item 
+\#define \hyperlink{uthash_8h_a361cdc5e8d6d8fe5fae6912588ae15d0}{H\+A\+S\+H\+\_\+\+I\+N\+I\+T\+I\+A\+L\+\_\+\+N\+U\+M\+\_\+\+B\+U\+C\+K\+E\+TS}~32\+U     /$\ast$ initial number of buckets        $\ast$/
+\item 
+\#define \hyperlink{uthash_8h_a0b39a5cf1d6c05c43bd8530db2ec908c}{H\+A\+S\+H\+\_\+\+I\+N\+I\+T\+I\+A\+L\+\_\+\+N\+U\+M\+\_\+\+B\+U\+C\+K\+E\+T\+S\+\_\+\+L\+O\+G2}~5\+U /$\ast$ lg2 of initial number of buckets $\ast$/
+\item 
+\#define \hyperlink{uthash_8h_a8ae3e6473261f6c4b78c030c94f5d68f}{H\+A\+S\+H\+\_\+\+B\+K\+T\+\_\+\+C\+A\+P\+A\+C\+I\+T\+Y\+\_\+\+T\+H\+R\+E\+SH}~10\+U     /$\ast$ expand when bucket count reaches $\ast$/
+\item 
+\#define \hyperlink{uthash_8h_a568e95048979b8b3e4ea1567fd91c186}{E\+L\+M\+T\+\_\+\+F\+R\+O\+M\+\_\+\+HH}(tbl,  hhp)~((void$\ast$)(((char$\ast$)(hhp)) -\/ ((tbl)-\/$>$hho)))
+\item 
+\#define \hyperlink{uthash_8h_a00ae384084d9e3c1f45c4867af2c62af}{H\+A\+S\+H\+\_\+\+F\+I\+ND}(hh,  head,  keyptr,  keylen,  out)                                                                      
+\item 
+\#define \hyperlink{uthash_8h_a254f427772a1fe7a2480a8302af8f8b8}{H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+M\+A\+KE}(tbl)
+\item 
+\#define \hyperlink{uthash_8h_ad6847ad938fc26bfd0726d7f159efd0a}{H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+F\+R\+EE}(tbl)
+\item 
+\#define \hyperlink{uthash_8h_acaad947212056cd8bfe3d660265fb2db}{H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+A\+DD}(tbl,  hashv)
+\item 
+\#define \hyperlink{uthash_8h_a06bfbf880899d54da35487d0d39c1009}{H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+T\+E\+ST}(tbl,  hashv)~(1)
+\item 
+\#define \hyperlink{uthash_8h_a81f88a18c0837c77f40926074e7811db}{H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+B\+Y\+T\+E\+L\+EN}~0U
+\item 
+\#define \hyperlink{uthash_8h_a068b888240f33252d20447456e3b8915}{H\+A\+S\+H\+\_\+\+M\+A\+K\+E\+\_\+\+T\+A\+B\+LE}(hh,  head)                                                                                              
+\item 
+\#define \hyperlink{uthash_8h_a63f8953f9b96b3bd851ae486debc4c41}{H\+A\+S\+H\+\_\+\+A\+DD}(hh,  head,  fieldname,  keylen\+\_\+in,  add)                                                            ~\hyperlink{uthash_8h_adfa4d3ccc771f1261c07ee50324d59de}{H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+K\+E\+Y\+P\+TR}(hh,head,\&((add)-\/$>$fieldname),keylen\+\_\+in,add)
+\item 
+\#define \hyperlink{uthash_8h_aaf9c8f94cfc2cb2e690c2150d5fae8b1}{H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+CE}(hh,  head,  fieldname,  keylen\+\_\+in,  add,  replaced)                                  
+\item 
+\#define \hyperlink{uthash_8h_adfa4d3ccc771f1261c07ee50324d59de}{H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+K\+E\+Y\+P\+TR}(hh,  head,  keyptr,  keylen\+\_\+in,  add)                                                    
+\item 
+\#define \hyperlink{uthash_8h_aceb3e305915c01ea9a835f82670a8e80}{H\+A\+S\+H\+\_\+\+T\+O\+\_\+\+B\+KT}(hashv,  num\+\_\+bkts,  bkt)                                                                        
+\item 
+\#define \hyperlink{uthash_8h_a9c675dd1f1fdd5361dfca67829a387cf}{H\+A\+S\+H\+\_\+\+D\+E\+L\+E\+TE}(hh,  head,  delptr)                                                                                        
+\item 
+\#define \hyperlink{uthash_8h_aa4619b6af1e93a72c4768064135e6e5c}{H\+A\+S\+H\+\_\+\+F\+I\+N\+D\+\_\+\+S\+TR}(head,  findstr,  out)                                                                                ~\hyperlink{uthash_8h_a00ae384084d9e3c1f45c4867af2c62af}{H\+A\+S\+H\+\_\+\+F\+I\+ND}(hh,head,findstr,(unsigned)strlen(findstr),out)
+\item 
+\#define \hyperlink{uthash_8h_ab7b2e8fb858eef7a0875a994663d6b11}{H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+S\+TR}(head,  strfield,  add)                                                                                ~\hyperlink{uthash_8h_a63f8953f9b96b3bd851ae486debc4c41}{H\+A\+S\+H\+\_\+\+A\+DD}(hh,head,strfield\mbox{[}0\mbox{]},(unsigned int)strlen(add-\/$>$strfield),add)
+\item 
+\#define \hyperlink{uthash_8h_a28a5cfcd095484b14963fa9b661ba4ac}{H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+C\+E\+\_\+\+S\+TR}(head,  strfield,  add,  replaced)                                                      ~\hyperlink{uthash_8h_aaf9c8f94cfc2cb2e690c2150d5fae8b1}{H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+CE}(hh,head,strfield\mbox{[}0\mbox{]},(unsigned)strlen(add-\/$>$strfield),add,replaced)
+\item 
+\#define \hyperlink{uthash_8h_abdce9bf8aa663125ae35e594c4a81d9b}{H\+A\+S\+H\+\_\+\+F\+I\+N\+D\+\_\+\+I\+NT}(head,  findint,  out)                                                                                ~\hyperlink{uthash_8h_a00ae384084d9e3c1f45c4867af2c62af}{H\+A\+S\+H\+\_\+\+F\+I\+ND}(hh,head,findint,sizeof(int),out)
+\item 
+\#define \hyperlink{uthash_8h_a7042163416343e83cec08d2628fc97f6}{H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+I\+NT}(head,  intfield,  add)                                                                                ~\hyperlink{uthash_8h_a63f8953f9b96b3bd851ae486debc4c41}{H\+A\+S\+H\+\_\+\+A\+DD}(hh,head,intfield,sizeof(int),add)
+\item 
+\#define \hyperlink{uthash_8h_a37a141f7c2a6e656585def8a71830e0f}{H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+C\+E\+\_\+\+I\+NT}(head,  intfield,  add,  replaced)                                                      ~\hyperlink{uthash_8h_aaf9c8f94cfc2cb2e690c2150d5fae8b1}{H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+CE}(hh,head,intfield,sizeof(int),add,replaced)
+\item 
+\#define \hyperlink{uthash_8h_ae04183e2f0aa953354ffacaa74269bf8}{H\+A\+S\+H\+\_\+\+F\+I\+N\+D\+\_\+\+P\+TR}(head,  findptr,  out)                                                                                ~\hyperlink{uthash_8h_a00ae384084d9e3c1f45c4867af2c62af}{H\+A\+S\+H\+\_\+\+F\+I\+ND}(hh,head,findptr,sizeof(void $\ast$),out)
+\item 
+\#define \hyperlink{uthash_8h_a051e93c11927cf25d9c9d89167066628}{H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+P\+TR}(head,  ptrfield,  add)                                                                                ~\hyperlink{uthash_8h_a63f8953f9b96b3bd851ae486debc4c41}{H\+A\+S\+H\+\_\+\+A\+DD}(hh,head,ptrfield,sizeof(void $\ast$),add)
+\item 
+\#define \hyperlink{uthash_8h_a76270eb529d245d3ec7f3b01036cf722}{H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+C\+E\+\_\+\+P\+TR}(head,  ptrfield,  add,  replaced)                                                      ~\hyperlink{uthash_8h_aaf9c8f94cfc2cb2e690c2150d5fae8b1}{H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+CE}(hh,head,ptrfield,sizeof(void $\ast$),add,replaced)
+\item 
+\#define \hyperlink{uthash_8h_a455ac05d76917f93a8b88d6dc3b6c48b}{H\+A\+S\+H\+\_\+\+D\+EL}(head,  delptr)                                                                                                    ~\hyperlink{uthash_8h_a9c675dd1f1fdd5361dfca67829a387cf}{H\+A\+S\+H\+\_\+\+D\+E\+L\+E\+TE}(hh,head,delptr)
+\item 
+\#define \hyperlink{uthash_8h_a7d882fadb26a4e6c13c134d8be4d0759}{H\+A\+S\+H\+\_\+\+F\+S\+CK}(hh,  head)
+\item 
+\#define \hyperlink{uthash_8h_a44f9d46e2cc79652492e5dd3e6c40a15}{H\+A\+S\+H\+\_\+\+E\+M\+I\+T\+\_\+\+K\+EY}(hh,  head,  keyptr,  fieldlen)
+\item 
+\#define \hyperlink{uthash_8h_abd3356419b386c379116393700a751d3}{H\+A\+S\+H\+\_\+\+F\+CN}~\hyperlink{uthash_8h_aaa84f346dbc64a71f5e63a57812be608}{H\+A\+S\+H\+\_\+\+J\+EN}
+\item 
+\#define \hyperlink{uthash_8h_a98453feb5b536e6673c8f311190e5700}{H\+A\+S\+H\+\_\+\+B\+ER}(key,  keylen,  num\+\_\+bkts,  hashv,  bkt)                                                                
+\item 
+\#define \hyperlink{uthash_8h_ae9e24e2b102c0ceac1913ffe9dc488ce}{H\+A\+S\+H\+\_\+\+S\+AX}(key,  keylen,  num\+\_\+bkts,  hashv,  bkt)                                                                
+\item 
+\#define \hyperlink{uthash_8h_a7221515390fb02c218f0af6b018279fd}{H\+A\+S\+H\+\_\+\+F\+NV}(key,  keylen,  num\+\_\+bkts,  hashv,  bkt)                                                                
+\item 
+\#define \hyperlink{uthash_8h_abb6ec3a8dff22627c71e5c523050e7fa}{H\+A\+S\+H\+\_\+\+O\+AT}(key,  keylen,  num\+\_\+bkts,  hashv,  bkt)                                                                
+\item 
+\#define \hyperlink{uthash_8h_aecba00d3d8b28ca72e31085098dc7d2a}{H\+A\+S\+H\+\_\+\+J\+E\+N\+\_\+\+M\+IX}(a,  b,  c)                                                                                                        
+\item 
+\#define \hyperlink{uthash_8h_aaa84f346dbc64a71f5e63a57812be608}{H\+A\+S\+H\+\_\+\+J\+EN}(key,  keylen,  num\+\_\+bkts,  hashv,  bkt)                                                                
+\item 
+\#define \hyperlink{uthash_8h_abc7d71657be8975a51684e41029b7964}{get16bits}(d)
+\item 
+\#define \hyperlink{uthash_8h_a9423d3df333a5f6dfeb9c56afb148bd5}{H\+A\+S\+H\+\_\+\+S\+FH}(key,  keylen,  num\+\_\+bkts,  hashv,  bkt)                                                                
+\item 
+\#define \hyperlink{uthash_8h_a35c9b682ebb7a8cbf284b9f0a9594095}{H\+A\+S\+H\+\_\+\+K\+E\+Y\+C\+MP}(a,  b,  len)~memcmp(a,b,(unsigned long)(len))
+\item 
+\#define \hyperlink{uthash_8h_a9e91717e8d0113c467e492e0c4a8339f}{H\+A\+S\+H\+\_\+\+F\+I\+N\+D\+\_\+\+I\+N\+\_\+\+B\+KT}(tbl,  hh,  head,  keyptr,  keylen\+\_\+in,  out)                                          
+\item 
+\#define \hyperlink{uthash_8h_aabe8517beeb1099517e0fb6d19e066d5}{H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+T\+O\+\_\+\+B\+KT}(head,  addhh)                                                                                        
+\item 
+\#define \hyperlink{uthash_8h_ab755007ce44f6fb1c5c273ce441b82ca}{H\+A\+S\+H\+\_\+\+D\+E\+L\+\_\+\+I\+N\+\_\+\+B\+KT}(hh,  head,  hh\+\_\+del)                                                                                
+\item 
+\#define \hyperlink{uthash_8h_a62c296e6b22762965d5c51d185dcdd0e}{H\+A\+S\+H\+\_\+\+E\+X\+P\+A\+N\+D\+\_\+\+B\+U\+C\+K\+E\+TS}(tbl)                                                                                              
+\item 
+\#define \hyperlink{uthash_8h_a88d2ab40956878caacd02c214f7e8f15}{H\+A\+S\+H\+\_\+\+S\+O\+RT}(head,  cmpfcn)~\hyperlink{uthash_8h_a549978b7756a0f571d4a3ec61934afb7}{H\+A\+S\+H\+\_\+\+S\+RT}(hh,head,cmpfcn)
+\item 
+\#define \hyperlink{uthash_8h_a549978b7756a0f571d4a3ec61934afb7}{H\+A\+S\+H\+\_\+\+S\+RT}(hh,  head,  cmpfcn)                                                                                              
+\item 
+\#define \hyperlink{uthash_8h_a4a4ee2046a127486d2ed79919fcbc8b4}{H\+A\+S\+H\+\_\+\+S\+E\+L\+E\+CT}(hh\+\_\+dst,  dst,  hh\+\_\+src,  src,  cond)                                                        
+\item 
+\#define \hyperlink{uthash_8h_a4b1ad5fca9f069a63dfe1d406d9e6de0}{H\+A\+S\+H\+\_\+\+C\+L\+E\+AR}(hh,  head)                                                                                                        
+\item 
+\#define \hyperlink{uthash_8h_a1384cc9f19426d2778d87cea11c8e3de}{H\+A\+S\+H\+\_\+\+O\+V\+E\+R\+H\+E\+AD}(hh,  head)                                                                                                  
+\item 
+\#define \hyperlink{uthash_8h_ad79db3a9dbc6efb63741317ffef31c22}{H\+A\+S\+H\+\_\+\+I\+T\+ER}(hh,  head,  el,  tmp)                                                                                            
+\item 
+\#define \hyperlink{uthash_8h_a7d3edf55a3ee4da1a0e1b477c314342f}{H\+A\+S\+H\+\_\+\+C\+O\+U\+NT}(head)~\hyperlink{uthash_8h_a6ea9e661cd8c35eff1fdcd5731127edd}{H\+A\+S\+H\+\_\+\+C\+NT}(hh,head)
+\item 
+\#define \hyperlink{uthash_8h_a6ea9e661cd8c35eff1fdcd5731127edd}{H\+A\+S\+H\+\_\+\+C\+NT}(hh,  head)~((head != N\+U\+LL)?((head)-\/$>$hh.\+tbl-\/$>$num\+\_\+items)\+:0\+U)
+\item 
+\#define \hyperlink{uthash_8h_a4a7a46b9b92a9c73e4f9321e8e6b6bb2}{H\+A\+S\+H\+\_\+\+S\+I\+G\+N\+A\+T\+U\+RE}~0xa0111fe1u
+\item 
+\#define \hyperlink{uthash_8h_a18a33f4269f05c1e81ce54edbc0ffca6}{H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+S\+I\+G\+N\+A\+T\+U\+RE}~0xb12220f2u
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef unsigned int \hyperlink{uthash_8h_a435d1572bf3f880d55459d9805097f62}{uint32\+\_\+t}
+\item 
+typedef unsigned char \hyperlink{uthash_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t}
+\item 
+typedef struct \hyperlink{struct_u_t__hash__bucket}{U\+T\+\_\+hash\+\_\+bucket} \hyperlink{uthash_8h_a3ba3da0ca59a082c35a0d6b52e803ddf}{U\+T\+\_\+hash\+\_\+bucket}
+\item 
+typedef struct \hyperlink{struct_u_t__hash__table}{U\+T\+\_\+hash\+\_\+table} \hyperlink{uthash_8h_a0758074b9942c2ad076610b3e0ce548e}{U\+T\+\_\+hash\+\_\+table}
+\item 
+typedef struct \hyperlink{struct_u_t__hash__handle}{U\+T\+\_\+hash\+\_\+handle} \hyperlink{uthash_8h_a0e3a99ed9f776349720d0c362f956fb6}{U\+T\+\_\+hash\+\_\+handle}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{uthash.\+h@{uthash.\+h}!D\+E\+C\+L\+T\+Y\+PE@{D\+E\+C\+L\+T\+Y\+PE}}
+\index{D\+E\+C\+L\+T\+Y\+PE@{D\+E\+C\+L\+T\+Y\+PE}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{D\+E\+C\+L\+T\+Y\+PE}{DECLTYPE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+E\+C\+L\+T\+Y\+PE(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(\+\_\+\+\_\+typeof(x))}\hypertarget{uthash_8h_a716ba290563c2d955cb0c90d85874073}{}\label{uthash_8h_a716ba290563c2d955cb0c90d85874073}
+
+
+Definition at line 46 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!D\+E\+C\+L\+T\+Y\+P\+E\+\_\+\+A\+S\+S\+I\+GN@{D\+E\+C\+L\+T\+Y\+P\+E\+\_\+\+A\+S\+S\+I\+GN}}
+\index{D\+E\+C\+L\+T\+Y\+P\+E\+\_\+\+A\+S\+S\+I\+GN@{D\+E\+C\+L\+T\+Y\+P\+E\+\_\+\+A\+S\+S\+I\+GN}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{D\+E\+C\+L\+T\+Y\+P\+E\+\_\+\+A\+S\+S\+I\+GN}{DECLTYPE_ASSIGN}}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+E\+C\+L\+T\+Y\+P\+E\+\_\+\+A\+S\+S\+I\+GN(
+\begin{DoxyParamCaption}
+\item[{}]{dst, }
+\item[{}]{src}
+\end{DoxyParamCaption}
+)}\hypertarget{uthash_8h_a62b7458054779c4c315efc3edb7bd8da}{}\label{uthash_8h_a62b7458054779c4c315efc3edb7bd8da}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{                                                                             \(\backslash\)
+  (dst) = \hyperlink{uthash_8h_a716ba290563c2d955cb0c90d85874073}{DECLTYPE}(dst)(src);                                                    \(\backslash\)
+\} \textcolor{keywordflow}{while}(0)
+\end{DoxyCode}
+
+
+Definition at line 56 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!E\+L\+M\+T\+\_\+\+F\+R\+O\+M\+\_\+\+HH@{E\+L\+M\+T\+\_\+\+F\+R\+O\+M\+\_\+\+HH}}
+\index{E\+L\+M\+T\+\_\+\+F\+R\+O\+M\+\_\+\+HH@{E\+L\+M\+T\+\_\+\+F\+R\+O\+M\+\_\+\+HH}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{E\+L\+M\+T\+\_\+\+F\+R\+O\+M\+\_\+\+HH}{ELMT_FROM_HH}}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+L\+M\+T\+\_\+\+F\+R\+O\+M\+\_\+\+HH(
+\begin{DoxyParamCaption}
+\item[{}]{tbl, }
+\item[{}]{hhp}
+\end{DoxyParamCaption}
+)~((void$\ast$)(((char$\ast$)(hhp)) -\/ ((tbl)-\/$>$hho)))}\hypertarget{uthash_8h_a568e95048979b8b3e4ea1567fd91c186}{}\label{uthash_8h_a568e95048979b8b3e4ea1567fd91c186}
+
+
+Definition at line 104 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!get16bits@{get16bits}}
+\index{get16bits@{get16bits}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{get16bits}{get16bits}}]{\setlength{\rightskip}{0pt plus 5cm}\#define get16bits(
+\begin{DoxyParamCaption}
+\item[{}]{d}
+\end{DoxyParamCaption}
+)}\hypertarget{uthash_8h_abc7d71657be8975a51684e41029b7964}{}\label{uthash_8h_abc7d71657be8975a51684e41029b7964}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((((\hyperlink{uthash_8h_a435d1572bf3f880d55459d9805097f62}{uint32\_t})(((\textcolor{keyword}{const} \hyperlink{uthash_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} *)(d))[1])) << 8)             \(\backslash\)
+                       +(\hyperlink{uthash_8h_a435d1572bf3f880d55459d9805097f62}{uint32\_t})(((\textcolor{keyword}{const} \hyperlink{uthash_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} *)(d))[0]) )
+\end{DoxyCode}
+
+
+Definition at line 482 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+A\+DD@{H\+A\+S\+H\+\_\+\+A\+DD}}
+\index{H\+A\+S\+H\+\_\+\+A\+DD@{H\+A\+S\+H\+\_\+\+A\+DD}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+A\+DD}{HASH_ADD}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+A\+DD(
+\begin{DoxyParamCaption}
+\item[{}]{hh, }
+\item[{}]{head, }
+\item[{}]{fieldname, }
+\item[{}]{keylen\+\_\+in, }
+\item[{}]{add}
+\end{DoxyParamCaption}
+)~{\bf H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+K\+E\+Y\+P\+TR}(hh,head,\&((add)-\/$>$fieldname),keylen\+\_\+in,add)}\hypertarget{uthash_8h_a63f8953f9b96b3bd851ae486debc4c41}{}\label{uthash_8h_a63f8953f9b96b3bd851ae486debc4c41}
+
+
+Definition at line 172 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+I\+NT@{H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+I\+NT}}
+\index{H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+I\+NT@{H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+I\+NT}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+I\+NT}{HASH_ADD_INT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+I\+NT(
+\begin{DoxyParamCaption}
+\item[{}]{head, }
+\item[{}]{intfield, }
+\item[{}]{add}
+\end{DoxyParamCaption}
+)~{\bf H\+A\+S\+H\+\_\+\+A\+DD}(hh,head,intfield,sizeof(int),add)}\hypertarget{uthash_8h_a7042163416343e83cec08d2628fc97f6}{}\label{uthash_8h_a7042163416343e83cec08d2628fc97f6}
+
+
+Definition at line 272 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+K\+E\+Y\+P\+TR@{H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+K\+E\+Y\+P\+TR}}
+\index{H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+K\+E\+Y\+P\+TR@{H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+K\+E\+Y\+P\+TR}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+K\+E\+Y\+P\+TR}{HASH_ADD_KEYPTR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+K\+E\+Y\+P\+TR(
+\begin{DoxyParamCaption}
+\item[{}]{hh, }
+\item[{}]{head, }
+\item[{}]{keyptr, }
+\item[{}]{keylen\+\_\+in, }
+\item[{}]{add}
+\end{DoxyParamCaption}
+)}\hypertarget{uthash_8h_adfa4d3ccc771f1261c07ee50324d59de}{}\label{uthash_8h_adfa4d3ccc771f1261c07ee50324d59de}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{                                                                             \(\backslash\)
+ unsigned \_ha\_bkt;                                                               \(\backslash\)
+ (add)->hh.next = NULL;                                                          \(\backslash\)
+ (add)->hh.key = (\textcolor{keywordtype}{char}*)(keyptr);                                                \(\backslash\)
+ (add)->hh.keylen = (\textcolor{keywordtype}{unsigned})(keylen\_in);                                       \(\backslash\)
+ if (!(head)) \{                                                                  \(\backslash\)
+    head = (add);                                                                \(\backslash\)
+    (head)->hh.prev = NULL;                                                      \(\backslash\)
+    \hyperlink{uthash_8h_a068b888240f33252d20447456e3b8915}{HASH\_MAKE\_TABLE}(hh,head);                                                    \(\backslash\)
+ \} \textcolor{keywordflow}{else} \{                                                                        \(\backslash\)
+    (head)->hh.tbl->tail->next = (add);                                          \(\backslash\)
+    (add)->hh.prev = \hyperlink{uthash_8h_a568e95048979b8b3e4ea1567fd91c186}{ELMT\_FROM\_HH}((head)->hh.tbl, (head)->hh.tbl->tail);         \(\backslash\)
+    (head)->hh.tbl->tail = &((add)->hh);                                         \(\backslash\)
+ \}                                                                               \(\backslash\)
+ (head)->hh.tbl->num\_items++;                                                    \(\backslash\)
+ (add)->hh.tbl = (head)->hh.tbl;                                                 \(\backslash\)
+ \hyperlink{uthash_8h_abd3356419b386c379116393700a751d3}{HASH\_FCN}(keyptr,keylen\_in, (head)->hh.tbl->num\_buckets,                         \(\backslash\)
+         (add)->hh.hashv, \_ha\_bkt);                                              
+      \hyperlink{uthash_8h_aabe8517beeb1099517e0fb6d19e066d5}{\(\backslash\)}
+\hyperlink{uthash_8h_aabe8517beeb1099517e0fb6d19e066d5}{ HASH\_ADD\_TO\_BKT}((head)->hh.tbl->buckets[\_ha\_bkt],&(add)->hh);                   
+      \hyperlink{uthash_8h_acaad947212056cd8bfe3d660265fb2db}{\(\backslash\)}
+\hyperlink{uthash_8h_acaad947212056cd8bfe3d660265fb2db}{ HASH\_BLOOM\_ADD}((head)->hh.tbl,(add)->hh.hashv);                                 
+      \hyperlink{uthash_8h_a44f9d46e2cc79652492e5dd3e6c40a15}{\(\backslash\)}
+\hyperlink{uthash_8h_a44f9d46e2cc79652492e5dd3e6c40a15}{ HASH\_EMIT\_KEY}(hh,head,keyptr,keylen\_in);                                        
+      \hyperlink{uthash_8h_a7d882fadb26a4e6c13c134d8be4d0759}{\(\backslash\)}
+\hyperlink{uthash_8h_a7d882fadb26a4e6c13c134d8be4d0759}{ HASH\_FSCK}(hh,head);                                                             \(\backslash\)
+\} \textcolor{keywordflow}{while}(0)
+\end{DoxyCode}
+
+
+Definition at line 185 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+P\+TR@{H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+P\+TR}}
+\index{H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+P\+TR@{H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+P\+TR}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+P\+TR}{HASH_ADD_PTR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+P\+TR(
+\begin{DoxyParamCaption}
+\item[{}]{head, }
+\item[{}]{ptrfield, }
+\item[{}]{add}
+\end{DoxyParamCaption}
+)~{\bf H\+A\+S\+H\+\_\+\+A\+DD}(hh,head,ptrfield,sizeof(void $\ast$),add)}\hypertarget{uthash_8h_a051e93c11927cf25d9c9d89167066628}{}\label{uthash_8h_a051e93c11927cf25d9c9d89167066628}
+
+
+Definition at line 278 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+S\+TR@{H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+S\+TR}}
+\index{H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+S\+TR@{H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+S\+TR}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+S\+TR}{HASH_ADD_STR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+S\+TR(
+\begin{DoxyParamCaption}
+\item[{}]{head, }
+\item[{}]{strfield, }
+\item[{}]{add}
+\end{DoxyParamCaption}
+)~{\bf H\+A\+S\+H\+\_\+\+A\+DD}(hh,head,strfield\mbox{[}0\mbox{]},(unsigned int)strlen(add-\/$>$strfield),add)}\hypertarget{uthash_8h_ab7b2e8fb858eef7a0875a994663d6b11}{}\label{uthash_8h_ab7b2e8fb858eef7a0875a994663d6b11}
+
+
+Definition at line 266 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+T\+O\+\_\+\+B\+KT@{H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+T\+O\+\_\+\+B\+KT}}
+\index{H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+T\+O\+\_\+\+B\+KT@{H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+T\+O\+\_\+\+B\+KT}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+T\+O\+\_\+\+B\+KT}{HASH_ADD_TO_BKT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+A\+D\+D\+\_\+\+T\+O\+\_\+\+B\+KT(
+\begin{DoxyParamCaption}
+\item[{}]{head, }
+\item[{}]{addhh}
+\end{DoxyParamCaption}
+)}\hypertarget{uthash_8h_aabe8517beeb1099517e0fb6d19e066d5}{}\label{uthash_8h_aabe8517beeb1099517e0fb6d19e066d5}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{                                                                             \(\backslash\)
+ head.count++;                                                                   \(\backslash\)
+ (addhh)->\hyperlink{struct_u_t__hash__handle_a42ef2993dcaaebd656c4a40d174e0c78}{hh\_next} = head.hh\_head;                                                \(\backslash\)
+ (addhh)->\hyperlink{struct_u_t__hash__handle_a079301c7093356547fb4601a85503c01}{hh\_prev} = NULL;                                                        \(\backslash\)
+ if (head.hh\_head != NULL) \{ (head).hh\_head->\hyperlink{struct_u_t__hash__handle_a079301c7093356547fb4601a85503c01}{hh\_prev} = (addhh); \}                \(\backslash\)
+ (head).hh\_head=addhh;                                                           \(\backslash\)
+ if ((head.count >= ((head.expand\_mult+1U) * \hyperlink{uthash_8h_a8ae3e6473261f6c4b78c030c94f5d68f}{HASH\_BKT\_CAPACITY\_THRESH}))          \(\backslash\)
+     && ((addhh)->tbl->noexpand != 1U)) \{                                        \(\backslash\)
+       HASH\_EXPAND\_BUCKETS((addhh)->\hyperlink{struct_u_t__hash__handle_af0deeb3fe5f35a4c85d105090b498c8d}{tbl});                                        \(\backslash\)
+ \}                                                                               \(\backslash\)
+\} \textcolor{keywordflow}{while}(0)
+\end{DoxyCode}
+
+
+Definition at line 628 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+B\+ER@{H\+A\+S\+H\+\_\+\+B\+ER}}
+\index{H\+A\+S\+H\+\_\+\+B\+ER@{H\+A\+S\+H\+\_\+\+B\+ER}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+B\+ER}{HASH_BER}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+B\+ER(
+\begin{DoxyParamCaption}
+\item[{}]{key, }
+\item[{}]{keylen, }
+\item[{}]{num\+\_\+bkts, }
+\item[{}]{hashv, }
+\item[{}]{bkt}
+\end{DoxyParamCaption}
+)}\hypertarget{uthash_8h_a98453feb5b536e6673c8f311190e5700}{}\label{uthash_8h_a98453feb5b536e6673c8f311190e5700}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{                                                                             \(\backslash\)
+  unsigned \_hb\_keylen=(unsigned)\hyperlink{struct_u_t__hash__handle_a4563ea2b1ae1597aa9fd62e005d447b4}{keylen};                                          \(\backslash\)
+  const \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *\_hb\_key=(\textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}*)(\hyperlink{struct_u_t__hash__handle_ab5c000aec752f2206131e183daf5efbf}{key});                      \(\backslash\)
+  (\hyperlink{struct_u_t__hash__handle_ae73531e09ac884600d96a71ad9afbfa4}{hashv}) = 0;                                                                   \(\backslash\)
+  while (\_hb\_keylen-- != 0U) \{                                                   \(\backslash\)
+      (\hyperlink{struct_u_t__hash__handle_ae73531e09ac884600d96a71ad9afbfa4}{hashv}) = (((\hyperlink{struct_u_t__hash__handle_ae73531e09ac884600d96a71ad9afbfa4}{hashv}) << 5) + (\hyperlink{struct_u_t__hash__handle_ae73531e09ac884600d96a71ad9afbfa4}{hashv})) + *\_hb\_key++;                         \(\backslash\)
+  \}                                                                              \(\backslash\)
+  bkt = (\hyperlink{struct_u_t__hash__handle_ae73531e09ac884600d96a71ad9afbfa4}{hashv}) & (num\_bkts-1U);                                                 \(\backslash\)
+\} \textcolor{keywordflow}{while} (0)
+\end{DoxyCode}
+
+
+Definition at line 367 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+B\+K\+T\+\_\+\+C\+A\+P\+A\+C\+I\+T\+Y\+\_\+\+T\+H\+R\+E\+SH@{H\+A\+S\+H\+\_\+\+B\+K\+T\+\_\+\+C\+A\+P\+A\+C\+I\+T\+Y\+\_\+\+T\+H\+R\+E\+SH}}
+\index{H\+A\+S\+H\+\_\+\+B\+K\+T\+\_\+\+C\+A\+P\+A\+C\+I\+T\+Y\+\_\+\+T\+H\+R\+E\+SH@{H\+A\+S\+H\+\_\+\+B\+K\+T\+\_\+\+C\+A\+P\+A\+C\+I\+T\+Y\+\_\+\+T\+H\+R\+E\+SH}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+B\+K\+T\+\_\+\+C\+A\+P\+A\+C\+I\+T\+Y\+\_\+\+T\+H\+R\+E\+SH}{HASH_BKT_CAPACITY_THRESH}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+B\+K\+T\+\_\+\+C\+A\+P\+A\+C\+I\+T\+Y\+\_\+\+T\+H\+R\+E\+SH~10\+U     /$\ast$ expand when bucket count reaches $\ast$/}\hypertarget{uthash_8h_a8ae3e6473261f6c4b78c030c94f5d68f}{}\label{uthash_8h_a8ae3e6473261f6c4b78c030c94f5d68f}
+
+
+Definition at line 101 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+A\+DD@{H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+A\+DD}}
+\index{H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+A\+DD@{H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+A\+DD}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+A\+DD}{HASH_BLOOM_ADD}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+A\+DD(
+\begin{DoxyParamCaption}
+\item[{}]{tbl, }
+\item[{}]{hashv}
+\end{DoxyParamCaption}
+)}\hypertarget{uthash_8h_acaad947212056cd8bfe3d660265fb2db}{}\label{uthash_8h_acaad947212056cd8bfe3d660265fb2db}
+
+
+Definition at line 148 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+B\+Y\+T\+E\+L\+EN@{H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+B\+Y\+T\+E\+L\+EN}}
+\index{H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+B\+Y\+T\+E\+L\+EN@{H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+B\+Y\+T\+E\+L\+EN}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+B\+Y\+T\+E\+L\+EN}{HASH_BLOOM_BYTELEN}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+B\+Y\+T\+E\+L\+EN~0U}\hypertarget{uthash_8h_a81f88a18c0837c77f40926074e7811db}{}\label{uthash_8h_a81f88a18c0837c77f40926074e7811db}
+
+
+Definition at line 150 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+F\+R\+EE@{H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+F\+R\+EE}}
+\index{H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+F\+R\+EE@{H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+F\+R\+EE}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+F\+R\+EE}{HASH_BLOOM_FREE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+F\+R\+EE(
+\begin{DoxyParamCaption}
+\item[{}]{tbl}
+\end{DoxyParamCaption}
+)}\hypertarget{uthash_8h_ad6847ad938fc26bfd0726d7f159efd0a}{}\label{uthash_8h_ad6847ad938fc26bfd0726d7f159efd0a}
+
+
+Definition at line 147 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+M\+A\+KE@{H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+M\+A\+KE}}
+\index{H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+M\+A\+KE@{H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+M\+A\+KE}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+M\+A\+KE}{HASH_BLOOM_MAKE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+M\+A\+KE(
+\begin{DoxyParamCaption}
+\item[{}]{tbl}
+\end{DoxyParamCaption}
+)}\hypertarget{uthash_8h_a254f427772a1fe7a2480a8302af8f8b8}{}\label{uthash_8h_a254f427772a1fe7a2480a8302af8f8b8}
+
+
+Definition at line 146 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+S\+I\+G\+N\+A\+T\+U\+RE@{H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+S\+I\+G\+N\+A\+T\+U\+RE}}
+\index{H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+S\+I\+G\+N\+A\+T\+U\+RE@{H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+S\+I\+G\+N\+A\+T\+U\+RE}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+S\+I\+G\+N\+A\+T\+U\+RE}{HASH_BLOOM_SIGNATURE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+S\+I\+G\+N\+A\+T\+U\+RE~0xb12220f2u}\hypertarget{uthash_8h_a18a33f4269f05c1e81ce54edbc0ffca6}{}\label{uthash_8h_a18a33f4269f05c1e81ce54edbc0ffca6}
+
+
+Definition at line 920 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+T\+E\+ST@{H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+T\+E\+ST}}
+\index{H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+T\+E\+ST@{H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+T\+E\+ST}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+T\+E\+ST}{HASH_BLOOM_TEST}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+B\+L\+O\+O\+M\+\_\+\+T\+E\+ST(
+\begin{DoxyParamCaption}
+\item[{}]{tbl, }
+\item[{}]{hashv}
+\end{DoxyParamCaption}
+)~(1)}\hypertarget{uthash_8h_a06bfbf880899d54da35487d0d39c1009}{}\label{uthash_8h_a06bfbf880899d54da35487d0d39c1009}
+
+
+Definition at line 149 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+C\+L\+E\+AR@{H\+A\+S\+H\+\_\+\+C\+L\+E\+AR}}
+\index{H\+A\+S\+H\+\_\+\+C\+L\+E\+AR@{H\+A\+S\+H\+\_\+\+C\+L\+E\+AR}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+C\+L\+E\+AR}{HASH_CLEAR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+C\+L\+E\+AR(
+\begin{DoxyParamCaption}
+\item[{}]{hh, }
+\item[{}]{head}
+\end{DoxyParamCaption}
+)}\hypertarget{uthash_8h_a4b1ad5fca9f069a63dfe1d406d9e6de0}{}\label{uthash_8h_a4b1ad5fca9f069a63dfe1d406d9e6de0}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{                                                                             \(\backslash\)
+  if (head != NULL) \{                                                            \(\backslash\)
+    uthash\_free((head)->hh.tbl->buckets,                                         \(\backslash\)
+                (head)->hh.tbl->num\_buckets*\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{struct_u_t__hash__bucket}{UT\_hash\_bucket}));      \(\backslash\)
+    HASH\_BLOOM\_FREE((head)->hh.tbl);                                             \(\backslash\)
+    uthash\_free((head)->hh.tbl, \textcolor{keyword}{sizeof}(\hyperlink{struct_u_t__hash__table}{UT\_hash\_table}));                          \(\backslash\)
+    (head)=NULL;                                                                 \(\backslash\)
+  \}                                                                              \(\backslash\)
+\} \textcolor{keywordflow}{while}(0)
+\end{DoxyCode}
+
+
+Definition at line 866 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+C\+NT@{H\+A\+S\+H\+\_\+\+C\+NT}}
+\index{H\+A\+S\+H\+\_\+\+C\+NT@{H\+A\+S\+H\+\_\+\+C\+NT}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+C\+NT}{HASH_CNT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+C\+NT(
+\begin{DoxyParamCaption}
+\item[{}]{hh, }
+\item[{}]{head}
+\end{DoxyParamCaption}
+)~((head != N\+U\+LL)?((head)-\/$>$hh.\+tbl-\/$>$num\+\_\+items)\+:0\+U)}\hypertarget{uthash_8h_a6ea9e661cd8c35eff1fdcd5731127edd}{}\label{uthash_8h_a6ea9e661cd8c35eff1fdcd5731127edd}
+
+
+Definition at line 896 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+C\+O\+U\+NT@{H\+A\+S\+H\+\_\+\+C\+O\+U\+NT}}
+\index{H\+A\+S\+H\+\_\+\+C\+O\+U\+NT@{H\+A\+S\+H\+\_\+\+C\+O\+U\+NT}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+C\+O\+U\+NT}{HASH_COUNT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+C\+O\+U\+NT(
+\begin{DoxyParamCaption}
+\item[{}]{head}
+\end{DoxyParamCaption}
+)~{\bf H\+A\+S\+H\+\_\+\+C\+NT}(hh,head)}\hypertarget{uthash_8h_a7d3edf55a3ee4da1a0e1b477c314342f}{}\label{uthash_8h_a7d3edf55a3ee4da1a0e1b477c314342f}
+
+
+Definition at line 895 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+D\+EL@{H\+A\+S\+H\+\_\+\+D\+EL}}
+\index{H\+A\+S\+H\+\_\+\+D\+EL@{H\+A\+S\+H\+\_\+\+D\+EL}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+D\+EL}{HASH_DEL}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+D\+EL(
+\begin{DoxyParamCaption}
+\item[{}]{head, }
+\item[{}]{delptr}
+\end{DoxyParamCaption}
+)~{\bf H\+A\+S\+H\+\_\+\+D\+E\+L\+E\+TE}(hh,head,delptr)}\hypertarget{uthash_8h_a455ac05d76917f93a8b88d6dc3b6c48b}{}\label{uthash_8h_a455ac05d76917f93a8b88d6dc3b6c48b}
+
+
+Definition at line 282 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+D\+E\+L\+\_\+\+I\+N\+\_\+\+B\+KT@{H\+A\+S\+H\+\_\+\+D\+E\+L\+\_\+\+I\+N\+\_\+\+B\+KT}}
+\index{H\+A\+S\+H\+\_\+\+D\+E\+L\+\_\+\+I\+N\+\_\+\+B\+KT@{H\+A\+S\+H\+\_\+\+D\+E\+L\+\_\+\+I\+N\+\_\+\+B\+KT}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+D\+E\+L\+\_\+\+I\+N\+\_\+\+B\+KT}{HASH_DEL_IN_BKT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+D\+E\+L\+\_\+\+I\+N\+\_\+\+B\+KT(
+\begin{DoxyParamCaption}
+\item[{}]{hh, }
+\item[{}]{head, }
+\item[{}]{hh\+\_\+del}
+\end{DoxyParamCaption}
+)}\hypertarget{uthash_8h_ab755007ce44f6fb1c5c273ce441b82ca}{}\label{uthash_8h_ab755007ce44f6fb1c5c273ce441b82ca}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(head).count--;                                                              \(\backslash\)
+    if ((head).hh\_head == hh\_del) \{                                              \(\backslash\)
+      (head).hh\_head = hh\_del->hh\_next;                                          \(\backslash\)
+    \}                                                                            \(\backslash\)
+    if (hh\_del->hh\_prev) \{                                                       \(\backslash\)
+        hh\_del->hh\_prev->hh\_next = hh\_del->hh\_next;                              \(\backslash\)
+    \}                                                                            \(\backslash\)
+    if (hh\_del->hh\_next) \{                                                       \(\backslash\)
+        hh\_del->hh\_next->hh\_prev = hh\_del->hh\_prev;                              \(\backslash\)
+    \}
+\end{DoxyCode}
+
+
+Definition at line 642 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+D\+E\+L\+E\+TE@{H\+A\+S\+H\+\_\+\+D\+E\+L\+E\+TE}}
+\index{H\+A\+S\+H\+\_\+\+D\+E\+L\+E\+TE@{H\+A\+S\+H\+\_\+\+D\+E\+L\+E\+TE}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+D\+E\+L\+E\+TE}{HASH_DELETE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+D\+E\+L\+E\+TE(
+\begin{DoxyParamCaption}
+\item[{}]{hh, }
+\item[{}]{head, }
+\item[{}]{delptr}
+\end{DoxyParamCaption}
+)}\hypertarget{uthash_8h_a9c675dd1f1fdd5361dfca67829a387cf}{}\label{uthash_8h_a9c675dd1f1fdd5361dfca67829a387cf}
+
+
+Definition at line 227 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+E\+M\+I\+T\+\_\+\+K\+EY@{H\+A\+S\+H\+\_\+\+E\+M\+I\+T\+\_\+\+K\+EY}}
+\index{H\+A\+S\+H\+\_\+\+E\+M\+I\+T\+\_\+\+K\+EY@{H\+A\+S\+H\+\_\+\+E\+M\+I\+T\+\_\+\+K\+EY}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+E\+M\+I\+T\+\_\+\+K\+EY}{HASH_EMIT_KEY}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+E\+M\+I\+T\+\_\+\+K\+EY(
+\begin{DoxyParamCaption}
+\item[{}]{hh, }
+\item[{}]{head, }
+\item[{}]{keyptr, }
+\item[{}]{fieldlen}
+\end{DoxyParamCaption}
+)}\hypertarget{uthash_8h_a44f9d46e2cc79652492e5dd3e6c40a15}{}\label{uthash_8h_a44f9d46e2cc79652492e5dd3e6c40a15}
+
+
+Definition at line 356 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+E\+X\+P\+A\+N\+D\+\_\+\+B\+U\+C\+K\+E\+TS@{H\+A\+S\+H\+\_\+\+E\+X\+P\+A\+N\+D\+\_\+\+B\+U\+C\+K\+E\+TS}}
+\index{H\+A\+S\+H\+\_\+\+E\+X\+P\+A\+N\+D\+\_\+\+B\+U\+C\+K\+E\+TS@{H\+A\+S\+H\+\_\+\+E\+X\+P\+A\+N\+D\+\_\+\+B\+U\+C\+K\+E\+TS}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+E\+X\+P\+A\+N\+D\+\_\+\+B\+U\+C\+K\+E\+TS}{HASH_EXPAND_BUCKETS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+E\+X\+P\+A\+N\+D\+\_\+\+B\+U\+C\+K\+E\+TS(
+\begin{DoxyParamCaption}
+\item[{}]{tbl}
+\end{DoxyParamCaption}
+)}\hypertarget{uthash_8h_a62c296e6b22762965d5c51d185dcdd0e}{}\label{uthash_8h_a62c296e6b22762965d5c51d185dcdd0e}
+
+
+Definition at line 683 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+F\+CN@{H\+A\+S\+H\+\_\+\+F\+CN}}
+\index{H\+A\+S\+H\+\_\+\+F\+CN@{H\+A\+S\+H\+\_\+\+F\+CN}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+F\+CN}{HASH_FCN}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+F\+CN~{\bf H\+A\+S\+H\+\_\+\+J\+EN}}\hypertarget{uthash_8h_abd3356419b386c379116393700a751d3}{}\label{uthash_8h_abd3356419b386c379116393700a751d3}
+
+
+Definition at line 363 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+F\+I\+ND@{H\+A\+S\+H\+\_\+\+F\+I\+ND}}
+\index{H\+A\+S\+H\+\_\+\+F\+I\+ND@{H\+A\+S\+H\+\_\+\+F\+I\+ND}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+F\+I\+ND}{HASH_FIND}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+F\+I\+ND(
+\begin{DoxyParamCaption}
+\item[{}]{hh, }
+\item[{}]{head, }
+\item[{}]{keyptr, }
+\item[{}]{keylen, }
+\item[{}]{out}
+\end{DoxyParamCaption}
+)}\hypertarget{uthash_8h_a00ae384084d9e3c1f45c4867af2c62af}{}\label{uthash_8h_a00ae384084d9e3c1f45c4867af2c62af}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{                                                                             \(\backslash\)
+  out=NULL;                                                                      \(\backslash\)
+  if (head != NULL) \{                                                            \(\backslash\)
+     unsigned \_hf\_bkt,\_hf\_hashv;                                                 \(\backslash\)
+     HASH\_FCN(keyptr,\hyperlink{struct_u_t__hash__handle_a4563ea2b1ae1597aa9fd62e005d447b4}{keylen}, (head)->hh.tbl->num\_buckets, \_hf\_hashv, \_hf\_bkt);   \(\backslash\)
+     if (\hyperlink{uthash_8h_a06bfbf880899d54da35487d0d39c1009}{HASH\_BLOOM\_TEST}((head)->hh.tbl, \_hf\_hashv) != 0) \{                      \(\backslash\)
+       HASH\_FIND\_IN\_BKT((head)->hh.tbl, hh, (head)->hh.tbl->buckets[ \_hf\_bkt ],  \(\backslash\)
+                        keyptr,\hyperlink{struct_u_t__hash__handle_a4563ea2b1ae1597aa9fd62e005d447b4}{keylen},out);                                      \(\backslash\)
+     \}                                                                           \(\backslash\)
+  \}                                                                              \(\backslash\)
+\} \textcolor{keywordflow}{while} (0)
+\end{DoxyCode}
+
+
+Definition at line 106 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+F\+I\+N\+D\+\_\+\+I\+N\+\_\+\+B\+KT@{H\+A\+S\+H\+\_\+\+F\+I\+N\+D\+\_\+\+I\+N\+\_\+\+B\+KT}}
+\index{H\+A\+S\+H\+\_\+\+F\+I\+N\+D\+\_\+\+I\+N\+\_\+\+B\+KT@{H\+A\+S\+H\+\_\+\+F\+I\+N\+D\+\_\+\+I\+N\+\_\+\+B\+KT}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+F\+I\+N\+D\+\_\+\+I\+N\+\_\+\+B\+KT}{HASH_FIND_IN_BKT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+F\+I\+N\+D\+\_\+\+I\+N\+\_\+\+B\+KT(
+\begin{DoxyParamCaption}
+\item[{}]{tbl, }
+\item[{}]{hh, }
+\item[{}]{head, }
+\item[{}]{keyptr, }
+\item[{}]{keylen\+\_\+in, }
+\item[{}]{out}
+\end{DoxyParamCaption}
+)}\hypertarget{uthash_8h_a9e91717e8d0113c467e492e0c4a8339f}{}\label{uthash_8h_a9e91717e8d0113c467e492e0c4a8339f}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{                                                                             \(\backslash\)
+ if (head.hh\_head != NULL) \{ \hyperlink{uthash_8h_a62b7458054779c4c315efc3edb7bd8da}{DECLTYPE\_ASSIGN}(out,\hyperlink{uthash_8h_a568e95048979b8b3e4ea1567fd91c186}{ELMT\_FROM\_HH}(
+      \hyperlink{struct_u_t__hash__handle_af0deeb3fe5f35a4c85d105090b498c8d}{tbl},head.hh\_head)); \} \(\backslash\)
+ else \{ out=NULL; \}                                                              \(\backslash\)
+ while (out != NULL) \{                                                           \(\backslash\)
+    if ((out)->hh.keylen == (keylen\_in)) \{                                       \(\backslash\)
+        if ((\hyperlink{uthash_8h_a35c9b682ebb7a8cbf284b9f0a9594095}{HASH\_KEYCMP}((out)->hh.key,keyptr,keylen\_in)) == 0) \{ \textcolor{keywordflow}{break}; \}         \(\backslash\)
+    \}                                                                            \(\backslash\)
+    if ((out)->hh.hh\_next != NULL) \{ \hyperlink{uthash_8h_a62b7458054779c4c315efc3edb7bd8da}{DECLTYPE\_ASSIGN}(out,
+      \hyperlink{uthash_8h_a568e95048979b8b3e4ea1567fd91c186}{ELMT\_FROM\_HH}(\hyperlink{struct_u_t__hash__handle_af0deeb3fe5f35a4c85d105090b498c8d}{tbl},(out)->hh.hh\_next)); \} \(\backslash\)
+    else \{ out = NULL; \}                                                         \(\backslash\)
+ \}                                                                               \(\backslash\)
+\} \textcolor{keywordflow}{while}(0)
+\end{DoxyCode}
+
+
+Definition at line 614 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+F\+I\+N\+D\+\_\+\+I\+NT@{H\+A\+S\+H\+\_\+\+F\+I\+N\+D\+\_\+\+I\+NT}}
+\index{H\+A\+S\+H\+\_\+\+F\+I\+N\+D\+\_\+\+I\+NT@{H\+A\+S\+H\+\_\+\+F\+I\+N\+D\+\_\+\+I\+NT}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+F\+I\+N\+D\+\_\+\+I\+NT}{HASH_FIND_INT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+F\+I\+N\+D\+\_\+\+I\+NT(
+\begin{DoxyParamCaption}
+\item[{}]{head, }
+\item[{}]{findint, }
+\item[{}]{out}
+\end{DoxyParamCaption}
+)~{\bf H\+A\+S\+H\+\_\+\+F\+I\+ND}(hh,head,findint,sizeof(int),out)}\hypertarget{uthash_8h_abdce9bf8aa663125ae35e594c4a81d9b}{}\label{uthash_8h_abdce9bf8aa663125ae35e594c4a81d9b}
+
+
+Definition at line 270 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+F\+I\+N\+D\+\_\+\+P\+TR@{H\+A\+S\+H\+\_\+\+F\+I\+N\+D\+\_\+\+P\+TR}}
+\index{H\+A\+S\+H\+\_\+\+F\+I\+N\+D\+\_\+\+P\+TR@{H\+A\+S\+H\+\_\+\+F\+I\+N\+D\+\_\+\+P\+TR}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+F\+I\+N\+D\+\_\+\+P\+TR}{HASH_FIND_PTR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+F\+I\+N\+D\+\_\+\+P\+TR(
+\begin{DoxyParamCaption}
+\item[{}]{head, }
+\item[{}]{findptr, }
+\item[{}]{out}
+\end{DoxyParamCaption}
+)~{\bf H\+A\+S\+H\+\_\+\+F\+I\+ND}(hh,head,findptr,sizeof(void $\ast$),out)}\hypertarget{uthash_8h_ae04183e2f0aa953354ffacaa74269bf8}{}\label{uthash_8h_ae04183e2f0aa953354ffacaa74269bf8}
+
+
+Definition at line 276 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+F\+I\+N\+D\+\_\+\+S\+TR@{H\+A\+S\+H\+\_\+\+F\+I\+N\+D\+\_\+\+S\+TR}}
+\index{H\+A\+S\+H\+\_\+\+F\+I\+N\+D\+\_\+\+S\+TR@{H\+A\+S\+H\+\_\+\+F\+I\+N\+D\+\_\+\+S\+TR}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+F\+I\+N\+D\+\_\+\+S\+TR}{HASH_FIND_STR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+F\+I\+N\+D\+\_\+\+S\+TR(
+\begin{DoxyParamCaption}
+\item[{}]{head, }
+\item[{}]{findstr, }
+\item[{}]{out}
+\end{DoxyParamCaption}
+)~{\bf H\+A\+S\+H\+\_\+\+F\+I\+ND}(hh,head,findstr,(unsigned)strlen(findstr),out)}\hypertarget{uthash_8h_aa4619b6af1e93a72c4768064135e6e5c}{}\label{uthash_8h_aa4619b6af1e93a72c4768064135e6e5c}
+
+
+Definition at line 264 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+F\+NV@{H\+A\+S\+H\+\_\+\+F\+NV}}
+\index{H\+A\+S\+H\+\_\+\+F\+NV@{H\+A\+S\+H\+\_\+\+F\+NV}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+F\+NV}{HASH_FNV}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+F\+NV(
+\begin{DoxyParamCaption}
+\item[{}]{key, }
+\item[{}]{keylen, }
+\item[{}]{num\+\_\+bkts, }
+\item[{}]{hashv, }
+\item[{}]{bkt}
+\end{DoxyParamCaption}
+)}\hypertarget{uthash_8h_a7221515390fb02c218f0af6b018279fd}{}\label{uthash_8h_a7221515390fb02c218f0af6b018279fd}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{                                                                             \(\backslash\)
+  unsigned \_fn\_i;                                                                \(\backslash\)
+  const \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *\_hf\_key=(\textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}*)(\hyperlink{struct_u_t__hash__handle_ab5c000aec752f2206131e183daf5efbf}{key});                      \(\backslash\)
+  hashv = 2166136261U;                                                           \(\backslash\)
+  for(\_fn\_i=0; \_fn\_i < \hyperlink{struct_u_t__hash__handle_a4563ea2b1ae1597aa9fd62e005d447b4}{keylen}; \_fn\_i++) \{                                        \(\backslash\)
+      hashv = \hyperlink{struct_u_t__hash__handle_ae73531e09ac884600d96a71ad9afbfa4}{hashv} ^ \_hf\_key[\_fn\_i];                                            \(\backslash\)
+      hashv = \hyperlink{struct_u_t__hash__handle_ae73531e09ac884600d96a71ad9afbfa4}{hashv} * 16777619U;                                                 \(\backslash\)
+  \}                                                                              \(\backslash\)
+  bkt = \hyperlink{struct_u_t__hash__handle_ae73531e09ac884600d96a71ad9afbfa4}{hashv} & (num\_bkts-1U);                                                   \(\backslash\)
+\} \textcolor{keywordflow}{while}(0)
+\end{DoxyCode}
+
+
+Definition at line 392 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+F\+S\+CK@{H\+A\+S\+H\+\_\+\+F\+S\+CK}}
+\index{H\+A\+S\+H\+\_\+\+F\+S\+CK@{H\+A\+S\+H\+\_\+\+F\+S\+CK}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+F\+S\+CK}{HASH_FSCK}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+F\+S\+CK(
+\begin{DoxyParamCaption}
+\item[{}]{hh, }
+\item[{}]{head}
+\end{DoxyParamCaption}
+)}\hypertarget{uthash_8h_a7d882fadb26a4e6c13c134d8be4d0759}{}\label{uthash_8h_a7d882fadb26a4e6c13c134d8be4d0759}
+
+
+Definition at line 342 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+I\+N\+I\+T\+I\+A\+L\+\_\+\+N\+U\+M\+\_\+\+B\+U\+C\+K\+E\+TS@{H\+A\+S\+H\+\_\+\+I\+N\+I\+T\+I\+A\+L\+\_\+\+N\+U\+M\+\_\+\+B\+U\+C\+K\+E\+TS}}
+\index{H\+A\+S\+H\+\_\+\+I\+N\+I\+T\+I\+A\+L\+\_\+\+N\+U\+M\+\_\+\+B\+U\+C\+K\+E\+TS@{H\+A\+S\+H\+\_\+\+I\+N\+I\+T\+I\+A\+L\+\_\+\+N\+U\+M\+\_\+\+B\+U\+C\+K\+E\+TS}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+I\+N\+I\+T\+I\+A\+L\+\_\+\+N\+U\+M\+\_\+\+B\+U\+C\+K\+E\+TS}{HASH_INITIAL_NUM_BUCKETS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+I\+N\+I\+T\+I\+A\+L\+\_\+\+N\+U\+M\+\_\+\+B\+U\+C\+K\+E\+TS~32\+U     /$\ast$ initial number of buckets        $\ast$/}\hypertarget{uthash_8h_a361cdc5e8d6d8fe5fae6912588ae15d0}{}\label{uthash_8h_a361cdc5e8d6d8fe5fae6912588ae15d0}
+
+
+Definition at line 99 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+I\+N\+I\+T\+I\+A\+L\+\_\+\+N\+U\+M\+\_\+\+B\+U\+C\+K\+E\+T\+S\+\_\+\+L\+O\+G2@{H\+A\+S\+H\+\_\+\+I\+N\+I\+T\+I\+A\+L\+\_\+\+N\+U\+M\+\_\+\+B\+U\+C\+K\+E\+T\+S\+\_\+\+L\+O\+G2}}
+\index{H\+A\+S\+H\+\_\+\+I\+N\+I\+T\+I\+A\+L\+\_\+\+N\+U\+M\+\_\+\+B\+U\+C\+K\+E\+T\+S\+\_\+\+L\+O\+G2@{H\+A\+S\+H\+\_\+\+I\+N\+I\+T\+I\+A\+L\+\_\+\+N\+U\+M\+\_\+\+B\+U\+C\+K\+E\+T\+S\+\_\+\+L\+O\+G2}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+I\+N\+I\+T\+I\+A\+L\+\_\+\+N\+U\+M\+\_\+\+B\+U\+C\+K\+E\+T\+S\+\_\+\+L\+O\+G2}{HASH_INITIAL_NUM_BUCKETS_LOG2}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+I\+N\+I\+T\+I\+A\+L\+\_\+\+N\+U\+M\+\_\+\+B\+U\+C\+K\+E\+T\+S\+\_\+\+L\+O\+G2~5\+U /$\ast$ lg2 of initial number of buckets $\ast$/}\hypertarget{uthash_8h_a0b39a5cf1d6c05c43bd8530db2ec908c}{}\label{uthash_8h_a0b39a5cf1d6c05c43bd8530db2ec908c}
+
+
+Definition at line 100 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+I\+T\+ER@{H\+A\+S\+H\+\_\+\+I\+T\+ER}}
+\index{H\+A\+S\+H\+\_\+\+I\+T\+ER@{H\+A\+S\+H\+\_\+\+I\+T\+ER}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+I\+T\+ER}{HASH_ITER}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+I\+T\+ER(
+\begin{DoxyParamCaption}
+\item[{}]{hh, }
+\item[{}]{head, }
+\item[{}]{el, }
+\item[{}]{tmp}
+\end{DoxyParamCaption}
+)}\hypertarget{uthash_8h_ad79db3a9dbc6efb63741317ffef31c22}{}\label{uthash_8h_ad79db3a9dbc6efb63741317ffef31c22}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{for}(((el)=(head)), ((tmp)=\hyperlink{uthash_8h_a716ba290563c2d955cb0c90d85874073}{DECLTYPE}(el)((head!=NULL)?(head)->hh.next:NULL));      \(\backslash\)
+  (el) != NULL; ((el)=(tmp)), ((tmp)=\hyperlink{uthash_8h_a716ba290563c2d955cb0c90d85874073}{DECLTYPE}(el)((tmp!=NULL)?(tmp)->hh.next:NULL)))
+\end{DoxyCode}
+
+
+Definition at line 889 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+J\+EN@{H\+A\+S\+H\+\_\+\+J\+EN}}
+\index{H\+A\+S\+H\+\_\+\+J\+EN@{H\+A\+S\+H\+\_\+\+J\+EN}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+J\+EN}{HASH_JEN}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+J\+EN(
+\begin{DoxyParamCaption}
+\item[{}]{key, }
+\item[{}]{keylen, }
+\item[{}]{num\+\_\+bkts, }
+\item[{}]{hashv, }
+\item[{}]{bkt}
+\end{DoxyParamCaption}
+)}\hypertarget{uthash_8h_aaa84f346dbc64a71f5e63a57812be608}{}\label{uthash_8h_aaa84f346dbc64a71f5e63a57812be608}
+
+
+Definition at line 433 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+J\+E\+N\+\_\+\+M\+IX@{H\+A\+S\+H\+\_\+\+J\+E\+N\+\_\+\+M\+IX}}
+\index{H\+A\+S\+H\+\_\+\+J\+E\+N\+\_\+\+M\+IX@{H\+A\+S\+H\+\_\+\+J\+E\+N\+\_\+\+M\+IX}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+J\+E\+N\+\_\+\+M\+IX}{HASH_JEN_MIX}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+J\+E\+N\+\_\+\+M\+IX(
+\begin{DoxyParamCaption}
+\item[{}]{a, }
+\item[{}]{b, }
+\item[{}]{c}
+\end{DoxyParamCaption}
+)}\hypertarget{uthash_8h_aecba00d3d8b28ca72e31085098dc7d2a}{}\label{uthash_8h_aecba00d3d8b28ca72e31085098dc7d2a}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{                                                                             \(\backslash\)
+  a -= b; a -= c; a ^= ( c >> 13 );                                              \(\backslash\)
+  b -= c; b -= a; b ^= ( a << 8 );                                               \(\backslash\)
+  c -= a; c -= b; c ^= ( b >> 13 );                                              \(\backslash\)
+  a -= b; a -= c; a ^= ( c >> 12 );                                              \(\backslash\)
+  b -= c; b -= a; b ^= ( a << 16 );                                              \(\backslash\)
+  c -= a; c -= b; c ^= ( b >> 5 );                                               \(\backslash\)
+  a -= b; a -= c; a ^= ( c >> 3 );                                               \(\backslash\)
+  b -= c; b -= a; b ^= ( a << 10 );                                              \(\backslash\)
+  c -= a; c -= b; c ^= ( b >> 15 );                                              \(\backslash\)
+\} \textcolor{keywordflow}{while} (0)
+\end{DoxyCode}
+
+
+Definition at line 420 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+K\+E\+Y\+C\+MP@{H\+A\+S\+H\+\_\+\+K\+E\+Y\+C\+MP}}
+\index{H\+A\+S\+H\+\_\+\+K\+E\+Y\+C\+MP@{H\+A\+S\+H\+\_\+\+K\+E\+Y\+C\+MP}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+K\+E\+Y\+C\+MP}{HASH_KEYCMP}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+K\+E\+Y\+C\+MP(
+\begin{DoxyParamCaption}
+\item[{}]{a, }
+\item[{}]{b, }
+\item[{}]{len}
+\end{DoxyParamCaption}
+)~memcmp(a,b,(unsigned long)(len))}\hypertarget{uthash_8h_a35c9b682ebb7a8cbf284b9f0a9594095}{}\label{uthash_8h_a35c9b682ebb7a8cbf284b9f0a9594095}
+
+
+Definition at line 611 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+M\+A\+K\+E\+\_\+\+T\+A\+B\+LE@{H\+A\+S\+H\+\_\+\+M\+A\+K\+E\+\_\+\+T\+A\+B\+LE}}
+\index{H\+A\+S\+H\+\_\+\+M\+A\+K\+E\+\_\+\+T\+A\+B\+LE@{H\+A\+S\+H\+\_\+\+M\+A\+K\+E\+\_\+\+T\+A\+B\+LE}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+M\+A\+K\+E\+\_\+\+T\+A\+B\+LE}{HASH_MAKE_TABLE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+M\+A\+K\+E\+\_\+\+T\+A\+B\+LE(
+\begin{DoxyParamCaption}
+\item[{}]{hh, }
+\item[{}]{head}
+\end{DoxyParamCaption}
+)}\hypertarget{uthash_8h_a068b888240f33252d20447456e3b8915}{}\label{uthash_8h_a068b888240f33252d20447456e3b8915}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{                                                                             \(\backslash\)
+  (head)->hh.tbl = (\hyperlink{struct_u_t__hash__table}{UT\_hash\_table}*)\hyperlink{uthash_8h_a861013aff36c0448f1888a2b0b5836d8}{uthash\_malloc}(                                
+      \(\backslash\)
+                  \textcolor{keyword}{sizeof}(\hyperlink{struct_u_t__hash__table}{UT\_hash\_table}));                                        \(\backslash\)
+  if (!((head)->hh.tbl))  \{ \hyperlink{uthash_8h_a03b52301b0ed976b6981ef33613320c1}{uthash\_fatal}( \textcolor{stringliteral}{"out of memory"}); \}                    \(\backslash\)
+  memset((head)->hh.tbl, 0, \textcolor{keyword}{sizeof}(\hyperlink{struct_u_t__hash__table}{UT\_hash\_table}));                              \(\backslash\)
+  (head)->hh.tbl->tail = &((head)->hh);                                          \(\backslash\)
+  (head)->hh.tbl->num\_buckets = \hyperlink{uthash_8h_a361cdc5e8d6d8fe5fae6912588ae15d0}{HASH\_INITIAL\_NUM\_BUCKETS};                        \(\backslash\)
+  (head)->hh.tbl->log2\_num\_buckets = \hyperlink{uthash_8h_a0b39a5cf1d6c05c43bd8530db2ec908c}{HASH\_INITIAL\_NUM\_BUCKETS\_LOG2};           
+         \(\backslash\)
+  (head)->hh.tbl->hho = (\textcolor{keywordtype}{char}*)(&(head)->hh) - (\textcolor{keywordtype}{char}*)(head);                    \(\backslash\)
+  (head)->hh.tbl->buckets = (\hyperlink{struct_u_t__hash__bucket}{UT\_hash\_bucket}*)\hyperlink{uthash_8h_a861013aff36c0448f1888a2b0b5836d8}{uthash\_malloc}(                     
+       \(\backslash\)
+          \hyperlink{uthash_8h_a361cdc5e8d6d8fe5fae6912588ae15d0}{HASH\_INITIAL\_NUM\_BUCKETS}*\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} 
+      \hyperlink{struct_u_t__hash__bucket}{UT\_hash\_bucket}));               \(\backslash\)
+  if (! (head)->hh.tbl->buckets) \{ \hyperlink{uthash_8h_a03b52301b0ed976b6981ef33613320c1}{uthash\_fatal}( \textcolor{stringliteral}{"out of memory"}); \}             \(\backslash\)
+  memset((head)->hh.tbl->buckets, 0,                                             \(\backslash\)
+          \hyperlink{uthash_8h_a361cdc5e8d6d8fe5fae6912588ae15d0}{HASH\_INITIAL\_NUM\_BUCKETS}*\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} 
+      \hyperlink{struct_u_t__hash__bucket}{UT\_hash\_bucket}));               \hyperlink{uthash_8h_a254f427772a1fe7a2480a8302af8f8b8}{\(\backslash\)}
+\hyperlink{uthash_8h_a254f427772a1fe7a2480a8302af8f8b8}{  HASH\_BLOOM\_MAKE}((head)->hh.tbl);                                               \(\backslash\)
+  (head)->hh.tbl->signature = \hyperlink{uthash_8h_a4a7a46b9b92a9c73e4f9321e8e6b6bb2}{HASH\_SIGNATURE};                                    \(\backslash\)
+\} \textcolor{keywordflow}{while}(0)
+\end{DoxyCode}
+
+
+Definition at line 153 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+O\+AT@{H\+A\+S\+H\+\_\+\+O\+AT}}
+\index{H\+A\+S\+H\+\_\+\+O\+AT@{H\+A\+S\+H\+\_\+\+O\+AT}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+O\+AT}{HASH_OAT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+O\+AT(
+\begin{DoxyParamCaption}
+\item[{}]{key, }
+\item[{}]{keylen, }
+\item[{}]{num\+\_\+bkts, }
+\item[{}]{hashv, }
+\item[{}]{bkt}
+\end{DoxyParamCaption}
+)}\hypertarget{uthash_8h_abb6ec3a8dff22627c71e5c523050e7fa}{}\label{uthash_8h_abb6ec3a8dff22627c71e5c523050e7fa}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{                                                                             \(\backslash\)
+  unsigned \_ho\_i;                                                                \(\backslash\)
+  const \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *\_ho\_key=(\textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}*)(\hyperlink{struct_u_t__hash__handle_ab5c000aec752f2206131e183daf5efbf}{key});                      \(\backslash\)
+  hashv = 0;                                                                     \(\backslash\)
+  for(\_ho\_i=0; \_ho\_i < \hyperlink{struct_u_t__hash__handle_a4563ea2b1ae1597aa9fd62e005d447b4}{keylen}; \_ho\_i++) \{                                        \(\backslash\)
+      hashv += \_ho\_key[\_ho\_i];                                                   \(\backslash\)
+      hashv += (\hyperlink{struct_u_t__hash__handle_ae73531e09ac884600d96a71ad9afbfa4}{hashv} << 10);                                                    \(\backslash\)
+      hashv ^= (\hyperlink{struct_u_t__hash__handle_ae73531e09ac884600d96a71ad9afbfa4}{hashv} >> 6);                                                     \(\backslash\)
+  \}                                                                              \(\backslash\)
+  hashv += (\hyperlink{struct_u_t__hash__handle_ae73531e09ac884600d96a71ad9afbfa4}{hashv} << 3);                                                         \(\backslash\)
+  hashv ^= (\hyperlink{struct_u_t__hash__handle_ae73531e09ac884600d96a71ad9afbfa4}{hashv} >> 11);                                                        \(\backslash\)
+  hashv += (\hyperlink{struct_u_t__hash__handle_ae73531e09ac884600d96a71ad9afbfa4}{hashv} << 15);                                                        \(\backslash\)
+  bkt = \hyperlink{struct_u_t__hash__handle_ae73531e09ac884600d96a71ad9afbfa4}{hashv} & (num\_bkts-1U);                                                   \(\backslash\)
+\} \textcolor{keywordflow}{while}(0)
+\end{DoxyCode}
+
+
+Definition at line 404 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+O\+V\+E\+R\+H\+E\+AD@{H\+A\+S\+H\+\_\+\+O\+V\+E\+R\+H\+E\+AD}}
+\index{H\+A\+S\+H\+\_\+\+O\+V\+E\+R\+H\+E\+AD@{H\+A\+S\+H\+\_\+\+O\+V\+E\+R\+H\+E\+AD}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+O\+V\+E\+R\+H\+E\+AD}{HASH_OVERHEAD}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+O\+V\+E\+R\+H\+E\+AD(
+\begin{DoxyParamCaption}
+\item[{}]{hh, }
+\item[{}]{head}
+\end{DoxyParamCaption}
+)}\hypertarget{uthash_8h_a1384cc9f19426d2778d87cea11c8e3de}{}\label{uthash_8h_a1384cc9f19426d2778d87cea11c8e3de}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((head != NULL) ? (                                                             \(\backslash\)
+ (\textcolor{keywordtype}{size\_t})(((head)->hh.tbl->num\_items   * \textcolor{keyword}{sizeof}(\hyperlink{struct_u_t__hash__handle}{UT\_hash\_handle}))   +             \(\backslash\)
+          ((head)->hh.tbl->num\_buckets * \textcolor{keyword}{sizeof}(\hyperlink{uthash_8h_a3ba3da0ca59a082c35a0d6b52e803ddf}{UT\_hash\_bucket}))   +             \(\backslash\)
+           sizeof(\hyperlink{struct_u_t__hash__table}{UT\_hash\_table})                                   +             \(\backslash\)
+           (\hyperlink{uthash_8h_a81f88a18c0837c77f40926074e7811db}{HASH\_BLOOM\_BYTELEN}))) : 0U)
+\end{DoxyCode}
+
+
+Definition at line 877 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+CE@{H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+CE}}
+\index{H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+CE@{H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+CE}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+CE}{HASH_REPLACE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+CE(
+\begin{DoxyParamCaption}
+\item[{}]{hh, }
+\item[{}]{head, }
+\item[{}]{fieldname, }
+\item[{}]{keylen\+\_\+in, }
+\item[{}]{add, }
+\item[{}]{replaced}
+\end{DoxyParamCaption}
+)}\hypertarget{uthash_8h_aaf9c8f94cfc2cb2e690c2150d5fae8b1}{}\label{uthash_8h_aaf9c8f94cfc2cb2e690c2150d5fae8b1}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{                                                                             \(\backslash\)
+  replaced=NULL;                                                                 
+      \hyperlink{uthash_8h_a00ae384084d9e3c1f45c4867af2c62af}{\(\backslash\)}
+\hyperlink{uthash_8h_a00ae384084d9e3c1f45c4867af2c62af}{  HASH\_FIND}(hh,head,&((add)->fieldname),keylen\_in,replaced);                     \(\backslash\)
+  if (replaced!=NULL) \{                                                          \(\backslash\)
+     HASH\_DELETE(hh,head,replaced);                                              \(\backslash\)
+  \}                                                                              
+      \hyperlink{uthash_8h_a63f8953f9b96b3bd851ae486debc4c41}{\(\backslash\)}
+\hyperlink{uthash_8h_a63f8953f9b96b3bd851ae486debc4c41}{  HASH\_ADD}(hh,head,fieldname,keylen\_in,add);                                     \(\backslash\)
+\} \textcolor{keywordflow}{while}(0)
+\end{DoxyCode}
+
+
+Definition at line 175 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+C\+E\+\_\+\+I\+NT@{H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+C\+E\+\_\+\+I\+NT}}
+\index{H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+C\+E\+\_\+\+I\+NT@{H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+C\+E\+\_\+\+I\+NT}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+C\+E\+\_\+\+I\+NT}{HASH_REPLACE_INT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+C\+E\+\_\+\+I\+NT(
+\begin{DoxyParamCaption}
+\item[{}]{head, }
+\item[{}]{intfield, }
+\item[{}]{add, }
+\item[{}]{replaced}
+\end{DoxyParamCaption}
+)~{\bf H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+CE}(hh,head,intfield,sizeof(int),add,replaced)}\hypertarget{uthash_8h_a37a141f7c2a6e656585def8a71830e0f}{}\label{uthash_8h_a37a141f7c2a6e656585def8a71830e0f}
+
+
+Definition at line 274 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+C\+E\+\_\+\+P\+TR@{H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+C\+E\+\_\+\+P\+TR}}
+\index{H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+C\+E\+\_\+\+P\+TR@{H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+C\+E\+\_\+\+P\+TR}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+C\+E\+\_\+\+P\+TR}{HASH_REPLACE_PTR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+C\+E\+\_\+\+P\+TR(
+\begin{DoxyParamCaption}
+\item[{}]{head, }
+\item[{}]{ptrfield, }
+\item[{}]{add, }
+\item[{}]{replaced}
+\end{DoxyParamCaption}
+)~{\bf H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+CE}(hh,head,ptrfield,sizeof(void $\ast$),add,replaced)}\hypertarget{uthash_8h_a76270eb529d245d3ec7f3b01036cf722}{}\label{uthash_8h_a76270eb529d245d3ec7f3b01036cf722}
+
+
+Definition at line 280 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+C\+E\+\_\+\+S\+TR@{H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+C\+E\+\_\+\+S\+TR}}
+\index{H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+C\+E\+\_\+\+S\+TR@{H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+C\+E\+\_\+\+S\+TR}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+C\+E\+\_\+\+S\+TR}{HASH_REPLACE_STR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+C\+E\+\_\+\+S\+TR(
+\begin{DoxyParamCaption}
+\item[{}]{head, }
+\item[{}]{strfield, }
+\item[{}]{add, }
+\item[{}]{replaced}
+\end{DoxyParamCaption}
+)~{\bf H\+A\+S\+H\+\_\+\+R\+E\+P\+L\+A\+CE}(hh,head,strfield\mbox{[}0\mbox{]},(unsigned)strlen(add-\/$>$strfield),add,replaced)}\hypertarget{uthash_8h_a28a5cfcd095484b14963fa9b661ba4ac}{}\label{uthash_8h_a28a5cfcd095484b14963fa9b661ba4ac}
+
+
+Definition at line 268 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+S\+AX@{H\+A\+S\+H\+\_\+\+S\+AX}}
+\index{H\+A\+S\+H\+\_\+\+S\+AX@{H\+A\+S\+H\+\_\+\+S\+AX}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+S\+AX}{HASH_SAX}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+S\+AX(
+\begin{DoxyParamCaption}
+\item[{}]{key, }
+\item[{}]{keylen, }
+\item[{}]{num\+\_\+bkts, }
+\item[{}]{hashv, }
+\item[{}]{bkt}
+\end{DoxyParamCaption}
+)}\hypertarget{uthash_8h_ae9e24e2b102c0ceac1913ffe9dc488ce}{}\label{uthash_8h_ae9e24e2b102c0ceac1913ffe9dc488ce}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{                                                                             \(\backslash\)
+  unsigned \_sx\_i;                                                                \(\backslash\)
+  const \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *\_hs\_key=(\textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}*)(\hyperlink{struct_u_t__hash__handle_ab5c000aec752f2206131e183daf5efbf}{key});                      \(\backslash\)
+  hashv = 0;                                                                     \(\backslash\)
+  for(\_sx\_i=0; \_sx\_i < \hyperlink{struct_u_t__hash__handle_a4563ea2b1ae1597aa9fd62e005d447b4}{keylen}; \_sx\_i++) \{                                        \(\backslash\)
+      hashv ^= (hashv << 5) + (hashv >> 2) + \_hs\_key[\_sx\_i];                     \(\backslash\)
+  \}                                                                              \(\backslash\)
+  bkt = \hyperlink{struct_u_t__hash__handle_ae73531e09ac884600d96a71ad9afbfa4}{hashv} & (num\_bkts-1U);                                                   \(\backslash\)
+\} \textcolor{keywordflow}{while} (0)
+\end{DoxyCode}
+
+
+Definition at line 381 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+S\+E\+L\+E\+CT@{H\+A\+S\+H\+\_\+\+S\+E\+L\+E\+CT}}
+\index{H\+A\+S\+H\+\_\+\+S\+E\+L\+E\+CT@{H\+A\+S\+H\+\_\+\+S\+E\+L\+E\+CT}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+S\+E\+L\+E\+CT}{HASH_SELECT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+S\+E\+L\+E\+CT(
+\begin{DoxyParamCaption}
+\item[{}]{hh\+\_\+dst, }
+\item[{}]{dst, }
+\item[{}]{hh\+\_\+src, }
+\item[{}]{src, }
+\item[{}]{cond}
+\end{DoxyParamCaption}
+)}\hypertarget{uthash_8h_a4a4ee2046a127486d2ed79919fcbc8b4}{}\label{uthash_8h_a4a4ee2046a127486d2ed79919fcbc8b4}
+
+
+Definition at line 828 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+S\+FH@{H\+A\+S\+H\+\_\+\+S\+FH}}
+\index{H\+A\+S\+H\+\_\+\+S\+FH@{H\+A\+S\+H\+\_\+\+S\+FH}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+S\+FH}{HASH_SFH}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+S\+FH(
+\begin{DoxyParamCaption}
+\item[{}]{key, }
+\item[{}]{keylen, }
+\item[{}]{num\+\_\+bkts, }
+\item[{}]{hashv, }
+\item[{}]{bkt}
+\end{DoxyParamCaption}
+)}\hypertarget{uthash_8h_a9423d3df333a5f6dfeb9c56afb148bd5}{}\label{uthash_8h_a9423d3df333a5f6dfeb9c56afb148bd5}
+
+
+Definition at line 485 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+S\+I\+G\+N\+A\+T\+U\+RE@{H\+A\+S\+H\+\_\+\+S\+I\+G\+N\+A\+T\+U\+RE}}
+\index{H\+A\+S\+H\+\_\+\+S\+I\+G\+N\+A\+T\+U\+RE@{H\+A\+S\+H\+\_\+\+S\+I\+G\+N\+A\+T\+U\+RE}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+S\+I\+G\+N\+A\+T\+U\+RE}{HASH_SIGNATURE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+S\+I\+G\+N\+A\+T\+U\+RE~0xa0111fe1u}\hypertarget{uthash_8h_a4a7a46b9b92a9c73e4f9321e8e6b6bb2}{}\label{uthash_8h_a4a7a46b9b92a9c73e4f9321e8e6b6bb2}
+
+
+Definition at line 919 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+S\+O\+RT@{H\+A\+S\+H\+\_\+\+S\+O\+RT}}
+\index{H\+A\+S\+H\+\_\+\+S\+O\+RT@{H\+A\+S\+H\+\_\+\+S\+O\+RT}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+S\+O\+RT}{HASH_SORT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+S\+O\+RT(
+\begin{DoxyParamCaption}
+\item[{}]{head, }
+\item[{}]{cmpfcn}
+\end{DoxyParamCaption}
+)~{\bf H\+A\+S\+H\+\_\+\+S\+RT}(hh,head,cmpfcn)}\hypertarget{uthash_8h_a88d2ab40956878caacd02c214f7e8f15}{}\label{uthash_8h_a88d2ab40956878caacd02c214f7e8f15}
+
+
+Definition at line 735 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+S\+RT@{H\+A\+S\+H\+\_\+\+S\+RT}}
+\index{H\+A\+S\+H\+\_\+\+S\+RT@{H\+A\+S\+H\+\_\+\+S\+RT}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+S\+RT}{HASH_SRT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+S\+RT(
+\begin{DoxyParamCaption}
+\item[{}]{hh, }
+\item[{}]{head, }
+\item[{}]{cmpfcn}
+\end{DoxyParamCaption}
+)}\hypertarget{uthash_8h_a549978b7756a0f571d4a3ec61934afb7}{}\label{uthash_8h_a549978b7756a0f571d4a3ec61934afb7}
+
+
+Definition at line 736 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!H\+A\+S\+H\+\_\+\+T\+O\+\_\+\+B\+KT@{H\+A\+S\+H\+\_\+\+T\+O\+\_\+\+B\+KT}}
+\index{H\+A\+S\+H\+\_\+\+T\+O\+\_\+\+B\+KT@{H\+A\+S\+H\+\_\+\+T\+O\+\_\+\+B\+KT}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{H\+A\+S\+H\+\_\+\+T\+O\+\_\+\+B\+KT}{HASH_TO_BKT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+S\+H\+\_\+\+T\+O\+\_\+\+B\+KT(
+\begin{DoxyParamCaption}
+\item[{}]{hashv, }
+\item[{}]{num\+\_\+bkts, }
+\item[{}]{bkt}
+\end{DoxyParamCaption}
+)}\hypertarget{uthash_8h_aceb3e305915c01ea9a835f82670a8e80}{}\label{uthash_8h_aceb3e305915c01ea9a835f82670a8e80}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{                                                                             \(\backslash\)
+  bkt = ((\hyperlink{struct_u_t__hash__handle_ae73531e09ac884600d96a71ad9afbfa4}{hashv}) & ((num\_bkts) - 1U));                                           \(\backslash\)
+\} \textcolor{keywordflow}{while}(0)
+\end{DoxyCode}
+
+
+Definition at line 210 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!uthash\+\_\+expand\+\_\+fyi@{uthash\+\_\+expand\+\_\+fyi}}
+\index{uthash\+\_\+expand\+\_\+fyi@{uthash\+\_\+expand\+\_\+fyi}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{uthash\+\_\+expand\+\_\+fyi}{uthash_expand_fyi}}]{\setlength{\rightskip}{0pt plus 5cm}\#define uthash\+\_\+expand\+\_\+fyi(
+\begin{DoxyParamCaption}
+\item[{}]{tbl}
+\end{DoxyParamCaption}
+)~/$\ast$ can be defined to log expands   $\ast$/}\hypertarget{uthash_8h_a0c3cd18ff68cefd621bb7c0761429065}{}\label{uthash_8h_a0c3cd18ff68cefd621bb7c0761429065}
+
+
+Definition at line 95 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!uthash\+\_\+fatal@{uthash\+\_\+fatal}}
+\index{uthash\+\_\+fatal@{uthash\+\_\+fatal}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{uthash\+\_\+fatal}{uthash_fatal}}]{\setlength{\rightskip}{0pt plus 5cm}\#define uthash\+\_\+fatal(
+\begin{DoxyParamCaption}
+\item[{}]{msg}
+\end{DoxyParamCaption}
+)~exit(-\/1)        /$\ast$ fatal error (out of memory,etc) $\ast$/}\hypertarget{uthash_8h_a03b52301b0ed976b6981ef33613320c1}{}\label{uthash_8h_a03b52301b0ed976b6981ef33613320c1}
+
+
+Definition at line 82 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!uthash\+\_\+free@{uthash\+\_\+free}}
+\index{uthash\+\_\+free@{uthash\+\_\+free}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{uthash\+\_\+free}{uthash_free}}]{\setlength{\rightskip}{0pt plus 5cm}\#define uthash\+\_\+free(
+\begin{DoxyParamCaption}
+\item[{}]{ptr, }
+\item[{}]{sz}
+\end{DoxyParamCaption}
+)~free(ptr)     /$\ast$ free fcn                        $\ast$/}\hypertarget{uthash_8h_a56cdf8c254fc700332c8e6a7263b4657}{}\label{uthash_8h_a56cdf8c254fc700332c8e6a7263b4657}
+
+
+Definition at line 88 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!uthash\+\_\+malloc@{uthash\+\_\+malloc}}
+\index{uthash\+\_\+malloc@{uthash\+\_\+malloc}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{uthash\+\_\+malloc}{uthash_malloc}}]{\setlength{\rightskip}{0pt plus 5cm}\#define uthash\+\_\+malloc(
+\begin{DoxyParamCaption}
+\item[{}]{sz}
+\end{DoxyParamCaption}
+)~malloc(sz)      /$\ast$ malloc fcn                      $\ast$/}\hypertarget{uthash_8h_a861013aff36c0448f1888a2b0b5836d8}{}\label{uthash_8h_a861013aff36c0448f1888a2b0b5836d8}
+
+
+Definition at line 85 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!uthash\+\_\+noexpand\+\_\+fyi@{uthash\+\_\+noexpand\+\_\+fyi}}
+\index{uthash\+\_\+noexpand\+\_\+fyi@{uthash\+\_\+noexpand\+\_\+fyi}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{uthash\+\_\+noexpand\+\_\+fyi}{uthash_noexpand_fyi}}]{\setlength{\rightskip}{0pt plus 5cm}\#define uthash\+\_\+noexpand\+\_\+fyi(
+\begin{DoxyParamCaption}
+\item[{}]{tbl}
+\end{DoxyParamCaption}
+)~/$\ast$ can be defined to log noexpand  $\ast$/}\hypertarget{uthash_8h_a6026a101a30983dd78f90948ac87c431}{}\label{uthash_8h_a6026a101a30983dd78f90948ac87c431}
+
+
+Definition at line 92 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!U\+T\+H\+A\+S\+H\+\_\+\+V\+E\+R\+S\+I\+ON@{U\+T\+H\+A\+S\+H\+\_\+\+V\+E\+R\+S\+I\+ON}}
+\index{U\+T\+H\+A\+S\+H\+\_\+\+V\+E\+R\+S\+I\+ON@{U\+T\+H\+A\+S\+H\+\_\+\+V\+E\+R\+S\+I\+ON}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{U\+T\+H\+A\+S\+H\+\_\+\+V\+E\+R\+S\+I\+ON}{UTHASH_VERSION}}]{\setlength{\rightskip}{0pt plus 5cm}\#define U\+T\+H\+A\+S\+H\+\_\+\+V\+E\+R\+S\+I\+ON~1.\+9.\+9}\hypertarget{uthash_8h_aa56cef9cb86dc1f4b5d27ee3a691077e}{}\label{uthash_8h_aa56cef9cb86dc1f4b5d27ee3a691077e}
+
+
+Definition at line 79 of file uthash.\+h.
+
+
+
+\subsection{Typedef Documentation}
+\index{uthash.\+h@{uthash.\+h}!uint32\+\_\+t@{uint32\+\_\+t}}
+\index{uint32\+\_\+t@{uint32\+\_\+t}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{uint32\+\_\+t}{uint32_t}}]{\setlength{\rightskip}{0pt plus 5cm}typedef unsigned int {\bf uint32\+\_\+t}}\hypertarget{uthash_8h_a435d1572bf3f880d55459d9805097f62}{}\label{uthash_8h_a435d1572bf3f880d55459d9805097f62}
+
+
+Definition at line 75 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!uint8\+\_\+t@{uint8\+\_\+t}}
+\index{uint8\+\_\+t@{uint8\+\_\+t}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{uint8\+\_\+t}{uint8_t}}]{\setlength{\rightskip}{0pt plus 5cm}typedef unsigned char {\bf uint8\+\_\+t}}\hypertarget{uthash_8h_aba7bc1797add20fe3efdf37ced1182c5}{}\label{uthash_8h_aba7bc1797add20fe3efdf37ced1182c5}
+
+
+Definition at line 76 of file uthash.\+h.
+
+\index{uthash.\+h@{uthash.\+h}!U\+T\+\_\+hash\+\_\+bucket@{U\+T\+\_\+hash\+\_\+bucket}}
+\index{U\+T\+\_\+hash\+\_\+bucket@{U\+T\+\_\+hash\+\_\+bucket}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{U\+T\+\_\+hash\+\_\+bucket}{UT_hash_bucket}}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf U\+T\+\_\+hash\+\_\+bucket}  {\bf U\+T\+\_\+hash\+\_\+bucket}}\hypertarget{uthash_8h_a3ba3da0ca59a082c35a0d6b52e803ddf}{}\label{uthash_8h_a3ba3da0ca59a082c35a0d6b52e803ddf}
+\index{uthash.\+h@{uthash.\+h}!U\+T\+\_\+hash\+\_\+handle@{U\+T\+\_\+hash\+\_\+handle}}
+\index{U\+T\+\_\+hash\+\_\+handle@{U\+T\+\_\+hash\+\_\+handle}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{U\+T\+\_\+hash\+\_\+handle}{UT_hash_handle}}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf U\+T\+\_\+hash\+\_\+handle}  {\bf U\+T\+\_\+hash\+\_\+handle}}\hypertarget{uthash_8h_a0e3a99ed9f776349720d0c362f956fb6}{}\label{uthash_8h_a0e3a99ed9f776349720d0c362f956fb6}
+\index{uthash.\+h@{uthash.\+h}!U\+T\+\_\+hash\+\_\+table@{U\+T\+\_\+hash\+\_\+table}}
+\index{U\+T\+\_\+hash\+\_\+table@{U\+T\+\_\+hash\+\_\+table}!uthash.\+h@{uthash.\+h}}
+\subsubsection[{\texorpdfstring{U\+T\+\_\+hash\+\_\+table}{UT_hash_table}}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf U\+T\+\_\+hash\+\_\+table}  {\bf U\+T\+\_\+hash\+\_\+table}}\hypertarget{uthash_8h_a0758074b9942c2ad076610b3e0ce548e}{}\label{uthash_8h_a0758074b9942c2ad076610b3e0ce548e}

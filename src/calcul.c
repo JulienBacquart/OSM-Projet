@@ -1,56 +1,66 @@
+/**
+ * \file calcul.c
+ * \brief Contient des fonctions qui permettent de manipuler les calculs des latitudes, longitudes en pixels et calcul d'angle
+ * \author Adel.Z Julien.B Charles.R
+ */
+
 #include "../include/calcul.h"
 
+/**
+ * \fn double degrees_to_radian(double degrees)
+ * \brief Fonction qui convertit un angle en degrès vers un angle en radian
+ *
+ * \param degrees angle de type double a convertir.
+ * \return Retourne un double correspondant a l'angle en radian
+ */
 double degrees_to_radian(double degrees){
 	return degrees * (M_PI/180);
 }
 
-// Convert a GPS latitude to a mercator projection (in meter)
+/**
+ * \fn double lat_to_y(double lat)
+ * \brief Fonction qui convertit une latitude GPS en une projection de mercator en mètre
+ *
+ * \param lat latitude de type double a convertir.
+ * \return Retourne un double correspondant a une projection de mercator de la latitude
+ */
 double lat_to_y(double lat) { 
 	return earth_radius * log(tan(M_PI/4 + degrees_to_radian(lat)/2));
 }
 
-// Convert a GPS longitude to a mercator projection (in meter)
+/**
+ * \fn double lon_to_x(double lon)
+ * \brief Fonction qui convertit une longitude GPS en une projection de mercator en mètre
+ *
+ * \param lon longitude de type double a convertir.
+ * \return Retourne un double correspondant a une projection de mercator de la longitude
+ */
 double lon_to_x(double lon) { 
 	return degrees_to_radian(lon) * earth_radius;
 }
 
-// Convert a GPS lat to a "pixel" value (between 0 and 1)
-// we then just have to multiply this value by WIN_HEIGHT to know where we need to draw the point
+/**
+ * \fn lat_to_pixels(double lat, double map_minlat, double map_maxlat)
+ * \brief Fonction qui convertit une latitude GPS en une valeur en pixel (entre 0 et 1)
+ *
+ * \param lat latitude de type double a convertir.
+ * \param map_minlat la latitude minimum de la map
+ * \param map_maxlat la latitude maximal de la map
+ * \return Retourne un double correspondant a la latitude GPS convertit en pixel
+ */
 double lat_to_pixels(double lat, double map_minlat, double map_maxlat){
 	return 1 - ((lat_to_y(lat) - lat_to_y(map_minlat)) / (lat_to_y(map_maxlat) - lat_to_y(map_minlat)));
 }
 
-// Convert a GPS lon to a "pixel" value (between 0 and 1)
-// we then just have to multiply this value by WIN_WIDTH to know where we need to draw the point
+/**
+ * \fn lon_to_pixels(double lon, double map_minlon, double map_maxlon)
+ * \brief Fonction qui convertit une longitude GPS en une valeur en pixel (entre 0 et 1)
+ *
+ * \param lon longitude de type double a convertir.
+ * \param map_minlon la longitude minimum de la map
+ * \param map_maxlon la longitude maximal de la map
+ * \return Retourne un double correspondant a la longitude GPS convertit en pixel
+ */
 double lon_to_pixels(double lon, double map_minlon, double map_maxlon){
 	return (lon_to_x(lon) - lon_to_x(map_minlon)) / (lon_to_x(map_maxlon) - lon_to_x(map_minlon));
 }
-
-/*int main(){
-	
-	double map_minlat = 48.8542200; 
-	double map_maxlat = 48.8569130;
-	
-	double map_minlon = 2.3625300;
-	double map_maxlon = 2.3688710;
-	
-	double lat = 48.8546405;
-	double lon = 2.3685569;
-	
-	double mx = lon_to_pixels(lon, map_minlon, map_maxlon);
-	printf("mx: %.7f\n", mx);
-	double my = lat_to_pixels(lat, map_minlat, map_maxlat);
-	printf("my: %.7f\n", my);
-	
-	mx = lon_to_pixels(map_minlon, map_minlon, map_maxlon);
-	printf("mx: %.7f\n", mx);
-	my = lat_to_pixels(map_minlat, map_minlat, map_maxlat);
-	printf("my: %.7f\n", my);
-	
-	mx = lon_to_pixels(map_maxlon, map_minlon, map_maxlon);
-	printf("mx: %.7f\n", mx);
-	my = lat_to_pixels(map_maxlat, map_minlat, map_maxlat);
-	printf("my: %.7f\n", my);
-	
-	return EXIT_SUCCESS;
-}*/
