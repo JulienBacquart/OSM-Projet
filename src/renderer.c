@@ -281,6 +281,9 @@ int main(int argc, char *argv[]) {
 				
 		// Render
 		SDL_RenderPresent(renderer);
+
+		//Test du texte
+		writeText(renderer,"YOLO NIGGA",50,350,250,120,120,0,0,0, 45.);
 		
 		doPause();
 		

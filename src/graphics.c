@@ -452,8 +452,9 @@ int drawDottedLine(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bd
  */
 int writeText(SDL_Renderer *renderer,char *text,int fontWidth,int x, int y,int width,int height,int r,int g,int b, double angle)
 {
+	TTF_Init();
 	TTF_Font *police = NULL;
-	police = TTF_OpenFont("DejaVuSans-ExtraLight.ttf",fontWidth);	
+	police = TTF_OpenFont("./fonts/DejaVuSans-ExtraLight.ttf",fontWidth);	
 	SDL_Color coul = {r,g,b};
 	SDL_Surface* texte = TTF_RenderText_Blended(police,text,coul);
 
@@ -468,6 +469,8 @@ int writeText(SDL_Renderer *renderer,char *text,int fontWidth,int x, int y,int w
 	message_rect.h = height; // controls the height of the rect
 
 	SDL_RenderCopy(renderer,message,NULL,&message_rect);
+	SDL_RenderPresent(renderer);
 
 	TTF_CloseFont(police);
+	TTF_Quit();
 }
