@@ -58,7 +58,6 @@ int main(int argc, char *argv[]) {
 		// Create display window
 		SDL_Window *window;
 		SDL_Renderer *renderer;
-		SDL_Surface *screen;   // for rotozoom
 
 		if (SDL_Init(SDL_INIT_VIDEO) < 0){
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't initialize SDL: %s\n", SDL_GetError());
@@ -67,10 +66,7 @@ int main(int argc, char *argv[]) {
 
 		window = SDL_CreateWindow("OpenStreetMap - Renderer",40,-105, WIN_WIDTH, WIN_HEIGHT,SDL_WINDOW_SHOWN); //Création de la fenêtre
 		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);//Création du renderer associé a la fenêtre
-
-		SDL_Texture *texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 2000, 2000);
-		SDL_SetRenderTarget(renderer, texture);
-
+		
 		// Select the background color
 		Uint8 *r = (Uint8 *)malloc(sizeof(Uint8));
 		Uint8 *g = (Uint8 *)malloc(sizeof(Uint8));
@@ -252,10 +248,7 @@ int main(int argc, char *argv[]) {
 		// Render
 		SDL_RenderPresent(renderer);
 		
-		screen = SDL_GetWindowSurface(window);
-		printf("screen : %d",screen->w);
-		
-		catchEvents(renderer,texture);
+		doPause();
 		
 		// Libération de la mémoire		
 		xmlFreeDoc(doc);

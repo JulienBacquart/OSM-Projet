@@ -23,86 +23,17 @@ int html_to_rgba(char *str, Uint8* r, Uint8* g, Uint8* b, Uint8* a){
 	return res;
 }
 
-void catchEvents(SDL_Renderer * renderer, SDL_Texture *texture)
+void doPause()
 {
-	SDL_Event event;
-	int terminer = 0;
-	
-	SDL_Rect DestR;
-	SDL_Rect r;
-  	r.w = 5;
-        r.h = 5;
-	r.x = 500;
-	r.y = 500;
-	DestR.x = 500;
-	DestR.y = 500;
-	DestR.w = 300;
-	DestR.h = 300;
-	
-       SDL_SetRenderTarget(renderer, NULL);
-       SDL_RenderCopy(renderer, texture, &DestR, NULL);
-       SDL_RenderPresent(renderer);
+	SDL_Event evenements;
+    int terminer = 0;
 
 	while(!terminer)
     {
-		SDL_WaitEvent(&event);
+		SDL_WaitEvent(&evenements);
 		
-		if(event.window.event == SDL_WINDOWEVENT_CLOSE)
+		if(evenements.window.event == SDL_WINDOWEVENT_CLOSE)
 			terminer = 1;
-		switch(event.type)
-		{
-			case SDL_QUIT:
-				terminer = 1;
-				break;
-			case SDL_KEYDOWN:
-				switch(event.key.keysym.sym)
-				{
-					case SDLK_ESCAPE:
-						terminer = 1;
-						break;
-					case SDLK_UP: // Flèche haut
-						printf("Flèche haut");
-						DestR.y -= 10;
-						SDL_SetRenderTarget(renderer, NULL);
-						SDL_RenderCopy(renderer, texture, &DestR, NULL);
-						SDL_RenderPresent(renderer);
-						break;
-					case SDLK_DOWN: // Flèche bas
-						printf("Flèche bas");
-						DestR.y += 10;
-						SDL_SetRenderTarget(renderer, NULL);
-						SDL_RenderCopy(renderer, texture, &DestR, NULL);
-						SDL_RenderPresent(renderer);
-						break;
-					case SDLK_RIGHT: // Flèche droite
-						printf("Flèche droite");
-						DestR.x += 10;
-						SDL_SetRenderTarget(renderer, NULL);
-						SDL_RenderCopy(renderer, texture, &DestR, NULL);
-						SDL_RenderPresent(renderer);
-						break;
-					case SDLK_LEFT: // Flèche gauche
-						printf("Flèche gauche");
-						DestR.x -= 10;
-						SDL_SetRenderTarget(renderer, NULL);
-						SDL_RenderCopy(renderer, texture, &DestR, NULL);
-						SDL_RenderPresent(renderer);
-
-						break;
-					case SDLK_PLUS: // On zoom
-						printf("On zoom");
-						break;
-					case SDLK_MINUS:
-						printf("On dezoom");
-						break;
-				}
-
-				break;
-		}
-		
-		
-		
-
     }
 }
 
@@ -326,8 +257,8 @@ int drawDashedLine(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bd
 // 		printf("Decimal: %f\n", decimal_part);
 		
 		if (decimal_part > 0){
-			mx2 = x2;
-			my2 = y2;
+			mx2 = mx1 + decimal_part * dash_length * cos(alpha);
+			my2 = my1 + decimal_part * dash_length * sin(alpha);
 			
 			if (visible){
 // 					thickLineRGBA(renderer, mx1, my1, mx2, my2, draw_width, *r, *g, *b, *a);
