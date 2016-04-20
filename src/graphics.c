@@ -434,6 +434,90 @@ int drawDottedLine(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bd
 	return 0;
 }
 
+SDL_Point* get_centroid(Way *way, Node *h_nodes, Bounds *m_bds){
+	SDL_Point* centroid = (struct SDL_Point*) malloc(sizeof(struct SDL_Point));;
+	
+	centroid->x =(int) malloc(sizeof(int));
+	centroid->y =(int) malloc(sizeof(int));
+	int sommeX = 0;
+	int sommeY = 0;	
+	double minLat = m_bds->minlat;
+	double minLon= m_bds->minlon;
+	double maxLat = m_bds->maxlat;
+	double maxLon= m_bds->maxlon;
+	Node *n = NULL;
+	int x1,y1,i;	
+	
+	for(i = 0; i < (way->nb_nds); i++){
+		
+		HASH_FIND_INT(h_nodes, &way->nds[i], n);
+			
+		x1 = lon_to_pixels(n->lon, minLon, maxLon) * WIN_WIDTH;
+		y1 = lat_to_pixels(n->lat, minLat, maxLat) * WIN_HEIGHT;
+
+		sommeX += x1;
+		sommeY += y1;
+		
+	}	
+	centroid->x = sommeX/(way->nb_nds);
+	centroid->y = sommeY/(way->nb_nds);
+	
+	//printf("Centroid : x = %d ;  y = %d \n",centroid->x,centroid->y);
+
+	return centroid;
+}
+
+SDL_Point* get_middle_of_way(Way *way, Node *h_nodes, Bounds *m_bds){
+	SDL_Point* centre = (struct SDL_Point*) malloc(sizeof(struct SDL_Point));;
+	double minLat = m_bds->minlat;
+	double minLon= m_bds->minlon;
+	double maxLat = m_bds->maxlat;
+	double maxLon= m_bds->maxlon;
+
+	centre->x =(int) malloc(sizeof(int));
+	centre->y =(int) malloc(sizeof(int));
+	int middle = (way->nb_nds-1)/2;
+	
+	Node *n = NULL;
+	HASH_FIND_INT(h_nodes, &way->nds[middle], n);
+	
+	centre->x = lon_to_pixels(n->lon, minLon, maxLon) * WIN_WIDTH;
+	centre->y = lat_to_pixels(n->lat, minLat, maxLat) * WIN_HEIGHT;
+
+	
+	return centre;
+}
+
+double getTextRotation(Way *way, Node *h_nodes, Bounds *m_bds){
+	double degree;
+	int middle = (way->nb_nds-1)/2;
+	int x1,x2,y1,y2;
+	float pi = 3.14159265;
+	double minLat = m_bds->minlat;
+	double minLon= m_bds->minlon;
+	double maxLat = m_bds->maxlat;
+	double maxLon= m_bds->maxlon;
+	double val = 180.0 / pi;
+
+	Node *n = NULL;
+	Node *n_next = NULL;
+	HASH_FIND_INT(h_nodes, &way->nds[middle], n);
+
+//	Il faut calculer la distance entre les deux points
+	
+	x1 = lon_to_pixels(n->lon, minLon, maxLon) * WIN_WIDTH;
+	y1 = lat_to_pixels(n->lat, minLat, maxLat) * WIN_HEIGHT;
+
+	HASH_FIND_INT(h_nodes, &way->nds[middle+1], n_next);
+
+	x2 = lon_to_pixels(n_next->lon, minLon, maxLon) * WIN_WIDTH;
+	y2 = lat_to_pixels(n_next->lat, minLat, maxLat) * WIN_HEIGHT;
+	
+	double alpha = acos((x2-x1)/(sqrt(pow((x2-x1),2) + pow((y2-y1),2)))); 		
+	
+
+	return (alpha*val);
+}
 
 /**
  * \fn writeText(SDL_Renderer *renderer,char *text,int fontWidth,int x, int y,int width,int height,int r,int g,int b, double angle)
@@ -454,19 +538,29 @@ int writeText(SDL_Renderer *renderer,char *text,int fontWidth,int x, int y,int w
 {
 	TTF_Init();
 	TTF_Font *police = NULL;
-	police = TTF_OpenFont("./fonts/DejaVuSans-ExtraLight.ttf",fontWidth);	
+	
+	police = TTF_OpenFont("./fonts/DejaVuSans.ttf",fontWidth);	
+	TTF_SetFontStyle(police, TTF_STYLE_BOLD);
 	SDL_Color coul = {r,g,b};
-	SDL_Surface* texte = TTF_RenderText_Blended(police,text,coul);
-
+	int w,h;
+	
+	SDL_Surface* texte = TTF_RenderUTF8_Blended(police,text,coul);
+	
 	SDL_Surface *textRot = rotozoomSurface(texte,angle,1.0,1);
 
 	SDL_Texture* message = SDL_CreateTextureFromSurface(renderer,textRot);
-
+	
+	if(TTF_SizeUTF8(police,text,&w,&h)) {
+	    // perhaps print the current TTF_GetError(), the string can't be rendered...
+	} else {
+	    //printf("width=%d height=%d\n",w,h);
+	}	
+	
 	SDL_Rect message_rect; //create a rec
-	message_rect.x = x;  //controls the rect's x coordinate 
-	message_rect.y = y; // controls the rect's y coordinte
-	message_rect.w = width; // controls the width of the rect
-	message_rect.h = height; // controls the height of the rect
+	message_rect.x = x-(w/2);  //controls the rect's x coordinate 
+	message_rect.y = y-(h/2); // controls the rect's y coordinte
+	message_rect.w = w; // controls the width of the rect
+	message_rect.h = h; // controls the height of the rect
 
 	SDL_RenderCopy(renderer,message,NULL,&message_rect);
 	SDL_RenderPresent(renderer);

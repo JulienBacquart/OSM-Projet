@@ -97,3 +97,6 @@ int drawFilledPolygon(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m
 int drawDashedLine(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char* color, int dash_length);
 int drawDashedLine(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char* color, int dot_radius);
 int writeText(SDL_Renderer *renderer,char *text,int fontWidth,int x, int y,int width,int height,int r,int g,int b,double angle);
+SDL_Point* get_centroid(Way *way, Node *h_nodes, Bounds *m_bds);
+double getTextRotation(Way *way, Node *h_nodes, Bounds *m_bds);
+SDL_Point* get_middle_of_way(Way *way, Node *h_nodes, Bounds *m_bds);
