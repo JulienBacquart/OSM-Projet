@@ -512,9 +512,11 @@ double getTextRotation(Way *way, Node *h_nodes, Bounds *m_bds){
 
 	x2 = lon_to_pixels(n_next->lon, minLon, maxLon) * WIN_WIDTH;
 	y2 = lat_to_pixels(n_next->lat, minLat, maxLat) * WIN_HEIGHT;
-	
-	double alpha = acos((x2-x1)/(sqrt(pow((x2-x1),2) + pow((y2-y1),2)))); 		
-	
+	printf("y2-y1 = %d \n",y2-y1);
+	double alpha = acos((x2-x1)/(sqrt(pow((x2-x1),2) + pow((y2-y1),2))));
+	if((y2-y1)<0){
+		return (-alpha*val);
+	}
 
 	return (alpha*val);
 }
@@ -534,7 +536,7 @@ double getTextRotation(Way *way, Node *h_nodes, Bounds *m_bds){
  * \param angle la rotation du texte
  * \return int si tout c'est bien passé
  */
-int writeText(SDL_Renderer *renderer,char *text,int fontWidth,int x, int y,int width,int height,int r,int g,int b, double angle)
+int writeText(SDL_Renderer *renderer,char *text,int fontWidth,int x, int y,int width,int height,int r,int g,int b, double angle, SDL_Point* centre)
 {
 	TTF_Init();
 	TTF_Font *police = NULL;
@@ -546,9 +548,9 @@ int writeText(SDL_Renderer *renderer,char *text,int fontWidth,int x, int y,int w
 	
 	SDL_Surface* texte = TTF_RenderUTF8_Blended(police,text,coul);
 	
-	SDL_Surface *textRot = rotozoomSurface(texte,angle,1.0,1);
+	//SDL_Surface *textRot = rotozoomSurface(texte,angle,1.0,1);
 
-	SDL_Texture* message = SDL_CreateTextureFromSurface(renderer,textRot);
+	SDL_Texture* message = SDL_CreateTextureFromSurface(renderer,texte);
 	
 	if(TTF_SizeUTF8(police,text,&w,&h)) {
 	    // perhaps print the current TTF_GetError(), the string can't be rendered...
@@ -556,13 +558,20 @@ int writeText(SDL_Renderer *renderer,char *text,int fontWidth,int x, int y,int w
 	    //printf("width=%d height=%d\n",w,h);
 	}	
 	
+	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+	
 	SDL_Rect message_rect; //create a rec
+	
+	
 	message_rect.x = x-(w/2);  //controls the rect's x coordinate 
 	message_rect.y = y-(h/2); // controls the rect's y coordinte
 	message_rect.w = w; // controls the width of the rect
 	message_rect.h = h; // controls the height of the rect
 
-	SDL_RenderCopy(renderer,message,NULL,&message_rect);
+	//SDL_RenderCopy(renderer,message,NULL,&message_rect);
+	SDL_RenderCopyEx(renderer, message, NULL, &message_rect, angle, NULL, SDL_FLIP_NONE);
+	
+	
 	SDL_RenderPresent(renderer);
 
 	TTF_CloseFont(police);

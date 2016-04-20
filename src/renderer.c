@@ -299,14 +299,17 @@ int main(int argc, char *argv[]) {
 			}
 
 			if(isHighway == 1 && strcmp(name,"")!=0){
-				name[37] = '.';				
-				name[38] = '.';				
+				name[37] = '.';	
+				name[38] = '.';
 				name[39] = '.';
 				name[40] = '\0';
+				printf("Name: %s - ",name);
 				double test = getTextRotation(w, map.h_nodes, map.m_bds);			
-				printf("alpha =  %f \n", test);
-				SDL_Point* point = get_middle_of_way(w, map.h_nodes, map.m_bds);					
-				writeText(renderer,name,13,point->x,point->y,120,11,0,0,0, test);
+				//printf("alpha =  %f \n", test);
+				SDL_Point* point = get_middle_of_way(w, map.h_nodes, map.m_bds);
+				//printf("main :  x=%d, y=%d \n",point->x,point->y);
+								
+				writeText(renderer,name,9,point->x,point->y,120,11,0,0,0, test, point);
 			}
 			else if(isHighway == 0 && strcmp(name,"")!=0){
 				name[37] = '.';				
@@ -314,7 +317,7 @@ int main(int argc, char *argv[]) {
 				name[39] = '.';
 				name[40] = '\0';
 				SDL_Point* point = get_centroid(w, map.h_nodes, map.m_bds);					
-				writeText(renderer,name,8,point->x,point->y,120,11,0,0,0, 0.);
+				writeText(renderer,name,8,point->x,point->y,120,11,0,0,0, 0., point);
 				
 			}
 		}
