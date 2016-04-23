@@ -274,10 +274,8 @@ int main(int argc, char *argv[]) {
 						break;
 					}
 				}
-				// The way is a bulding
+				// The way is a building
 				else if(strcmp(w->tags[i].key,"building") == 0){
-// 					printf("building:\n");
-// 					print_way(*w);
 					drawBuilding(renderer, w, map.h_nodes, map.m_bds, BUILDING_COLOR);
 				}
 				
@@ -360,6 +358,42 @@ int main(int argc, char *argv[]) {
 				SDL_Point* point = get_centroid(w, map.h_nodes, map.m_bds);					
 				writeText(renderer,name,8,point->x,point->y,120,11,0,0,0, 0., point);
 				
+			}
+		}
+		
+		// Draw relations
+		Relation *rel;
+		for(rel=map.h_relations; rel != NULL; rel=rel->hh.next) {
+			int i;
+			int j;
+			
+			// Parcours tags
+			for(i = 0; i < rel->nb_tags; i++){
+// 				print_tag(rel->tags[i]);
+				
+				// The relation is a multipolygon
+				if(strcmp(rel->tags[i].key,"type") == 0 && strcmp(rel->tags[i].val,"multipolygon") == 0){
+					
+					// Parcours members
+					for(j = 0; j < rel->nb_members; j++){
+						// We try to find a member defined as 'inner' to draw the inner yard
+						if(strcmp(rel->members[j].role,"inner") == 0){
+// 							print_member(rel->members[j]);
+							
+							// We find the way with its id
+							w = find_way(rel->members[j].ref);
+							if (w != NULL){
+// 								print_way(*find_way(rel->members[j].ref));
+								
+								// Draw the inner yard
+								drawBuilding(renderer, w, map.h_nodes, map.m_bds, BACKGROUND_COLOR);
+							} else {
+								// In case the reference is to an unknown way (seems pretty frequent) 
+								fprintf(stderr, "Error: Unknown reference to way: %d\n", rel->members[j].ref);
+							}
+						}
+					}
+				}
 			}
 		}
 				
