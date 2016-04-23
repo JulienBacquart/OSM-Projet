@@ -57,6 +57,7 @@ typedef struct{
 	Tag * tags;
 	int nb_tags;
 	UT_hash_handle hh;	// makes this structure hashable
+	int z_level;
 } Way;
 
 /**
