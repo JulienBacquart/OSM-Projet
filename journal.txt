@@ -1,22 +1,21 @@
 /* Journal.txt pour le planning de chaque semaine. */
 
 * Pour le 03/02/15:
-- Tout le monde a commit sur le dépot Github et est au point avec git (clone, commit, push, pull) -- OK
-- Choix définitif des librairies utilisées pour le projet (libxml2 ? SDL ?) -- OK pas le choix libxml2 et SDL
-- Création de fichiers maps test pour tester le projet -- OK dispo sur didel
+- Tout le monde a commit sur le dÃ©pot Github et est au point avec git (clone, commit, push, pull) -- OK
+- Choix dÃ©finitif des librairies utilisÃ©es pour le projet (libxml2 ? SDL ?) -- OK pas le choix libxml2 et SDL
+- CrÃ©ation de fichiers maps test pour tester le projet -- OK dispo sur didel
 
 * Pour le 10/02/16:
-- Librairies installées et testées
+- Librairies installÃ©es et testÃ©es
 - Comprendre comment parser avec libxml2
 - Faire le Makefile et tester chez chacun
-- Définir les structures nécessaires pour representer les batiments, routes, cours d'eau, arbres etc.
+- DÃ©finir les structures nÃ©cessaires pour representer les batiments, routes, cours d'eau, arbres etc.
 
 * Pour le 17/02/2016:
 -Parser le document
 -Faire des fonctions de dessin
 
 TODO List:
-- Relations (WIP)
 - rivieres, lacs (WIP)
 - Z levels
 - feuilles de style externe (WIP)
@@ -28,4 +27,5 @@ DONE:
 - Ratio de la fenetre (30/03)
 - Angle route propre (en dessinant un rond) (30/03)
 - pkg-config (08/04)
-- Ligne pointillé (08/04)
+- Ligne pointillÃ© (08/04)
+- Relations (23/04)
