@@ -11,6 +11,7 @@
 #include <string.h>
 
 #include "../include/parsexml.h"
+#include "../include/graphics.h"
 
 // The hashtable holding the nodes
 Node *h_nodes = NULL;    /* important! initialize to NULL */
@@ -79,7 +80,7 @@ void print_member(Member member){
  * \return void
  */
 void print_way(Way way){
-	printf("Way id: %d visible=%d nb_nds=%d nb_tags=%d\n", way.id, way.visible, way.nb_nds, way.nb_tags);
+	printf("Way id: %d visible=%d nb_nds=%d nb_tags=%d z-level=%d\n", way.id, way.visible, way.nb_nds, way.nb_tags, way.z_level);
 	int i;
 	for(i = 0; i< way.nb_tags; i++){
 		print_tag(way.tags[i]);
@@ -186,6 +187,13 @@ void add_relation(Relation *relation) {
 	HASH_ADD_INT(h_relations, id, relation);  /* id: name of key field */
 }
 
+int z_level_sort_function(Way *a, Way *b) {
+    return ((a->z_level) - (b->z_level));
+}
+
+void sort_by_z_level() {
+    HASH_SORT(h_ways, z_level_sort_function);
+}
 
 /**
  * \fn parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f)
@@ -373,7 +381,8 @@ Map parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f){
 			way->nb_nds = 0;
 			way->nds = (Node *) malloc(sizeof(Node));
 			int size_nds = 1;
-
+			way->z_level = 0;
+			
 			for (n_fils = n->children; n_fils != NULL; n_fils = n_fils->next)
 			{
 				xmlAttr* attributes_fils = n_fils->properties;
@@ -432,11 +441,68 @@ Map parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f){
 							// Key
 							key = malloc(strlen(value_fils)+1);
 							strcpy(key, value_fils);
+							
+							// Assign z-value
+							// Buildings
+							if (!strcmp(key,"building")){
+								way->z_level = BUILDING_Z_LEVEL;
+							}
 						} else {
 							// Value
 							val = malloc(strlen(value_fils)+1);
-							strcpy(val,  value_fils);
+							strcpy(val, value_fils);
+							
+							// Assign z-value
+							// Roads
+							if (!strcmp(val,"motorway")){
+								way->z_level = MOTORWAY_Z_LEVEL;
+							} else if (!strcmp(val,"motorway_link")){
+								way->z_level = MOTORWAY_LINK_Z_LEVEL;
+							} else if (!strcmp(val,"primary")){
+								way->z_level = PRIMARY_Z_LEVEL;
+							} else if (!strcmp(val,"primary_link")){
+								way->z_level = PRIMARY_LINK_Z_LEVEL;
+							} else if (!strcmp(val,"secondary")){
+								way->z_level = SECONDARY_Z_LEVEL;
+							} else if (!strcmp(val,"secondary_link")){
+								way->z_level = SECONDARY_LINK_Z_LEVEL;
+							} else if (!strcmp(val,"tertiary")){
+								way->z_level = TERTIARY_Z_LEVEL;
+							} else if (!strcmp(val,"primary_link")){
+								way->z_level = TERTIARY_LINK_Z_LEVEL;
+							} else if (!strcmp(val,"unclassified")){
+								way->z_level = UNCLASSIFIED_Z_LEVEL;
+							} else if (!strcmp(val,"residential")){
+								way->z_level = RESIDENTIAL_Z_LEVEL;
+							} else if (!strcmp(val,"service")){
+								way->z_level = SERVICE_Z_LEVEL;
+							} else if (!strcmp(val,"living_street")){
+								way->z_level = LIVING_STREET_Z_LEVEL;
+							} else if (!strcmp(val,"pedestrian")){
+								way->z_level = PEDESTRIAN_Z_LEVEL;
+							} else if (!strcmp(val,"track")){
+								way->z_level = TRACK_Z_LEVEL;
+							} else if (!strcmp(val,"footway")){
+								way->z_level = FOOTWAY_Z_LEVEL;
+							} else if (!strcmp(val,"steps")){
+								way->z_level = STEPS_Z_LEVEL;
+							} else if (!strcmp(val,"path")){
+								way->z_level = PATH_Z_LEVEL;
+							} else if (!strcmp(val,"cycleway")){
+								way->z_level = CYCLEWAY_Z_LEVEL;
+							} 
+							// Other
+							else if (!strcmp(val,"riverbank")){
+								way->z_level = RIVER_Z_LEVEL;
+							} else if (!strcmp(val,"grass")){
+								way->z_level = GRASS_Z_LEVEL;
+							} else if (!strcmp(val,"coastline")){
+								way->z_level = COASTLINE_Z_LEVEL;
+							}
+							
+							
 						}
+						
 					
 						// Memory managment 
 						xmlFree(value_fils);
@@ -618,6 +684,8 @@ Map parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f){
  		}
   
 		map->h_nodes = h_nodes;
+		// Sort by z-level
+		sort_by_z_level();
 		map->h_ways = h_ways;
 		map->h_relations = h_relations;
 		//print_map(*map);

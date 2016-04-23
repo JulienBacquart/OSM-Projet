@@ -90,11 +90,12 @@ int main(int argc, char *argv[]) {
 		html_to_rgba(BACKGROUND_COLOR, r, g, b, a);
 		SDL_SetRenderDrawColor(renderer, *r, *g, *b, *a);
 		SDL_RenderClear(renderer);
-		SDL_RenderPresent(renderer);
+// 		SDL_RenderPresent(renderer);
 		
 		// Draw ways
 		Way *w;
-		for(w=map.h_ways; w != NULL; w=w->hh.next) {			
+		for(w=map.h_ways; w != NULL; w=w->hh.next) {
+			print_way(*w);
 			int i;
 		
 			int isHighway = 0;
@@ -112,7 +113,7 @@ int main(int argc, char *argv[]) {
 										
 					// Motorway
 					if(strcmp(w->tags[i].val,"motorway") == 0){
-						// Draw as a double line
+						// Should draw as a double line
 						drawRoad(renderer, w, map.h_nodes, map.m_bds, MOTORWAY_WIDTH * scale, MOTORWAY_COLOR);
 						priority = 1;
 						//break;
@@ -120,7 +121,7 @@ int main(int argc, char *argv[]) {
 					
 					// Motorway link
 					else if(strcmp(w->tags[i].val,"motorway_link") == 0){
-						// Draw as a double line
+						// Should draw as a double line
 						drawRoad(renderer, w, map.h_nodes, map.m_bds, MOTORWAY_LINK_WIDTH * scale, MOTORWAY_LINK_COLOR);
 						priority = 1;						
 						//break;
@@ -282,18 +283,29 @@ int main(int argc, char *argv[]) {
 				// Green spaces
 				else if(strcmp(w->tags[i].key,"landuse") == 0){
 					if(strcmp(w->tags[i].val,"grass") == 0){
-						
-						drawBuilding(renderer, w, map.h_nodes, map.m_bds, GRASS_COLOR);
+						drawFilledPolygon(renderer, w, map.h_nodes, map.m_bds, GRASS_COLOR);
+// 						drawBuilding(renderer, w, map.h_nodes, map.m_bds, GRASS_COLOR);
 						break;
 					}
 				}
 
-				// Coastline
+				// Natural
 				else if(strcmp(w->tags[i].key,"natural") == 0){
+					// Coastline
 					if(strcmp(w->tags[i].val,"coastline") == 0){
+						// If we have a coastline, the background color becomes water
+						html_to_rgba(RIVER_COLOR, r, g, b, a);
+						SDL_SetRenderDrawColor(renderer, *r, *g, *b, *a);
+						SDL_RenderClear(renderer);
 						
-						//drawFilledPolygon(renderer, w, map.h_nodes, map.m_bds, GRASS_COLOR);
-						drawBuilding(renderer, w, map.h_nodes, map.m_bds, "ffffff");
+						// We 'fill' the part of the map not into the sea
+						drawBuilding(renderer, w, map.h_nodes, map.m_bds, BACKGROUND_COLOR);
+						break;
+					}
+					
+					// Lake
+					if(strcmp(w->tags[i].val,"water") == 0){
+						drawFilledPolygon(renderer, w, map.h_nodes, map.m_bds, RIVER_COLOR);
 						break;
 					}
 				}
