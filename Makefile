@@ -6,7 +6,7 @@ EXEC = renderer check_calcul
 
 all: $(EXEC)
 
-parsexml.o: include/parsexml.h src/parsexml.c
+parsexml.o: include/parsexml.h include/graphics.h src/parsexml.c
 	gcc -c src/parsexml.c $(LDFLAGS) $(CPPFLAGS)
 	
 calcul.o: include/calcul.h src/calcul.c
