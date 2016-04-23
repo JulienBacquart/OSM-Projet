@@ -73,6 +73,16 @@ typedef struct{
 } Bounds;
 
 /**
+ * \struct Member
+ * \brief Store a member of a relation, it's type (way or node) and role (inner, outter etc.)
+ */
+typedef struct{
+	char *type;
+	int ref;
+	char *role;
+} Member;
+
+/**
  * \struct Relation
  * \brief permet de stocker les relations du fichier xml
  */
@@ -81,7 +91,7 @@ typedef struct{
 	bool visible;
 	Tag * tags;
 	int nb_tags;
-// 	Member members;
+	Member * members;
 	int nb_members;
 	UT_hash_handle hh;	// makes this structure hashable
 } Relation;

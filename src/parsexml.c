@@ -60,6 +60,16 @@ void print_node(Node node){
 	}
 }
 
+/**
+ * \fn print_Member(Member member)
+ * \brief Display a string representation of a member of a relation
+ *
+ * \param node the member to be displayed
+ * \return void
+ */
+void print_member(Member member){
+	printf("Type: %s, Ref: %d, Role: %s\n", member.type, member.ref, member.role);
+}
 
 /**
  * \fn print_way(Way way)
@@ -87,6 +97,9 @@ void print_way(Way way){
 void print_relation(Relation relation){
 	printf("Relation id: %d visible=%d nb_tags=%d nb_members=%d\n", relation.id, relation.visible, relation.nb_tags, relation.nb_members);
 	int i;
+	for(i = 0; i< relation.nb_members; i++){
+		print_member(relation.members[i]);
+	}
 	for(i = 0; i< relation.nb_tags; i++){
 		print_tag(relation.tags[i]);
 	}
@@ -116,8 +129,22 @@ void print_map(Map map){
 Node *find_node(int node_id) {
     Node *n;
 
-    HASH_FIND_INT(h_nodes, &node_id, n);  /* s: output pointer */
+    HASH_FIND_INT(h_nodes, &node_id, n);  /* n: output pointer */
     return n;
+}
+
+/**
+ * \fn find_way(int way_id)
+ * \brief Find a way in the hashtable based on its id.
+ *
+ * \param way_id id of the way
+ * \return Way* the way corresponding to the id
+ */
+Way *find_way(int way_id) {
+    Way *w;
+
+    HASH_FIND_INT(h_ways, &way_id, w);  /* w: output pointer */
+    return w;
 }
 
 
@@ -451,7 +478,7 @@ Map parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f){
 			// Initialize
 			Relation *relation = (Relation *) malloc(sizeof(Relation));
 	 		
-			// We extract the attributes of a way
+			// We extract the attributes of a relation
 			xmlAttr* attribute = n->properties;
 			while(attribute)
 			{
@@ -476,56 +503,63 @@ Map parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f){
 	 		
 			xmlNodePtr n_fils;
 		
-			// We extract the nodes and tags of a way
+			// We extract the members and tags of a relation
 			// Should we increase the default value ?
 			relation->nb_tags = 0;
 			relation->tags = (Tag *) malloc(sizeof(Tag));
 			int size_tags = 1;
 			relation->nb_members = 0;
-// 			relation->members = (Member *) malloc(sizeof(Member));
+			relation->members = (Member *) malloc(sizeof(Member));
 			int size_members = 1;
 
 			for (n_fils = n->children; n_fils != NULL; n_fils = n_fils->next)
 			{
 				xmlAttr* attributes_fils = n_fils->properties;
-				// Process child nodes
+				// Process child member
 				if (!strcmp(n_fils->name,"member"))
 				{
-// 					int id;
-// 					Node *nd = (Node *) malloc(sizeof(Node));
-// 				
-// 					while(attributes_fils)
-// 					{
-// 						xmlChar* value_fils = xmlNodeListGetString(n_fils->doc, attributes_fils->children, 1);
-// 					
-// 						if (!strcmp(attributes_fils->name,"ref")){
-// 							// Node ID
-// 							id = atoi(value_fils);
-// 						}
-// 					
-// 						// Memory managment 
-// 						xmlFree(value_fils);
-// 			 			attributes_fils = attributes_fils->next;
-// 					}
-// 				
-// 					// If there is no space anymore in the nodes array, we double it
-// 					if (way->nb_nds == size_nds)
-// 					{
-// 						// Double the size of the nodes array
-// 						size_nds *= 2;
-// 						way->nds = (Node *) realloc(way->nds, size_nds * sizeof(Node));
-// 	// 					printf("realloc taille: %d\n", size_nds);
-// 						if (way->nds == NULL){
-// 							fprintf(stderr, "Echec realloc\n");
-// 							exit (EXIT_FAILURE);
-// 						}
-// 					}
-// 				
-// 					// Add the node to the current way
-// 					// We get a pointer to a node from the hashtable of nodes
-// 					nd = find_node(id);
-// 					way->nds[way->nb_nds] = *nd;
-// 					way->nb_nds++;
+					Member *mb = (Member *) malloc(sizeof(Member));
+				
+					while(attributes_fils)
+					{
+						xmlChar* value_fils = xmlNodeListGetString(n_fils->doc, attributes_fils->children, 1);
+					
+						if (!strcmp(attributes_fils->name,"ref")){
+							// ref
+							mb->ref = atoi(value_fils);
+						}
+						else if (!strcmp(attributes_fils->name,"type")){
+							// type
+							mb->type = malloc(strlen(value_fils)+1);
+							strcpy(mb->type, value_fils);
+						}
+						else if (!strcmp(attributes_fils->name,"role")){
+							// role
+							mb->role = malloc(strlen(value_fils)+1);
+							strcpy(mb->role, value_fils);
+						}
+					
+						// Memory managment 
+						xmlFree(value_fils);
+			 			attributes_fils = attributes_fils->next;
+					}
+				
+					// If there is no space anymore in the members array, we double it
+					if (relation->nb_members == size_members)
+					{
+						// Double the size of the members array
+						size_members *= 2;
+						relation->members = (Member *) realloc(relation->members, size_members * sizeof(Member));
+// 						printf("realloc taille: %d\n", size_members);
+						if (relation->members == NULL){
+							fprintf(stderr, "Echec realloc\n");
+							exit (EXIT_FAILURE);
+						}
+					}
+				
+					// Add the member to the current relation
+					relation->members[relation->nb_members] = *mb;
+					relation->nb_members++;
 				
 				}
 				// Process tags
