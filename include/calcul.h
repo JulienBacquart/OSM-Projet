@@ -12,6 +12,7 @@
 #define earth_radius 6378137
 
 double degrees_to_radian(double degrees);
+double radian_to_degrees(double radian);
 double lat_to_y(double lat);
 double lon_to_x(double lon);
 double lat_to_pixels(double lat, double map_minlat, double map_maxlat);

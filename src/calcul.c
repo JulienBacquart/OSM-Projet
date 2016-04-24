@@ -18,6 +18,17 @@ double degrees_to_radian(double degrees){
 }
 
 /**
+ * \fn double radian_to_degrees(double radian)
+ * \brief Convert an angle in radian to degrees
+ *
+ * \param radian the angle in radian
+ * \return Return a double corresponding to the value in degrees
+ */
+double radian_to_degrees(double radian){
+	return radian * (180/M_PI);
+}
+
+/**
  * \fn double lat_to_y(double lat)
  * \brief Fonction qui convertit une latitude GPS en une projection de mercator en mètre
  *
