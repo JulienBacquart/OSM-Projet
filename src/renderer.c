@@ -95,13 +95,13 @@ int main(int argc, char *argv[]) {
 		// Draw ways
 		Way *w;
 		for(w=map.h_ways; w != NULL; w=w->hh.next) {
-			print_way(*w);
+// 			print_way(*w);
 			int i;
 		
-			int isHighway = 0;
-			char name[40];
-			strcpy(name,"");
-			int priority = 0;
+// 			int isHighway = 0;
+// 			char name[40];
+// 			strcpy(name,"");
+// 			int priority = 0;
 
 			// Parcours tags
 			for(i = 0; i < w->nb_tags; i++){
@@ -109,122 +109,122 @@ int main(int argc, char *argv[]) {
 				
 				// The way is a road
 				if(strcmp(w->tags[i].key,"highway") == 0){
-					isHighway = 1;					
-										
+// 					isHighway = 1;
+					
 					// Motorway
 					if(strcmp(w->tags[i].val,"motorway") == 0){
 						// Should draw as a double line
 						drawRoad(renderer, w, map.h_nodes, map.m_bds, MOTORWAY_WIDTH * scale, MOTORWAY_COLOR);
-						priority = 1;
-						//break;
+// 						priority = 1;
+						break;
 					}
 					
 					// Motorway link
 					else if(strcmp(w->tags[i].val,"motorway_link") == 0){
 						// Should draw as a double line
 						drawRoad(renderer, w, map.h_nodes, map.m_bds, MOTORWAY_LINK_WIDTH * scale, MOTORWAY_LINK_COLOR);
-						priority = 1;						
-						//break;
+// 						priority = 1;						
+						break;
 					}
 					
 					// Trunk
 					else if(strcmp(w->tags[i].val,"trunk") == 0){
 						drawRoad(renderer, w, map.h_nodes, map.m_bds, TRUNK_WIDTH * scale, TRUNK_COLOR);
-						priority = 1;
-						//break;
+// 						priority = 1;
+						break;
 					}
 					
 					// Trunk link
 					else if(strcmp(w->tags[i].val,"trunk_link") == 0){
 						drawRoad(renderer, w, map.h_nodes, map.m_bds, TRUNK_LINK_WIDTH * scale, TRUNK_LINK_COLOR);
-						priority = 1;
-						//break;
+// 						priority = 1;
+						break;
 					}
 					
 					// Primary road
 					else if(strcmp(w->tags[i].val,"primary") == 0){
 						drawRoad(renderer, w, map.h_nodes, map.m_bds, PRIMARY_WIDTH * scale, PRIMARY_COLOR);
-						priority = 2;
-						//break;
+// 						priority = 2;
+						break;
 					}
 					
 					// Primary link
 					else if(strcmp(w->tags[i].val,"primary_link") == 0){
 						drawRoad(renderer, w, map.h_nodes, map.m_bds, PRIMARY_LINK_WIDTH * scale, PRIMARY_LINK_COLOR);
-						priority = 2;							
-						//break;
+// 						priority = 2;							
+						break;
 					}
 					
 					// Secondary road
 					else if(strcmp(w->tags[i].val,"secondary") == 0){
 						drawRoad(renderer, w, map.h_nodes, map.m_bds, SECONDARY_WIDTH * scale, SECONDARY_COLOR);
-						priority = 2;
-						//break;
+// 						priority = 2;
+						break;
 					}
 					
 					// Secondary link
 					else if(strcmp(w->tags[i].val,"secondary_link") == 0){
 						drawRoad(renderer, w, map.h_nodes, map.m_bds, SECONDARY_LINK_WIDTH * scale, SECONDARY_LINK_COLOR);
-						priority = 2;
-						priority = 2;
-						//break;
+// 						priority = 2;
+						break;
 					}
 					
 					// Tertiary road
 					else if(strcmp(w->tags[i].val,"tertiary") == 0){
 						drawRoad(renderer, w, map.h_nodes, map.m_bds, TERTIARY_WIDTH * scale, TERTIARY_COLOR);
-						priority = 2;
-						//break;
+// 						priority = 2;
+						break;
 					}
 					
 					// Tertiary link
 					else if(strcmp(w->tags[i].val,"tertiary_link") == 0){
 						drawRoad(renderer, w, map.h_nodes, map.m_bds, TERTIARY_LINK_WIDTH * scale, TERTIARY_LINK_COLOR);
-						priority = 2;						
-						//break;
+// 						priority = 2;						
+						break;
 					}
 					
 					// unclassified road
 					else if(strcmp(w->tags[i].val,"unclassified") == 0){
 						drawRoad(renderer, w, map.h_nodes, map.m_bds, UNCLASSIFIED_WIDTH * scale, UNCLASSIFIED_COLOR);
-						priority = 3;						
-						//break;
+// 						priority = 3;						
+						break;
 					}
 					
 					// residential road
 					else if(strcmp(w->tags[i].val,"residential") == 0){
 						drawRoad(renderer, w, map.h_nodes, map.m_bds, RESIDENTIAL_WIDTH * scale, RESIDENTIAL_COLOR);
-						priority = 3;						
-						//break;
+// 						priority = 3;						
+						break;
 					}
 					
 					// service road
 					else if(strcmp(w->tags[i].val,"service") == 0){
 						drawRoad(renderer, w, map.h_nodes, map.m_bds, SERVICE_WIDTH * scale, SERVICE_COLOR);
-						priority = 3;						
-						//break;
+// 						priority = 3;						
+						break;
 					}
 					
 					// living street road
 					else if(strcmp(w->tags[i].val,"living_street") == 0){
 						drawRoad(renderer, w, map.h_nodes, map.m_bds, LIVING_STREET_WIDTH * scale, LIVING_STREET_COLOR);
-						priority = 3;						
-						//break;
+// 						priority = 3;						
+						break;
 					}
 					
 					// pedestrian road
 					else if(strcmp(w->tags[i].val,"pedestrian") == 0){
-						drawRoad(renderer, w, map.h_nodes, map.m_bds, PEDESTRIAN_WIDTH * scale, PEDESTRIAN_COLOR);
-						priority = 3;						
-						//break;
+						// Is not displayed in the examples onlines
+// 						drawRoad(renderer, w, map.h_nodes, map.m_bds, PEDESTRIAN_WIDTH * scale, PEDESTRIAN_COLOR);
+// 						priority = 3;						
+						break;
 					}
 					
 					// track
 					else if(strcmp(w->tags[i].val,"track") == 0){
 						// Should be dotted-dashed line
 						drawRoad(renderer, w, map.h_nodes, map.m_bds, TRACK_WIDTH * scale, TRACK_COLOR);
-						priority = 3;						
-						//break;
+// 						priority = 3;						
+						break;
 					}
 										
 					// footway road
@@ -232,14 +232,14 @@ int main(int argc, char *argv[]) {
 						// Should be dotted line
 // 						drawRoad(renderer, w, map.h_nodes, map.m_bds, FOOTWAY_WIDTH * scale, FOOTWAY_COLOR);
 						drawDottedLine(renderer, w, map.h_nodes, map.m_bds, FOOTWAY_COLOR, FOOTWAY_DOT_RADIUS);
-						//break;
+						break;
 					}
 					
 					// steps
 					else if(strcmp(w->tags[i].val,"steps") == 0){
 						//Should be dashed line
 						drawRoad(renderer, w, map.h_nodes, map.m_bds, STEPS_WIDTH, STEPS_COLOR);
-						//break;
+						break;
 					}
 // 					
 					
@@ -247,20 +247,20 @@ int main(int argc, char *argv[]) {
 					else if(strcmp(w->tags[i].val,"cycleway") == 0){
 						// Should be dotted line
 						drawDashedLine(renderer, w, map.h_nodes, map.m_bds, CYCLEWAY_COLOR, CYCLEWAY_DASH_LENGTH);
-						//break;
+						break;
 					}
 					
 					// path
 					else if(strcmp(w->tags[i].val,"path") == 0){
 						// Should be dotted line
 						drawDashedLine(renderer, w, map.h_nodes, map.m_bds, PATH_COLOR, PATH_DASH_LENGTH);
-						//break;
+						break;
 					}
 					
 					else {
 						printf("highway value:%s\n", w->tags[i].val);
 // 						drawRoad(renderer, w, map.h_nodes, map.m_bds, 10, 0xFF00FF00);
-						//break;
+						break;
 					}
 				} 
 				// The way is a river
@@ -318,59 +318,59 @@ int main(int argc, char *argv[]) {
 					}
 				}
 
-				else if(strcmp(w->tags[i].key,"name") == 0){
-					int c=0;
-					for(c; c<40; c++){
-						name[c] = w->tags[i].val[c];
-					}
-				}
+// 				else if(strcmp(w->tags[i].key,"name") == 0){
+// 					int c=0;
+// 					for(c; c<40; c++){
+// 						name[c] = w->tags[i].val[c];
+// 					}
+// 				}
 
 			}
 			
-			// display highways names
-			if(isHighway == 1 && strcmp(name,"")!=0){
-				double ratio = 1/scale;
-				int display = 0;				
-				if(ratio <1){
-					if(priority<4){
-						display = 1;
-					}
-				}
-				else if(ratio <2){
-					if(priority<3){
-						display = 1;
-					}
-				}
-				else{
-					if(priority<2){
-						display = 1;
-					}
-				}
-				if(display == 1){
-					name[37] = '.';	
-					name[38] = '.';
-					name[39] = '.';
-					name[40] = '\0';
-					printf("Name: %s - ",name);
-					double test = getTextRotation(w, map.h_nodes, map.m_bds);			
-					//printf("alpha =  %f \n", test);
-					SDL_Point* point = get_middle_of_way(w, map.h_nodes, map.m_bds);
-					//printf("main :  x=%d, y=%d \n",point->x,point->y);
-								
-					writeText(renderer,name,9,point->x,point->y,120,11,0,0,0, test, point);
-
-				}	
-				
-			}
-			else if(isHighway == 0 && strcmp(name,"")!=0){
-				name[37] = '.';				
-				name[38] = '.';				
-				name[39] = '.';
-				name[40] = '\0';
-				SDL_Point* point = get_centroid(w, map.h_nodes, map.m_bds);					
-				writeText(renderer,name,8,point->x,point->y,120,11,0,0,0, 0., point);
-				
-			}
+// 			// display highways names
+// 			if(isHighway == 1 && strcmp(name,"")!=0){
+// 				double ratio = 1/scale;
+// 				int display = 0;				
+// 				if(ratio <1){
+// 					if(priority<4){
+// 						display = 1;
+// 					}
+// 				}
+// 				else if(ratio <2){
+// 					if(priority<3){
+// 						display = 1;
+// 					}
+// 				}
+// 				else{
+// 					if(priority<2){
+// 						display = 1;
+// 					}
+// 				}
+// 				if(display == 1){
+// 					name[37] = '.';	
+// 					name[38] = '.';
+// 					name[39] = '.';
+// 					name[40] = '\0';
+// 					printf("Name: %s - ",name);
+// 					double test = getTextRotation(w, map.h_nodes, map.m_bds);			
+// 					//printf("alpha =  %f \n", test);
+// 					SDL_Point* point = get_middle_of_way(w, map.h_nodes, map.m_bds);
+// 					//printf("main :  x=%d, y=%d \n",point->x,point->y);
+// 								
+// 					writeText(renderer,name,9,point->x,point->y,120,11,0,0,0, test, point);
+// 
+// 				}	
+// 				
+// 			}
+// 			else if(isHighway == 0 && strcmp(name,"")!=0){
+// 				name[37] = '.';				
+// 				name[38] = '.';				
+// 				name[39] = '.';
+// 				name[40] = '\0';
+// 				SDL_Point* point = get_centroid(w, map.h_nodes, map.m_bds);					
+// 				writeText(renderer,name,8,point->x,point->y,120,11,0,0,0, 0., point);
+// 				
+// 			}
 		}
 		
 		// Draw relations
@@ -408,12 +408,19 @@ int main(int argc, char *argv[]) {
 				}
 			}
 		}
+		//Test du texte
+		TTF_Init();
+		TTF_Font *police = NULL;
+		police = TTF_OpenFont("./fonts/DejaVuSans.ttf", 50);
+		TTF_SetFontStyle(police, TTF_STYLE_BOLD);
+		
+		writeText(renderer,"YOLO", police, WIN_WIDTH/2, WIN_HEIGHT/2, "#000000", 0.);
+		
+		TTF_CloseFont(police);
+		TTF_Quit();
 				
 		// Render
 		SDL_RenderPresent(renderer);
-
-		//Test du texte
-		//writeText(renderer,"YOLO",50,350,250,120,120,0,0,0, 45.);
 		
 		doPause();
 		

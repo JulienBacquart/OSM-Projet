@@ -434,6 +434,26 @@ int drawDottedLine(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bd
 	return 0;
 }
 
+// int writeText(SDL_Renderer *renderer, const char *s, Sint16 x, Sint16 y, Uint32 rotation, char* color){
+// 	
+// 	Uint8 *r = (Uint8 *)malloc(sizeof(Uint8));
+// 	Uint8 *g = (Uint8 *)malloc(sizeof(Uint8));
+// 	Uint8 *b = (Uint8 *)malloc(sizeof(Uint8));
+// 	Uint8 *a = (Uint8 *)malloc(sizeof(Uint8));
+// 	html_to_rgba(color, r, g, b, a);
+// 	
+// 	gfxPrimitivesSetFontRotation(rotation);
+// 	
+// 	stringRGBA(renderer, (int)x, (int)y, s, *r, *g, *b, *a);
+// 	
+// 	free(r);
+// 	free(g);
+// 	free(b);
+// 	free(a);
+// 	
+// 	return 0;
+// }
+
 SDL_Point* get_centroid(Way *way, Node *h_nodes, Bounds *m_bds){
 	SDL_Point* centroid = (struct SDL_Point*) malloc(sizeof(struct SDL_Point));;
 	
@@ -522,58 +542,67 @@ double getTextRotation(Way *way, Node *h_nodes, Bounds *m_bds){
 }
 
 /**
- * \fn writeText(SDL_Renderer *renderer,char *text,int fontWidth,int x, int y,int width,int height,int r,int g,int b, double angle)
+ * \fn writeText(SDL_Renderer *renderer, char *text, TTF_Font *police, int x, int y, char* color, double angle)
  * \brief Fonction qui permet d'écrire du texte sur la fenêtre
  *
  * \param renderer le renderer sur lequel dessiner
  * \param text le texte a afficher
- * \param fontWidth la police d'écriture
+ * \param police la police d'écriture
  * \param x la coordonnées x pour placer le texte
  * \param y la coordonnées y pour placer le texte
- * \param width la largeur du texte
- * \param height la longueur du texte
- * \param r,g,b,a la couleur du texte
- * \param angle la rotation du texte
+ * \param r, g, b, a la couleur du texte
+ * \param angle la rotation du texte (in degrees)
  * \return int si tout c'est bien passé
  */
-int writeText(SDL_Renderer *renderer,char *text,int fontWidth,int x, int y,int width,int height,int r,int g,int b, double angle, SDL_Point* centre)
+int writeText(SDL_Renderer *renderer, char *text, TTF_Font *police, int x, int y, char* color, double angle)
 {
-	TTF_Init();
-	TTF_Font *police = NULL;
+	// Color from html
+	Uint8 *r = (Uint8 *)malloc(sizeof(Uint8));
+	Uint8 *g = (Uint8 *)malloc(sizeof(Uint8));
+	Uint8 *b = (Uint8 *)malloc(sizeof(Uint8));
+	Uint8 *a = (Uint8 *)malloc(sizeof(Uint8));
+	html_to_rgba(color, r, g, b, a);
+	SDL_Color coul = {*r,*g,*b};
 	
-	police = TTF_OpenFont("./fonts/DejaVuSans.ttf",fontWidth);	
-	TTF_SetFontStyle(police, TTF_STYLE_BOLD);
-	SDL_Color coul = {r,g,b};
-	int w,h;
-	
+	// Create surface
 	SDL_Surface* texte = TTF_RenderUTF8_Blended(police,text,coul);
-	
-	//SDL_Surface *textRot = rotozoomSurface(texte,angle,1.0,1);
-
+	if (texte == NULL) {
+		fprintf(stderr, "CreateRGBSurface failed: %s\n", SDL_GetError());
+		exit(1);
+	}
+	// Create texture
 	SDL_Texture* message = SDL_CreateTextureFromSurface(renderer,texte);
+	if (message == NULL) {
+		fprintf(stderr, "CreateTextureFromSurface failed: %s\n", SDL_GetError());
+		exit(1);
+	}
 	
+	// Calculate the size of the displayed text
+	int w,h;
 	if(TTF_SizeUTF8(police,text,&w,&h)) {
-	    // perhaps print the current TTF_GetError(), the string can't be rendered...
+		fprintf(stderr, "SDL_ttf Error: %s", TTF_GetError());
+		exit(1);
 	} else {
-	    //printf("width=%d height=%d\n",w,h);
-	}	
+		//printf("width=%d height=%d\n", w, h);
+	}
 	
-	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+	SDL_Rect message_rect; //create a rectangle
 	
-	SDL_Rect message_rect; //create a rec
+	// Center the rectangle
+	message_rect.x = x-(w/2); 
+	message_rect.y = y-(h/2);
+	message_rect.w = w;
+	message_rect.h = h;
 	
-	
-	message_rect.x = x-(w/2);  //controls the rect's x coordinate 
-	message_rect.y = y-(h/2); // controls the rect's y coordinte
-	message_rect.w = w; // controls the width of the rect
-	message_rect.h = h; // controls the height of the rect
-
-	//SDL_RenderCopy(renderer,message,NULL,&message_rect);
 	SDL_RenderCopyEx(renderer, message, NULL, &message_rect, angle, NULL, SDL_FLIP_NONE);
 	
-	
-	SDL_RenderPresent(renderer);
-
-	TTF_CloseFont(police);
-	TTF_Quit();
+	free(r);
+	free(g);
+	free(b);
+	free(a);
+	SDL_FreeSurface(texte);
+	SDL_DestroyTexture(message);
+	return 0;
 }
+
+
