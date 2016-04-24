@@ -187,10 +187,27 @@ void add_relation(Relation *relation) {
 	HASH_ADD_INT(h_relations, id, relation);  /* id: name of key field */
 }
 
+/**
+ * \fn z_level_sort_function(Way *a, Way *b)
+ * \brief Sort two ways based on their z-level 
+ *
+ * Respect the following contract:
+ * It must accept two pointer arguments (the items to compare), and must return an int which is less than zero, zero, or greater than zero, 
+ * if the first item sorts before, equal to, or after the second item, respectively. 
+ * (This is the same convention used by strcmp or qsort in the standard C library).
+ * 
+ * \return void
+ */
 int z_level_sort_function(Way *a, Way *b) {
     return ((a->z_level) - (b->z_level));
 }
 
+/**
+ * \fn sort_by_z_level()
+ * \brief Sort the ways based on their z-level (from smaller to bigger values) 
+ *
+ * \return void
+ */
 void sort_by_z_level() {
     HASH_SORT(h_ways, z_level_sort_function);
 }
