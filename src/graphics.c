@@ -487,58 +487,174 @@ SDL_Point* get_centroid(Way *way, Node *h_nodes, Bounds *m_bds){
 	return centroid;
 }
 
-SDL_Point* get_middle_of_way(Way *way, Node *h_nodes, Bounds *m_bds){
-	SDL_Point* centre = (struct SDL_Point*) malloc(sizeof(struct SDL_Point));;
-	double minLat = m_bds->minlat;
-	double minLon= m_bds->minlon;
-	double maxLat = m_bds->maxlat;
-	double maxLon= m_bds->maxlon;
+// SDL_Point* get_middle_of_way(Way *way, Node *h_nodes, Bounds *m_bds){
+// 	SDL_Point* centre = (struct SDL_Point*) malloc(sizeof(struct SDL_Point));;
+// 	double minLat = m_bds->minlat;
+// 	double minLon= m_bds->minlon;
+// 	double maxLat = m_bds->maxlat;
+// 	double maxLon= m_bds->maxlon;
+// 
+// 	centre->x =(int) malloc(sizeof(int));
+// 	centre->y =(int) malloc(sizeof(int));
+// 	int middle = (way->nb_nds-1)/2;
+// 	
+// 	Node *n = NULL;
+// 	HASH_FIND_INT(h_nodes, &way->nds[middle], n);
+// 	
+// 	centre->x = lon_to_pixels(n->lon, minLon, maxLon) * WIN_WIDTH;
+// 	centre->y = lat_to_pixels(n->lat, minLat, maxLat) * WIN_HEIGHT;
+// 
+// 	
+// 	return centre;
+// }
 
-	centre->x =(int) malloc(sizeof(int));
-	centre->y =(int) malloc(sizeof(int));
-	int middle = (way->nb_nds-1)/2;
-	
-	Node *n = NULL;
-	HASH_FIND_INT(h_nodes, &way->nds[middle], n);
-	
-	centre->x = lon_to_pixels(n->lon, minLon, maxLon) * WIN_WIDTH;
-	centre->y = lat_to_pixels(n->lat, minLat, maxLat) * WIN_HEIGHT;
+// double getTextRotation(Way *way, Node *h_nodes, Bounds *m_bds){
+// 	double degree;
+// 	int middle = (way->nb_nds-1)/2;
+// 	int x1,x2,y1,y2;
+// 	float pi = 3.14159265;
+// 	double minLat = m_bds->minlat;
+// 	double minLon= m_bds->minlon;
+// 	double maxLat = m_bds->maxlat;
+// 	double maxLon= m_bds->maxlon;
+// 	double val = 180.0 / pi;
+// 
+// 	Node *n = NULL;
+// 	Node *n_next = NULL;
+// 	HASH_FIND_INT(h_nodes, &way->nds[middle], n);
+// 
+// //	Il faut calculer la distance entre les deux points
+// 	
+// 	x1 = lon_to_pixels(n->lon, minLon, maxLon) * WIN_WIDTH;
+// 	y1 = lat_to_pixels(n->lat, minLat, maxLat) * WIN_HEIGHT;
+// 
+// 	HASH_FIND_INT(h_nodes, &way->nds[middle+1], n_next);
+// 
+// 	x2 = lon_to_pixels(n_next->lon, minLon, maxLon) * WIN_WIDTH;
+// 	y2 = lat_to_pixels(n_next->lat, minLat, maxLat) * WIN_HEIGHT;
+// 	printf("y2-y1 = %d \n",y2-y1);
+// 	double alpha = acos((x2-x1)/(sqrt(pow((x2-x1),2) + pow((y2-y1),2))));
+// 	if((y2-y1)<0){
+// 		return (-alpha*val);
+// 	}
+// 
+// 	return (alpha*val);
+// }
 
-	
-	return centre;
+void trim_string(const char *input, char *output, int max_length){
+	int i;
+	int j = 0;
+	strcpy(output, input);
+	for (i = 0; input[i] != '\0'; i++) {
+		if ((j >= max_length) && (isspace((unsigned char) input[i]))) {
+			output[i] = '\n';
+			j = 0;
+		} else {
+			j++;
+		}
+	}
 }
 
-double getTextRotation(Way *way, Node *h_nodes, Bounds *m_bds){
-	double degree;
-	int middle = (way->nb_nds-1)/2;
-	int x1,x2,y1,y2;
-	float pi = 3.14159265;
+int writeBuildingName(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char *text, TTF_Font *police, char* color){
+	int i;
+	
 	double minLat = m_bds->minlat;
 	double minLon= m_bds->minlon;
 	double maxLat = m_bds->maxlat;
 	double maxLon= m_bds->maxlon;
-	double val = 180.0 / pi;
+	
+	int sommeX = 0;
+	int sommeY = 0;	
+	
+	Node *n = NULL;
+	
+	int x1, y1;
+	int x_center, y_center;
+	
+	for(i = 0; i < (way->nb_nds); i++){
+		
+		HASH_FIND_INT(h_nodes, &way->nds[i], n);
+			
+		x1 = lon_to_pixels(n->lon, minLon, maxLon) * WIN_WIDTH;
+		y1 = lat_to_pixels(n->lat, minLat, maxLat) * WIN_HEIGHT;
 
+		sommeX += x1;
+		sommeY += y1;
+		
+	}
+	
+	x_center = sommeX/(way->nb_nds);
+	y_center = sommeY/(way->nb_nds);
+	
+	//printf("Center : x = %d ;  y = %d \n", x_center, y_center);
+	
+// 	char *result = malloc(strlen(text)+1);
+// 	trim_string(text, result, 15);
+	
+	char *result;
+	if (strlen(text) > 30) {
+		result = (char *) malloc(sizeof(char[30]));
+		strncpy(result, text, 30);
+		result[26] = '.';				
+		result[27] = '.';				
+		result[28] = '.';
+		result[29] = '\0';
+	} else {
+		result = (char *) malloc(strlen(text)+1);
+		strcpy(result, text);
+	}
+	
+	writeText(renderer, result, police, x_center, y_center, color, 0);
+// 	writeText(renderer, text, police, x_center, y_center, color, 0);
+
+	return 0;
+}
+
+int writeRoadName(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char *text, TTF_Font *police, char* color){
+	
+	double minLat = m_bds->minlat;
+	double minLon = m_bds->minlon;
+	double maxLat = m_bds->maxlat;
+	double maxLon = m_bds->maxlon;
+	
+	int indMiddle = (way->nb_nds-1)/2;
+	
+// 	printf("Max: %d, Middle: %d\n", way->nb_nds - 1, indMiddle);
+// 	printf("Max: %d, Next: %d\n", way->nb_nds - 1, indMiddle + 1);
+	
 	Node *n = NULL;
 	Node *n_next = NULL;
-	HASH_FIND_INT(h_nodes, &way->nds[middle], n);
-
-//	Il faut calculer la distance entre les deux points
+	
+	int x1, y1;
+	int x2, y2;
+	
+	HASH_FIND_INT(h_nodes, &way->nds[indMiddle], n);
 	
 	x1 = lon_to_pixels(n->lon, minLon, maxLon) * WIN_WIDTH;
 	y1 = lat_to_pixels(n->lat, minLat, maxLat) * WIN_HEIGHT;
 
-	HASH_FIND_INT(h_nodes, &way->nds[middle+1], n_next);
+	HASH_FIND_INT(h_nodes, &way->nds[indMiddle + 1], n_next);
 
 	x2 = lon_to_pixels(n_next->lon, minLon, maxLon) * WIN_WIDTH;
 	y2 = lat_to_pixels(n_next->lat, minLat, maxLat) * WIN_HEIGHT;
-	printf("y2-y1 = %d \n",y2-y1);
-	double alpha = acos((x2-x1)/(sqrt(pow((x2-x1),2) + pow((y2-y1),2))));
-	if((y2-y1)<0){
-		return (-alpha*val);
-	}
+	
+	int delta_x = x2 - x1;
+	int delta_y = y2 - y1;
 
-	return (alpha*val);
+	double alpha = atan2(delta_y, delta_x);
+	// Make sure the result is between -PI/2 and PI/2
+	if (alpha > M_PI/2){
+		alpha = alpha - M_PI;
+	} else if (alpha < -M_PI/2){
+		alpha = alpha + M_PI;
+	}
+	
+// 	printf("Alpha: %f\n", alpha);
+// 	printf("Angle: %f°\n", radian_to_degrees(alpha));
+
+	writeText(renderer, text, police, x1, y1, color, radian_to_degrees(alpha));	
+	
+	return 0;
 }
 
 /**
@@ -566,6 +682,7 @@ int writeText(SDL_Renderer *renderer, char *text, TTF_Font *police, int x, int y
 	
 	// Create surface
 	SDL_Surface* texte = TTF_RenderUTF8_Blended(police,text,coul);
+// 	SDL_Surface* texte = TTF_RenderUTF8_Blended_Wrapped(police,text,coul, 200);
 	if (texte == NULL) {
 		fprintf(stderr, "CreateRGBSurface failed: %s\n", SDL_GetError());
 		exit(1);

@@ -68,6 +68,7 @@ int main(int argc, char *argv[]) {
 		// For example if we have a road with a width of 5 meter, it size on the screen will be:
 		// 5m x scale = nb of pixels
 		double scale = WIN_HEIGHT / delta_y_meter;
+		printf("Scale: %f\n", scale);
 		printf("Scale: 1 px = %f meter\n", 1/scale);
 		
 		// Create display window
@@ -408,17 +409,43 @@ int main(int argc, char *argv[]) {
 				}
 			}
 		}
-		//Test du texte
+		
+		// Display Text
 		TTF_Init();
 		TTF_Font *police = NULL;
-		police = TTF_OpenFont("./fonts/DejaVuSans.ttf", 50);
-		TTF_SetFontStyle(police, TTF_STYLE_BOLD);
+		police = TTF_OpenFont("./fonts/DejaVuSans.ttf", 10);
+// 	 	TTF_SetFontStyle(police, TTF_STYLE_NORMAL);
 		
-		writeText(renderer,"YOLO", police, WIN_WIDTH/2, WIN_HEIGHT/2, "#000000", 0.);
-		
-		TTF_CloseFont(police);
-		TTF_Quit();
+		for(w=map.h_ways; w != NULL; w=w->hh.next) {
+//	 		print_way(*w);
+			int i;
+
+			// Parcours tags
+			for(i = 0; i < w->nb_tags; i++){
+// 				print_tag(w->tags[i]);
 				
+				// The way has a name
+				if((strcmp(w->tags[i].key,"name") == 0) && (strcmp(w->tags[i].val,"") != 0)){
+					// Test if it's a building or a road
+					if ((w->nds[0].id)  == (w->nds[w->nb_nds-1].id)){
+						// Case building
+						if (scale > 0.7){
+							TTF_SetFontStyle(police, TTF_STYLE_ITALIC);
+							writeBuildingName(renderer, w, map.h_nodes, map.m_bds, w->tags[i].val, police, "#0000BB");
+						}
+					} else {
+						// Case road
+						if (scale > 1.1){
+							TTF_SetFontStyle(police, TTF_STYLE_NORMAL);
+							writeRoadName(renderer, w, map.h_nodes, map.m_bds, w->tags[i].val, police, "#000000");
+						}
+					}
+				}
+			}
+		}
+		TTF_CloseFont(police);
+		TTF_Quit();	
+		
 		// Render
 		SDL_RenderPresent(renderer);
 		
