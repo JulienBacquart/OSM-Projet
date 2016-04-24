@@ -9,7 +9,7 @@ Le données cartographiques collectées sont ré-utilisables sous licence libre 
 
 ## Librairies requise
 ---
-Pour faire fonctionner ce logi iel de rendu, cela nécéssite au préalable l'installation de plusieurs librairies : 
+Pour faire fonctionner ce logiciel de rendu, cela nécéssite au préalable l'installation de plusieurs librairies : 
 * xml2 (`sudo apt-get install libxml2-dev`)
 * SDL2 (`sudo apt-get install libsdl2-2.0-0`)
 * SDL2_gfx (`sudo apt-get install libsdl2-gfx-dev`)
