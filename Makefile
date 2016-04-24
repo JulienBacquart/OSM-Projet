@@ -25,7 +25,7 @@ check_calcul: check_calcul.o calcul.o
 	gcc -o $@ $^ $(LDFLAGS)
 	
 run: renderer
-	./renderer maps_test/02_paris_place_des_vosges.osm 
+	./renderer maps/02_paris_place_des_vosges.osm 
 	
 clean:
 	rm -rf *.o
