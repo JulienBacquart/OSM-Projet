@@ -14,7 +14,7 @@ Pour faire fonctionner ce logiciel de rendu, cela nécessite au préalable l'ins
 * [SDL2](https://www.libsdl.org/) (`sudo apt-get install libsdl2-2.0-0`)
 * [SDL2_gfx](http://www.ferzkopp.net/Software/SDL2_gfx/Docs/html/index.html) (`sudo apt-get install libsdl2-gfx-dev`)
 * [SDL2_ttf](https://www.libsdl.org/projects/SDL_ttf/) (`sudo apt-get install libsdl2-ttf-dev`)
-* check (`sudo apt-get install check`)
+* [check](http://libcheck.github.io/check/) (`sudo apt-get install check`)
 
 ## Exécution
 
