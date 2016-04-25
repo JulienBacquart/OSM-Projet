@@ -434,107 +434,6 @@ int drawDottedLine(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bd
 	return 0;
 }
 
-// SDL_Point* get_centroid(Way *way, Node *h_nodes, Bounds *m_bds){
-// 	SDL_Point* centroid = (struct SDL_Point*) malloc(sizeof(struct SDL_Point));;
-// 	
-// 	centroid->x =(int) malloc(sizeof(int));
-// 	centroid->y =(int) malloc(sizeof(int));
-// 	int sommeX = 0;
-// 	int sommeY = 0;	
-// 	double minLat = m_bds->minlat;
-// 	double minLon= m_bds->minlon;
-// 	double maxLat = m_bds->maxlat;
-// 	double maxLon= m_bds->maxlon;
-// 	Node *n = NULL;
-// 	int x1,y1,i;	
-// 	
-// 	for(i = 0; i < (way->nb_nds); i++){
-// 		
-// 		HASH_FIND_INT(h_nodes, &way->nds[i], n);
-// 			
-// 		x1 = lon_to_pixels(n->lon, minLon, maxLon) * WIN_WIDTH;
-// 		y1 = lat_to_pixels(n->lat, minLat, maxLat) * WIN_HEIGHT;
-// 
-// 		sommeX += x1;
-// 		sommeY += y1;
-// 		
-// 	}	
-// 	centroid->x = sommeX/(way->nb_nds);
-// 	centroid->y = sommeY/(way->nb_nds);
-// 	
-// 	//printf("Centroid : x = %d ;  y = %d \n",centroid->x,centroid->y);
-// 
-// 	return centroid;
-// }
-
-// SDL_Point* get_middle_of_way(Way *way, Node *h_nodes, Bounds *m_bds){
-// 	SDL_Point* centre = (struct SDL_Point*) malloc(sizeof(struct SDL_Point));;
-// 	double minLat = m_bds->minlat;
-// 	double minLon= m_bds->minlon;
-// 	double maxLat = m_bds->maxlat;
-// 	double maxLon= m_bds->maxlon;
-// 
-// 	centre->x =(int) malloc(sizeof(int));
-// 	centre->y =(int) malloc(sizeof(int));
-// 	int middle = (way->nb_nds-1)/2;
-// 	
-// 	Node *n = NULL;
-// 	HASH_FIND_INT(h_nodes, &way->nds[middle], n);
-// 	
-// 	centre->x = lon_to_pixels(n->lon, minLon, maxLon) * WIN_WIDTH;
-// 	centre->y = lat_to_pixels(n->lat, minLat, maxLat) * WIN_HEIGHT;
-// 
-// 	
-// 	return centre;
-// }
-
-// double getTextRotation(Way *way, Node *h_nodes, Bounds *m_bds){
-// 	double degree;
-// 	int middle = (way->nb_nds-1)/2;
-// 	int x1,x2,y1,y2;
-// 	float pi = 3.14159265;
-// 	double minLat = m_bds->minlat;
-// 	double minLon= m_bds->minlon;
-// 	double maxLat = m_bds->maxlat;
-// 	double maxLon= m_bds->maxlon;
-// 	double val = 180.0 / pi;
-// 
-// 	Node *n = NULL;
-// 	Node *n_next = NULL;
-// 	HASH_FIND_INT(h_nodes, &way->nds[middle], n);
-// 
-// //	Il faut calculer la distance entre les deux points
-// 	
-// 	x1 = lon_to_pixels(n->lon, minLon, maxLon) * WIN_WIDTH;
-// 	y1 = lat_to_pixels(n->lat, minLat, maxLat) * WIN_HEIGHT;
-// 
-// 	HASH_FIND_INT(h_nodes, &way->nds[middle+1], n_next);
-// 
-// 	x2 = lon_to_pixels(n_next->lon, minLon, maxLon) * WIN_WIDTH;
-// 	y2 = lat_to_pixels(n_next->lat, minLat, maxLat) * WIN_HEIGHT;
-// 	printf("y2-y1 = %d \n",y2-y1);
-// 	double alpha = acos((x2-x1)/(sqrt(pow((x2-x1),2) + pow((y2-y1),2))));
-// 	if((y2-y1)<0){
-// 		return (-alpha*val);
-// 	}
-// 
-// 	return (alpha*val);
-// }
-
-void trim_string(const char *input, char *output, int max_length){
-	int i;
-	int j = 0;
-	strcpy(output, input);
-	for (i = 0; input[i] != '\0'; i++) {
-		if ((j >= max_length) && (isspace((unsigned char) input[i]))) {
-			output[i] = '\n';
-			j = 0;
-		} else {
-			j++;
-		}
-	}
-}
-
 /**
  * \fn  writeBuildingName(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char *text, TTF_Font *police, char* color)
  * \brief Write the name of a building
@@ -564,6 +463,7 @@ int writeBuildingName(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m
 	int x1, y1;
 	int x_center, y_center;
 	
+	// Calculate centroid of the polynom
 	for(i = 0; i < (way->nb_nds); i++){
 		
 		HASH_FIND_INT(h_nodes, &way->nds[i], n);
@@ -581,9 +481,6 @@ int writeBuildingName(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m
 	
 	//printf("Center : x = %d ;  y = %d \n", x_center, y_center);
 	
-// 	char *result = malloc(strlen(text)+1);
-// 	trim_string(text, result, 15);
-	
 	// Make sure the text to display is not too long
 	char *result;
 	if (strlen(text) > 30) {
@@ -599,7 +496,7 @@ int writeBuildingName(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m
 	}
 	
 	writeText(renderer, result, police, x_center, y_center, color, 0);
-// 	writeText(renderer, text, police, x_center, y_center, color, 0);
+// 	writeWrappedText(renderer, text, police, x_center, y_center, color, 0, 50);
 
 	return 0;
 }
@@ -647,7 +544,8 @@ int writeRoadName(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds
 	
 	int delta_x = x2 - x1;
 	int delta_y = y2 - y1;
-
+	
+	// Calculate the angle of the road
 	double alpha = atan2(delta_y, delta_x);
 	// Make sure the result is between -PI/2 and PI/2
 	if (alpha > M_PI/2){
@@ -729,4 +627,93 @@ int writeText(SDL_Renderer *renderer, char *text, TTF_Font *police, int x, int y
 	return 0;
 }
 
-
+/**
+ * \fn writeWrappedText(SDL_Renderer *renderer, char *text, TTF_Font *police, int x, int y, char* color, double angle, int max_length)
+ * \brief /!\ This method is not functionning properly right now and should not be used
+ * \brief Write text on the screen, when the text is too long try to split in several lines
+ *
+ * \param renderer le renderer sur lequel dessiner
+ * \param text le texte a afficher
+ * \param police la police d'écriture
+ * \param x la coordonnées x pour placer le texte
+ * \param y la coordonnées y pour placer le texte
+ * \param r, g, b, a la couleur du texte
+ * \param angle la rotation du texte (in degrees)
+ * \param max_length the maximum number of characters on a line
+ * \return int si tout c'est bien passé
+ */
+int writeWrappedText(SDL_Renderer *renderer, char *text, TTF_Font *police, int x, int y, char* color, double angle, int max_length)
+{
+	// Color from html
+	Uint8 *r = (Uint8 *)malloc(sizeof(Uint8));
+	Uint8 *g = (Uint8 *)malloc(sizeof(Uint8));
+	Uint8 *b = (Uint8 *)malloc(sizeof(Uint8));
+	Uint8 *a = (Uint8 *)malloc(sizeof(Uint8));
+	html_to_rgba(color, r, g, b, a);
+	SDL_Color coul = {*r,*g,*b};
+	
+	// Wrap text
+	int i;
+	int j = 0;
+	int longer_line = 0;
+	int nb_return_line= 0;
+	char *output = malloc(strlen(text)+1);
+	
+	strcpy(output, text);
+	for (i = 0; text[i] != '\0'; i++) {
+		if ((j >= max_length) && (isspace((unsigned char) text[i]))) {
+			output[i] = '\n';
+			j = 0;
+			nb_return_line++;
+		} else {
+			j++;
+			if (j > longer_line){
+				longer_line = j;
+			}
+		}
+	}
+	printf("Output: %s\n", output);
+	printf("longer_line: %d, nb_return_line: %d\n", longer_line, nb_return_line);
+	
+	// Create surface
+// 	SDL_Surface* texte = TTF_RenderUTF8_Blended(police,text,coul);
+	SDL_Surface* texte = TTF_RenderUTF8_Blended_Wrapped(police,output,coul, 200);
+	if (texte == NULL) {
+		fprintf(stderr, "CreateRGBSurface failed: %s\n", SDL_GetError());
+		exit(1);
+	}
+	// Create texture
+	SDL_Texture* message = SDL_CreateTextureFromSurface(renderer,texte);
+	if (message == NULL) {
+		fprintf(stderr, "CreateTextureFromSurface failed: %s\n", SDL_GetError());
+		exit(1);
+	}
+	
+	// Calculate the size of the displayed text
+	int w,h;
+	if(TTF_SizeUTF8(police,text,&w,&h)) {
+		fprintf(stderr, "SDL_ttf Error: %s", TTF_GetError());
+		exit(1);
+	} else {
+		//printf("width=%d height=%d\n", w, h);
+	}
+	h = h * nb_return_line;
+	
+	SDL_Rect message_rect; //create a rectangle
+	
+	// Center the rectangle
+	message_rect.x = x-(w/2); 
+	message_rect.y = y-(h/2);
+	message_rect.w = w;
+	message_rect.h = h;
+	
+	SDL_RenderCopyEx(renderer, message, NULL, &message_rect, angle, NULL, SDL_FLIP_NONE);
+	
+	free(r);
+	free(g);
+	free(b);
+	free(a);
+	SDL_FreeSurface(texte);
+	SDL_DestroyTexture(message);
+	return 0;
+}

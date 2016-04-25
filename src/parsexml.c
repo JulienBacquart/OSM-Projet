@@ -224,6 +224,10 @@ Map parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f){
 	// Initialize
     xmlNodePtr n;
     Map *map = (Map *) malloc(sizeof(Map));
+    if (map == NULL){
+	    fprintf(stderr, "Echec alloc\n");
+	    exit (EXIT_FAILURE);
+    }
     
     // We traverse the xml tree looking at each xml node
     for (n = noeud->children; n != NULL; n = n->next)
@@ -233,6 +237,10 @@ Map parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f){
 		{
 			// Initialize
 			Bounds *bds = (Bounds *) malloc(sizeof(Bounds));
+			if (bds == NULL){
+				fprintf(stderr, "Echec alloc\n");
+				exit (EXIT_FAILURE);
+			}
 		
 			// We extract the attributes of a bound
 			xmlAttr* attribute = n->properties;
@@ -269,6 +277,10 @@ Map parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f){
 		{
 			// Initialize
 			Node *nd = (Node *) malloc(sizeof(Node));
+			if (nd == NULL){
+				fprintf(stderr, "Echec alloc\n");
+				exit (EXIT_FAILURE);
+			}
 		
 			// We extract the attributes of a node
 			xmlAttr* attribute = n->properties;
@@ -303,6 +315,10 @@ Map parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f){
 			xmlNodePtr n_fils;
 			nd->nb_tags = 0;
 			nd->tags = (Tag *)malloc(sizeof(Tag));
+			if (nd->tags == NULL){
+				fprintf(stderr, "Echec alloc\n");
+				exit (EXIT_FAILURE);
+			}
 			int size_tags = 1;
 			for (n_fils = n->children; n_fils != NULL; n_fils = n_fils->next)
 			{
@@ -310,6 +326,10 @@ Map parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f){
 				if (!strcmp(n_fils->name,"tag"))
 				{
 					Tag *tg = (Tag *) malloc(sizeof(Tag));
+					if (tg == NULL){
+						fprintf(stderr, "Echec alloc\n");
+						exit (EXIT_FAILURE);
+					}
 					char *key;
 					char *val;
 				
@@ -320,10 +340,18 @@ Map parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f){
 						if (!strcmp(attributes_fils->name,"k")){
 							// Key
 							key = malloc(strlen(value_fils)+1);
+							if (key == NULL){
+								fprintf(stderr, "Echec alloc\n");
+								exit (EXIT_FAILURE);
+							}
 							strcpy(key, value_fils);
 						} else {
 							// Value
 							val = malloc(strlen(value_fils)+1);
+							if (val == NULL){
+								fprintf(stderr, "Echec alloc\n");
+								exit (EXIT_FAILURE);
+							}
 							strcpy(val, value_fils);
 						}
 					
@@ -364,6 +392,10 @@ Map parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f){
 		{
 			// Initialize
 			Way *way = (Way *) malloc(sizeof(Way));
+			if (way == NULL){
+				fprintf(stderr, "Echec alloc\n");
+				exit (EXIT_FAILURE);
+			}
 	 		
 			// We extract the attributes of a way
 			xmlAttr* attribute = n->properties;
@@ -394,9 +426,17 @@ Map parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f){
 			// Should we increase the default value ?
 			way->nb_tags = 0;
 			way->tags = (Tag *) malloc(sizeof(Tag));
+			if (way->tags == NULL){
+				fprintf(stderr, "Echec alloc\n");
+				exit (EXIT_FAILURE);
+			}
 			int size_tags = 1;
 			way->nb_nds = 0;
 			way->nds = (Node *) malloc(sizeof(Node));
+			if (way->nds == NULL){
+				fprintf(stderr, "Echec alloc\n");
+				exit (EXIT_FAILURE);
+			}
 			int size_nds = 1;
 			way->z_level = 0;
 			
@@ -408,6 +448,10 @@ Map parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f){
 				{
 					int id;
 					Node *nd = (Node *) malloc(sizeof(Node));
+					if (nd == NULL){
+						fprintf(stderr, "Echec alloc\n");
+						exit (EXIT_FAILURE);
+					}
 				
 					while(attributes_fils)
 					{
@@ -457,6 +501,11 @@ Map parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f){
 						if (!strcmp(attributes_fils->name,"k")){
 							// Key
 							key = malloc(strlen(value_fils)+1);
+							if (key == NULL){
+								fprintf(stderr, "Echec alloc\n");
+								exit (EXIT_FAILURE);
+							}
+							
 							strcpy(key, value_fils);
 							
 							// Assign z-value
@@ -467,6 +516,10 @@ Map parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f){
 						} else {
 							// Value
 							val = malloc(strlen(value_fils)+1);
+							if (val == NULL){
+								fprintf(stderr, "Echec alloc\n");
+								exit (EXIT_FAILURE);
+							}
 							strcpy(val, value_fils);
 							
 							// Assign z-value
@@ -560,6 +613,10 @@ Map parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f){
 		{
 			// Initialize
 			Relation *relation = (Relation *) malloc(sizeof(Relation));
+			if (relation == NULL){
+				fprintf(stderr, "Echec alloc\n");
+				exit (EXIT_FAILURE);
+			}
 	 		
 			// We extract the attributes of a relation
 			xmlAttr* attribute = n->properties;
@@ -590,9 +647,17 @@ Map parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f){
 			// Should we increase the default value ?
 			relation->nb_tags = 0;
 			relation->tags = (Tag *) malloc(sizeof(Tag));
+			if (relation->tags == NULL){
+				fprintf(stderr, "Echec alloc\n");
+				exit (EXIT_FAILURE);
+			}
 			int size_tags = 1;
 			relation->nb_members = 0;
 			relation->members = (Member *) malloc(sizeof(Member));
+			if (relation->members == NULL){
+				fprintf(stderr, "Echec alloc\n");
+				exit (EXIT_FAILURE);
+			}
 			int size_members = 1;
 
 			for (n_fils = n->children; n_fils != NULL; n_fils = n_fils->next)
@@ -602,6 +667,10 @@ Map parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f){
 				if (!strcmp(n_fils->name,"member"))
 				{
 					Member *mb = (Member *) malloc(sizeof(Member));
+					if (mb == NULL){
+							fprintf(stderr, "Echec alloc\n");
+							exit (EXIT_FAILURE);
+					}
 				
 					while(attributes_fils)
 					{
@@ -614,11 +683,19 @@ Map parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f){
 						else if (!strcmp(attributes_fils->name,"type")){
 							// type
 							mb->type = malloc(strlen(value_fils)+1);
+							if (mb->type == NULL){
+								fprintf(stderr, "Echec alloc\n");
+								exit (EXIT_FAILURE);
+							}
 							strcpy(mb->type, value_fils);
 						}
 						else if (!strcmp(attributes_fils->name,"role")){
 							// role
 							mb->role = malloc(strlen(value_fils)+1);
+							if (mb->role == NULL){
+								fprintf(stderr, "Echec alloc\n");
+								exit (EXIT_FAILURE);
+							}
 							strcpy(mb->role, value_fils);
 						}
 					
@@ -649,6 +726,10 @@ Map parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f){
 				else if (!strcmp(n_fils->name,"tag"))
 				{
 					Tag *tg = (Tag *) malloc(sizeof(Tag));
+					if (tg == NULL){
+							fprintf(stderr, "Echec alloc\n");
+							exit (EXIT_FAILURE);
+					}
 					char *key;
 					char *val;
 				
@@ -659,10 +740,18 @@ Map parcours_prefixe(xmlNodePtr noeud, fct_parcours_t f){
 						if (!strcmp(attributes_fils->name,"k")){
 							// Key
 							key = malloc(strlen(value_fils)+1);
+							if (key == NULL){
+								fprintf(stderr, "Echec alloc\n");
+								exit (EXIT_FAILURE);
+							}
 							strcpy(key, value_fils);
 						} else {
 							// Value
 							val = malloc(strlen(value_fils)+1);
+							if (val == NULL){
+								fprintf(stderr, "Echec alloc\n");
+								exit (EXIT_FAILURE);
+							}
 							strcpy(val,  value_fils);
 						}
 					
