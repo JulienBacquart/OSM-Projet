@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>My Project: Projet Cproj6</title>
+<title>OSM-Projet: OpenStreetMap - Conduite de projet</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -31,7 +31,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">My Project
+   <div id="projectname">OSM-Projet
    &#160;<span id="projectnumber">1</span>
    </div>
   </td>
@@ -99,10 +99,27 @@ $(document).ready(function(){initNavTree('md_README.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">Projet Cproj6 </div>  </div>
+<div class="title">OpenStreetMap - Conduite de projet </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Projet de renderer pour OpenStreetMap </p>
+<div class="textblock"><p>Ce projet réalisé dans le cadre du cours de conduite de projet à l'université Paris Diderot a pour but de mettre à disposition un logiciel de rendu graphique écrit en C (grâce à la bibliothèque SDL2 (et SDL2_gfx, SDL2_ttf en complément) et libxml2) de cartes OpenStreetMap.</p>
+<h2>A propos d'OpenStreetMap</h2>
+<p>OpenStreetMap (OSM) est un projet international fondé en 2004 dans le but de créer une carte libre du monde. Des données sont collectées dans le monde entier sur les routes, voies ferrées, les rivières, les forêts, les bâtiments et bien plus. Les données cartographiques collectées sont ré-utilisables sous licence libre ODbL . Les cartes sont au format xml (.osm) et la spécification est disponible <a href="https://wiki.openstreetmap.org/wiki/Main_Page">ici</a></p>
+<h2>Librairies requises</h2>
+<p>Pour faire fonctionner ce logiciel de rendu, cela nécessite au préalable l'installation de plusieurs librairies :</p><ul>
+<li><a href="http://www.xmlsoft.org/">libxml2</a> (<code>sudo apt-get install libxml2-dev</code>)</li>
+<li><a href="https://www.libsdl.org/">SDL2</a> (<code>sudo apt-get install libsdl2-2.0-0</code>)</li>
+<li><a href="http://www.ferzkopp.net/Software/SDL2_gfx/Docs/html/index.html">SDL2_gfx</a> (<code>sudo apt-get install libsdl2-gfx-dev</code>)</li>
+<li><a href="https://www.libsdl.org/projects/SDL_ttf/">SDL2_ttf</a> (<code>sudo apt-get install libsdl2-ttf-dev</code>)</li>
+<li>check (<code>sudo apt-get install check</code>)</li>
+</ul>
+<h2>Exécution</h2>
+<h4>Exécution rapide</h4>
+<p>Pour une exécution rapide et un affichage direct, vous pouvez exécuter la commande <code>make run</code> à la racine du répertoire, cela aura pour effet de faire un affichage graphique de la map '02_paris_place_des_vosges.osm' (située dans le repertoire maps) si vous souhaitez conserver cette exécution rapide en changeant de map, il vous fait éditer la ligne 27 du Makefile. </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;run: renderer</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        ./renderer maps_test/`nom_de_la_map`.osm </div></div><!-- fragment --> <h4>Exécution via l'exécutable</h4>
+<p>Vous pouvez également choisir de lancer l'exécutable. Pour cela il faut d'abord le créer en lançant la commande <code>make</code> à la racine du répèrtoire. L'exécutable est alors créé, vous pouvez l'appeler en faisant `./renderer/maps/'nom_de_map'.osm` </p><h1>Test</h1>
+<p>Si vous avez compilé grâce au <code>make</code>, il y a un autre exécutable qui s'est créé, c'est <code>check_calcul</code>, vous avez vu plus haut qu'il faut installer la librairie check pour faire fonctionner ce logiciel, check permet de faire des tests unitaires en C, et si vous faites <code>./check_calcul</code>, vous verrez si tous les tests effectués sur les fonctions de calcul sont réussis ou non.</p>
+<h1>A propos</h1>
+<p>La documentation complète de tout le code source est disponible dans le répertoire doc à la racine du projet. Cette documentation à été créée grâce à l'outil Doxygen et la page d'accueil est disponible sur <code>./doc/html/index.html</code> Projet réalisé en trinôme par ZEGHLACHE Adel, BACQUART Julien, ROUILLARD Charles </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

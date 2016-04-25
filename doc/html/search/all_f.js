@@ -1,13 +1,14 @@
 var searchData=
 [
-  ['secondary_5fcolor',['SECONDARY_COLOR',['../graphics_8h.html#aaf587c17e178da66dc6050761922b8ee',1,'graphics.h']]],
-  ['secondary_5flink_5fcolor',['SECONDARY_LINK_COLOR',['../graphics_8h.html#a6709cb56bbd3f542b9fb5a552a45c284',1,'graphics.h']]],
-  ['secondary_5flink_5fwidth',['SECONDARY_LINK_WIDTH',['../graphics_8h.html#ab4138ebe8568f13589855b2388f9e152',1,'graphics.h']]],
-  ['secondary_5fwidth',['SECONDARY_WIDTH',['../graphics_8h.html#a20ae346ef9717a7ca2061e8f8da44258',1,'graphics.h']]],
-  ['service_5fcolor',['SERVICE_COLOR',['../graphics_8h.html#a31f946a750a8677618a4c8abbf7fe475',1,'graphics.h']]],
-  ['service_5fwidth',['SERVICE_WIDTH',['../graphics_8h.html#aacaacfd62e228a6706f69372e0abbcac',1,'graphics.h']]],
-  ['signature',['signature',['../struct_u_t__hash__table.html#acd2a6284879dded65f0b8daa7c68485a',1,'UT_hash_table']]],
-  ['start_5ftest',['START_TEST',['../check__calcul_8c.html#a5c8c1bf2b774f19afaae83fc8c29d54e',1,'START_TEST(test_degrees_to_radian):&#160;check_calcul.c'],['../check__calcul_8c.html#af600e3d3d1e647e07e7bf8c1f4ef896f',1,'START_TEST(test_lat_to_pixels):&#160;check_calcul.c']]],
-  ['steps_5fcolor',['STEPS_COLOR',['../graphics_8h.html#a4e0e14296d00f42b95ab0c4f8bcdf821',1,'graphics.h']]],
-  ['steps_5fwidth',['STEPS_WIDTH',['../graphics_8h.html#aeae878a8aca263076981f6680bef775e',1,'graphics.h']]]
+  ['radian_5fto_5fdegrees',['radian_to_degrees',['../calcul_8h.html#ab5e9561cbf85d19eb4955a59266dea24',1,'radian_to_degrees(double radian):&#160;calcul.c'],['../calcul_8c.html#ab5e9561cbf85d19eb4955a59266dea24',1,'radian_to_degrees(double radian):&#160;calcul.c']]],
+  ['readme_2emd',['README.md',['../_r_e_a_d_m_e_8md.html',1,'']]],
+  ['ref',['ref',['../struct_member.html#adb528a1cb1ca190150183394d082590d',1,'Member']]],
+  ['relation',['Relation',['../struct_relation.html',1,'']]],
+  ['renderer_2ec',['renderer.c',['../renderer_8c.html',1,'']]],
+  ['residential_5fcolor',['RESIDENTIAL_COLOR',['../graphics_8h.html#a5469be6002145ed95688a5cf6e3c2800',1,'graphics.h']]],
+  ['residential_5fwidth',['RESIDENTIAL_WIDTH',['../graphics_8h.html#ab0654b8d1c710bae4a08c4fab593b071',1,'graphics.h']]],
+  ['residential_5fz_5flevel',['RESIDENTIAL_Z_LEVEL',['../graphics_8h.html#a040a43770f17b5c70d7e0655ad8116cb',1,'graphics.h']]],
+  ['river_5fcolor',['RIVER_COLOR',['../graphics_8h.html#a28f91a1bb38587fc666def9c989b6a33',1,'graphics.h']]],
+  ['river_5fz_5flevel',['RIVER_Z_LEVEL',['../graphics_8h.html#aa552ecb523390f5a9a77bc06780e1e1b',1,'graphics.h']]],
+  ['role',['role',['../struct_member.html#a15bcddafa57ebe7ee6d1125205c171fc',1,'Member']]]
 ];

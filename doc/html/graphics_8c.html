@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>My Project: src/graphics.c File Reference</title>
+<title>OSM-Projet: src/graphics.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -31,7 +31,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">My Project
+   <div id="projectname">OSM-Projet
    &#160;<span id="projectnumber">1</span>
    </div>
   </td>
@@ -141,9 +141,18 @@ Functions</h2></td></tr>
 <tr class="memitem:a66be918dd4f9f320934f827ef92ef5f7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphics_8c.html#a66be918dd4f9f320934f827ef92ef5f7">drawDottedLine</a> (SDL_Renderer *renderer, <a class="el" href="struct_way.html">Way</a> *way, <a class="el" href="struct_node.html">Node</a> *<a class="el" href="parsexml_8c.html#a558e97314f5dee487c68abcd21658877">h_nodes</a>, <a class="el" href="struct_bounds.html">Bounds</a> *m_bds, char *color, int dot_radius)</td></tr>
 <tr class="memdesc:a66be918dd4f9f320934f827ef92ef5f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction qui permet de dessiner une ligne pointillet avec des points ( . . . . . . . )  <a href="#a66be918dd4f9f320934f827ef92ef5f7">More...</a><br /></td></tr>
 <tr class="separator:a66be918dd4f9f320934f827ef92ef5f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6875aaa4804d4966ca7fac980caaf01e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphics_8c.html#a6875aaa4804d4966ca7fac980caaf01e">writeText</a> (SDL_Renderer *renderer, char *text, int fontWidth, int x, int y, int width, int height, int r, int g, int b, double angle)</td></tr>
-<tr class="memdesc:a6875aaa4804d4966ca7fac980caaf01e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction qui permet d'écrire du texte sur la fenêtre.  <a href="#a6875aaa4804d4966ca7fac980caaf01e">More...</a><br /></td></tr>
-<tr class="separator:a6875aaa4804d4966ca7fac980caaf01e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f8037c90e4cee055a5a8eb1f6688b01"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphics_8c.html#a3f8037c90e4cee055a5a8eb1f6688b01">writeBuildingName</a> (SDL_Renderer *renderer, <a class="el" href="struct_way.html">Way</a> *way, <a class="el" href="struct_node.html">Node</a> *<a class="el" href="parsexml_8c.html#a558e97314f5dee487c68abcd21658877">h_nodes</a>, <a class="el" href="struct_bounds.html">Bounds</a> *m_bds, char *text, TTF_Font *police, char *color)</td></tr>
+<tr class="memdesc:a3f8037c90e4cee055a5a8eb1f6688b01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write the name of a building.  <a href="#a3f8037c90e4cee055a5a8eb1f6688b01">More...</a><br /></td></tr>
+<tr class="separator:a3f8037c90e4cee055a5a8eb1f6688b01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeae0c9def8d998eded6488f44f008995"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphics_8c.html#aeae0c9def8d998eded6488f44f008995">writeRoadName</a> (SDL_Renderer *renderer, <a class="el" href="struct_way.html">Way</a> *way, <a class="el" href="struct_node.html">Node</a> *<a class="el" href="parsexml_8c.html#a558e97314f5dee487c68abcd21658877">h_nodes</a>, <a class="el" href="struct_bounds.html">Bounds</a> *m_bds, char *text, TTF_Font *police, char *color)</td></tr>
+<tr class="memdesc:aeae0c9def8d998eded6488f44f008995"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write the name of a road.  <a href="#aeae0c9def8d998eded6488f44f008995">More...</a><br /></td></tr>
+<tr class="separator:aeae0c9def8d998eded6488f44f008995"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ada4657e7d8fe9740064b524e23c386"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphics_8c.html#a9ada4657e7d8fe9740064b524e23c386">writeText</a> (SDL_Renderer *renderer, char *text, TTF_Font *police, int x, int y, char *color, double angle)</td></tr>
+<tr class="memdesc:a9ada4657e7d8fe9740064b524e23c386"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write text on the screen centered around the coordinate (x,y)  <a href="#a9ada4657e7d8fe9740064b524e23c386">More...</a><br /></td></tr>
+<tr class="separator:a9ada4657e7d8fe9740064b524e23c386"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e111ef338c6660ea4bee10b68eba970"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphics_8c.html#a8e111ef338c6660ea4bee10b68eba970">writeWrappedText</a> (SDL_Renderer *renderer, char *text, TTF_Font *police, int x, int y, char *color, double angle, int max_length)</td></tr>
+<tr class="memdesc:a8e111ef338c6660ea4bee10b68eba970"><td class="mdescLeft">&#160;</td><td class="mdescRight">/!\ This method is not functionning properly right now and should not be used  <a href="#a8e111ef338c6660ea4bee10b68eba970">More...</a><br /></td></tr>
+<tr class="separator:a8e111ef338c6660ea4bee10b68eba970"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Contient les signatures et directives de préprocesseur pour la partie graphique(affichage) </p>
@@ -348,7 +357,7 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>le renderer sur lequel dessiner </td></tr>
-    <tr><td class="paramname">way</td><td>la way qui contient le nombre de noeud da la ligne </td></tr>
+    <tr><td class="paramname">way</td><td>la way qui contient le nombre de noeud de la ligne </td></tr>
     <tr><td class="paramname">h_nodes</td><td>la table de hashage 'nodes' </td></tr>
     <tr><td class="paramname">m_bds</td><td>les bounds de la map </td></tr>
     <tr><td class="paramname">color</td><td>la couleur de la route au format html </td></tr>
@@ -546,7 +555,153 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a6875aaa4804d4966ca7fac980caaf01e"></a>
+<a class="anchor" id="a3f8037c90e4cee055a5a8eb1f6688b01"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">writeBuildingName </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>renderer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_way.html">Way</a> *&#160;</td>
+          <td class="paramname"><em>way</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_node.html">Node</a> *&#160;</td>
+          <td class="paramname"><em>h_nodes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_bounds.html">Bounds</a> *&#160;</td>
+          <td class="paramname"><em>m_bds</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>text</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TTF_Font *&#160;</td>
+          <td class="paramname"><em>police</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Write the name of a building. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">renderer</td><td>le renderer sur lequel dessiner </td></tr>
+    <tr><td class="paramname">way</td><td>the way containing the nodes of the building </td></tr>
+    <tr><td class="paramname">h_nodes</td><td>the hashtable containing all the nodes </td></tr>
+    <tr><td class="paramname">m_bds</td><td>the boundaries of the map, usued to calculate on screen coordinate </td></tr>
+    <tr><td class="paramname">text</td><td>the name of the building to write </td></tr>
+    <tr><td class="paramname">police</td><td>the font used </td></tr>
+    <tr><td class="paramname">color</td><td>the color in html format (#RRGGBB) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int si tout c'est bien passé </dd></dl>
+
+<p>Definition at line <a class="el" href="graphics_8c_source.html#l00450">450</a> of file <a class="el" href="graphics_8c_source.html">graphics.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aeae0c9def8d998eded6488f44f008995"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">writeRoadName </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>renderer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_way.html">Way</a> *&#160;</td>
+          <td class="paramname"><em>way</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_node.html">Node</a> *&#160;</td>
+          <td class="paramname"><em>h_nodes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_bounds.html">Bounds</a> *&#160;</td>
+          <td class="paramname"><em>m_bds</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>text</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TTF_Font *&#160;</td>
+          <td class="paramname"><em>police</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Write the name of a road. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">renderer</td><td>le renderer sur lequel dessiner </td></tr>
+    <tr><td class="paramname">way</td><td>the way containing the nodes of the road </td></tr>
+    <tr><td class="paramname">h_nodes</td><td>the hashtable containing the nodes </td></tr>
+    <tr><td class="paramname">m_bds</td><td>the boundaries of the map, usued to calculate on screen coordinate </td></tr>
+    <tr><td class="paramname">text</td><td>the name of the road to write </td></tr>
+    <tr><td class="paramname">police</td><td>the font used </td></tr>
+    <tr><td class="paramname">color</td><td>the color in html format (#RRGGBB) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int si tout c'est bien passé </dd></dl>
+
+<p>Definition at line <a class="el" href="graphics_8c_source.html#l00517">517</a> of file <a class="el" href="graphics_8c_source.html">graphics.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9ada4657e7d8fe9740064b524e23c386"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -565,8 +720,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>fontWidth</em>, </td>
+          <td class="paramtype">TTF_Font *&#160;</td>
+          <td class="paramname"><em>police</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -583,32 +738,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>width</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>height</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>r</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>g</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>b</em>, </td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>color</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -624,24 +755,103 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Fonction qui permet d'écrire du texte sur la fenêtre. </p>
+<p>Write text on the screen centered around the coordinate (x,y) </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>le renderer sur lequel dessiner </td></tr>
     <tr><td class="paramname">text</td><td>le texte a afficher </td></tr>
-    <tr><td class="paramname">fontWidth</td><td>la police d'écriture </td></tr>
+    <tr><td class="paramname">police</td><td>la police d'écriture </td></tr>
     <tr><td class="paramname">x</td><td>la coordonnées x pour placer le texte </td></tr>
     <tr><td class="paramname">y</td><td>la coordonnées y pour placer le texte </td></tr>
-    <tr><td class="paramname">width</td><td>la largeur du texte </td></tr>
-    <tr><td class="paramname">height</td><td>la longueur du texte </td></tr>
     <tr><td class="paramname">r,g,b,a</td><td>la couleur du texte </td></tr>
-    <tr><td class="paramname">angle</td><td>la rotation du texte </td></tr>
+    <tr><td class="paramname">angle</td><td>la rotation du texte (in degrees) </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>int si tout c'est bien passé </dd></dl>
 
-<p>Definition at line <a class="el" href="graphics_8c_source.html#l00453">453</a> of file <a class="el" href="graphics_8c_source.html">graphics.c</a>.</p>
+<p>Definition at line <a class="el" href="graphics_8c_source.html#l00578">578</a> of file <a class="el" href="graphics_8c_source.html">graphics.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8e111ef338c6660ea4bee10b68eba970"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">writeWrappedText </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>renderer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>text</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TTF_Font *&#160;</td>
+          <td class="paramname"><em>police</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>color</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>angle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>max_length</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>/!\ This method is not functionning properly right now and should not be used </p>
+<p>Write text on the screen, when the text is too long try to split in several lines</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">renderer</td><td>le renderer sur lequel dessiner </td></tr>
+    <tr><td class="paramname">text</td><td>le texte a afficher </td></tr>
+    <tr><td class="paramname">police</td><td>la police d'écriture </td></tr>
+    <tr><td class="paramname">x</td><td>la coordonnées x pour placer le texte </td></tr>
+    <tr><td class="paramname">y</td><td>la coordonnées y pour placer le texte </td></tr>
+    <tr><td class="paramname">r,g,b,a</td><td>la couleur du texte </td></tr>
+    <tr><td class="paramname">angle</td><td>la rotation du texte (in degrees) </td></tr>
+    <tr><td class="paramname">max_length</td><td>the maximum number of characters on a line </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int si tout c'est bien passé </dd></dl>
+
+<p>Definition at line <a class="el" href="graphics_8c_source.html#l00645">645</a> of file <a class="el" href="graphics_8c_source.html">graphics.c</a>.</p>
 
 </div>
 </div>

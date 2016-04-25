@@ -1,7 +1,7 @@
 var NAVTREE =
 [
-  [ "My Project", "index.html", [
-    [ "Projet Cproj6", "md_README.html", null ],
+  [ "OSM-Projet", "index.html", [
+    [ "OpenStreetMap - Conduite de projet", "md_README.html", null ],
     [ "Data Structures", "annotated.html", [
       [ "Data Structures", "annotated.html", "annotated_dup" ],
       [ "Data Structure Index", "classes.html", null ],
@@ -13,7 +13,7 @@ var NAVTREE =
     [ "Files", null, [
       [ "File List", "files.html", "files" ],
       [ "Globals", "globals.html", [
-        [ "All", "globals.html", null ],
+        [ "All", "globals.html", "globals_dup" ],
         [ "Functions", "globals_func.html", null ],
         [ "Variables", "globals_vars.html", null ],
         [ "Typedefs", "globals_type.html", null ],
@@ -26,7 +26,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"uthash_8h.html#a9c675dd1f1fdd5361dfca67829a387cf"
+"struct_u_t__hash__table.html#a35073018f3ebb189c76eed44ff19899a"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

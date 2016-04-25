@@ -1,1 +1,35 @@
-Projet de renderer pour Open\+Street\+Map 
+Ce projet réalisé dans le cadre du cours de conduite de projet à l\textquotesingle{}université Paris Diderot a pour but de mettre à disposition un logiciel de rendu graphique écrit en C (grâce à la bibliothèque S\+D\+L2 (et S\+D\+L2\+\_\+gfx, S\+D\+L2\+\_\+ttf en complément) et libxml2) de cartes Open\+Street\+Map.
+
+\subsection*{A propos d\textquotesingle{}Open\+Street\+Map}
+
+Open\+Street\+Map (O\+SM) est un projet international fondé en 2004 dans le but de créer une carte libre du monde. Des données sont collectées dans le monde entier sur les routes, voies ferrées, les rivières, les forêts, les bâtiments et bien plus. Les données cartographiques collectées sont ré-\/utilisables sous licence libre O\+DbL . Les cartes sont au format xml (.osm) et la spécification est disponible \href{https://wiki.openstreetmap.org/wiki/Main_Page}{\tt ici}
+
+\subsection*{Librairies requises}
+
+Pour faire fonctionner ce logiciel de rendu, cela nécessite au préalable l\textquotesingle{}installation de plusieurs librairies \+:
+\begin{DoxyItemize}
+\item \href{http://www.xmlsoft.org/}{\tt libxml2} ({\ttfamily sudo apt-\/get install libxml2-\/dev})
+\item \href{https://www.libsdl.org/}{\tt S\+D\+L2} ({\ttfamily sudo apt-\/get install libsdl2-\/2.\+0-\/0})
+\item \href{http://www.ferzkopp.net/Software/SDL2_gfx/Docs/html/index.html}{\tt S\+D\+L2\+\_\+gfx} ({\ttfamily sudo apt-\/get install libsdl2-\/gfx-\/dev})
+\item \href{https://www.libsdl.org/projects/SDL_ttf/}{\tt S\+D\+L2\+\_\+ttf} ({\ttfamily sudo apt-\/get install libsdl2-\/ttf-\/dev})
+\item check ({\ttfamily sudo apt-\/get install check})
+\end{DoxyItemize}
+
+\subsection*{Exécution}
+
+\paragraph*{Exécution rapide}
+
+Pour une exécution rapide et un affichage direct, vous pouvez exécuter la commande {\ttfamily make run} à la racine du répertoire, cela aura pour effet de faire un affichage graphique de la map \textquotesingle{}02\+\_\+paris\+\_\+place\+\_\+des\+\_\+vosges.\+osm\textquotesingle{} (située dans le repertoire maps) si vous souhaitez conserver cette exécution rapide en changeant de map, il vous fait éditer la ligne 27 du Makefile. 
+\begin{DoxyCode}
+1 run: renderer
+2         ./renderer maps\_test/`nom\_de\_la\_map`.osm 
+\end{DoxyCode}
+ \paragraph*{Exécution via l\textquotesingle{}exécutable}
+
+Vous pouvez également choisir de lancer l\textquotesingle{}exécutable. Pour cela il faut d\textquotesingle{}abord le créer en lançant la commande {\ttfamily make} à la racine du répèrtoire. L\textquotesingle{}exécutable est alors créé, vous pouvez l\textquotesingle{}appeler en faisant `./renderer/maps/\textquotesingle{}nom\+\_\+de\+\_\+map\textquotesingle{}.osm` \section*{Test}
+
+Si vous avez compilé grâce au {\ttfamily make}, il y a un autre exécutable qui s\textquotesingle{}est créé, c\textquotesingle{}est {\ttfamily check\+\_\+calcul}, vous avez vu plus haut qu\textquotesingle{}il faut installer la librairie check pour faire fonctionner ce logiciel, check permet de faire des tests unitaires en C, et si vous faites {\ttfamily ./check\+\_\+calcul}, vous verrez si tous les tests effectués sur les fonctions de calcul sont réussis ou non.
+
+\section*{A propos}
+
+La documentation complète de tout le code source est disponible dans le répertoire doc à la racine du projet. Cette documentation à été créée grâce à l\textquotesingle{}outil Doxygen et la page d\textquotesingle{}accueil est disponible sur {\ttfamily ./doc/html/index.html} Projet réalisé en trinôme par Z\+E\+G\+H\+L\+A\+C\+HE Adel, B\+A\+C\+Q\+U\+A\+RT Julien, R\+O\+U\+I\+L\+L\+A\+RD Charles 

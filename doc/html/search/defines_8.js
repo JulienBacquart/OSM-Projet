@@ -10,5 +10,7 @@ var searchData=
   ['motorway_5fcolor',['MOTORWAY_COLOR',['../graphics_8h.html#aabba0076a08b9a930e7a636e3fb4fec2',1,'graphics.h']]],
   ['motorway_5flink_5fcolor',['MOTORWAY_LINK_COLOR',['../graphics_8h.html#a91c25d46fdda335cecc663479d8f6e4e',1,'graphics.h']]],
   ['motorway_5flink_5fwidth',['MOTORWAY_LINK_WIDTH',['../graphics_8h.html#a1696b689fdb638b70d50a51f8234fc0f',1,'graphics.h']]],
-  ['motorway_5fwidth',['MOTORWAY_WIDTH',['../graphics_8h.html#ab1b58b8c04bc89f8c3975d5e8ac42872',1,'graphics.h']]]
+  ['motorway_5flink_5fz_5flevel',['MOTORWAY_LINK_Z_LEVEL',['../graphics_8h.html#a9bcf3fb50757400fab810daefb74261c',1,'graphics.h']]],
+  ['motorway_5fwidth',['MOTORWAY_WIDTH',['../graphics_8h.html#ab1b58b8c04bc89f8c3975d5e8ac42872',1,'graphics.h']]],
+  ['motorway_5fz_5flevel',['MOTORWAY_Z_LEVEL',['../graphics_8h.html#ade674ef62b8a94d27f1df9ac22055f0b',1,'graphics.h']]]
 ];

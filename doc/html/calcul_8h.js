@@ -5,5 +5,6 @@ var calcul_8h =
     [ "lat_to_pixels", "calcul_8h.html#a5bc86fdbd74548ed689b916d0e836e31", null ],
     [ "lat_to_y", "calcul_8h.html#a0d05fa75dd55628afb68661beab3170f", null ],
     [ "lon_to_pixels", "calcul_8h.html#a1c2c4a7de6471ce0bf2e3192a3fe2ccf", null ],
-    [ "lon_to_x", "calcul_8h.html#a62bd9cd9f8002b0c2a5156c3bdd0428a", null ]
+    [ "lon_to_x", "calcul_8h.html#a62bd9cd9f8002b0c2a5156c3bdd0428a", null ],
+    [ "radian_to_degrees", "calcul_8h.html#ab5e9561cbf85d19eb4955a59266dea24", null ]
 ];

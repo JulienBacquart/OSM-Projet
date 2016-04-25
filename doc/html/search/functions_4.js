@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['hex_5fto_5frgba',['hex_to_rgba',['../graphics_8h.html#a4d0fa5dca15acf4777b8f7fce24a9e76',1,'graphics.h']]],
-  ['html_5fto_5frgba',['html_to_rgba',['../graphics_8c.html#a67bcb1a50893d6cab25861295e8876a5',1,'graphics.c']]]
+  ['get_5fcentroid',['get_centroid',['../graphics_8h.html#a953bb7ee219be765f61b1edd3b0a46a9',1,'graphics.h']]],
+  ['get_5fmiddle_5fof_5fway',['get_middle_of_way',['../graphics_8h.html#a03002edfd91569b1792fb0d1e28e8680',1,'graphics.h']]],
+  ['gettextrotation',['getTextRotation',['../graphics_8h.html#ab89302af02cff1b6627a76e90aa3edbe',1,'graphics.h']]]
 ];

@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>My Project: include/parsexml.h File Reference</title>
+<title>OSM-Projet: include/parsexml.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -31,7 +31,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">My Project
+   <div id="projectname">OSM-Projet
    &#160;<span id="projectnumber">1</span>
    </div>
   </td>
@@ -138,12 +138,17 @@ Functions</h2></td></tr>
 <tr class="memitem:aa51226aca6e00488e08b0be2222cf558"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parsexml_8h.html#aa51226aca6e00488e08b0be2222cf558">print_node</a> (<a class="el" href="struct_node.html">Node</a> node)</td></tr>
 <tr class="memdesc:aa51226aca6e00488e08b0be2222cf558"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction qui affiche sur la console la valeur d'un node.  <a href="#aa51226aca6e00488e08b0be2222cf558">More...</a><br /></td></tr>
 <tr class="separator:aa51226aca6e00488e08b0be2222cf558"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04eed23fe45f102f0fcb2696ec801f3d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parsexml_8h.html#a04eed23fe45f102f0fcb2696ec801f3d">print_member</a> (<a class="el" href="struct_member.html">Member</a> member)</td></tr>
+<tr class="separator:a04eed23fe45f102f0fcb2696ec801f3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a93e6fff145ef1129229fbaf60ffc13"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parsexml_8h.html#a1a93e6fff145ef1129229fbaf60ffc13">print_way</a> (<a class="el" href="struct_way.html">Way</a> way)</td></tr>
 <tr class="memdesc:a1a93e6fff145ef1129229fbaf60ffc13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction qui affiche sur la console la valeur d'une way.  <a href="#a1a93e6fff145ef1129229fbaf60ffc13">More...</a><br /></td></tr>
 <tr class="separator:a1a93e6fff145ef1129229fbaf60ffc13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3b55225ddbc4e5d0e7a281a92c8196f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_node.html">Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parsexml_8h.html#aa3b55225ddbc4e5d0e7a281a92c8196f">find_node</a> (int node_id)</td></tr>
 <tr class="memdesc:aa3b55225ddbc4e5d0e7a281a92c8196f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction qui trouve un node dans la hashtable en fonction de son id.  <a href="#aa3b55225ddbc4e5d0e7a281a92c8196f">More...</a><br /></td></tr>
 <tr class="separator:aa3b55225ddbc4e5d0e7a281a92c8196f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a5b3d6185736d241882557909ff3361"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_way.html">Way</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parsexml_8h.html#a2a5b3d6185736d241882557909ff3361">find_way</a> (int way_id)</td></tr>
+<tr class="memdesc:a2a5b3d6185736d241882557909ff3361"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find a way in the hashtable based on its id.  <a href="#a2a5b3d6185736d241882557909ff3361">More...</a><br /></td></tr>
+<tr class="separator:a2a5b3d6185736d241882557909ff3361"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aead0135d7ecbdaaf4e630b3573ec36f6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parsexml_8h.html#aead0135d7ecbdaaf4e630b3573ec36f6">add_node</a> (<a class="el" href="struct_node.html">Node</a> *nd)</td></tr>
 <tr class="memdesc:aead0135d7ecbdaaf4e630b3573ec36f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction qui ajoute un node dans la hashtable 'nodes'.  <a href="#aead0135d7ecbdaaf4e630b3573ec36f6">More...</a><br /></td></tr>
 <tr class="separator:aead0135d7ecbdaaf4e630b3573ec36f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -201,7 +206,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p>Definition at line <a class="el" href="parsexml_8c_source.html#l00131">131</a> of file <a class="el" href="parsexml_8c_source.html">parsexml.c</a>.</p>
+<p>Definition at line <a class="el" href="parsexml_8c_source.html#l00159">159</a> of file <a class="el" href="parsexml_8c_source.html">parsexml.c</a>.</p>
 
 </div>
 </div>
@@ -228,7 +233,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p>Definition at line <a class="el" href="parsexml_8c_source.html#l00144">144</a> of file <a class="el" href="parsexml_8c_source.html">parsexml.c</a>.</p>
+<p>Definition at line <a class="el" href="parsexml_8c_source.html#l00172">172</a> of file <a class="el" href="parsexml_8c_source.html">parsexml.c</a>.</p>
 
 </div>
 </div>
@@ -255,7 +260,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p>Definition at line <a class="el" href="parsexml_8c_source.html#l00602">602</a> of file <a class="el" href="parsexml_8c_source.html">parsexml.c</a>.</p>
+<p>Definition at line <a class="el" href="parsexml_8c_source.html#l00810">810</a> of file <a class="el" href="parsexml_8c_source.html">parsexml.c</a>.</p>
 
 </div>
 </div>
@@ -282,7 +287,34 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Node* le noeud correspondant a l'id </dd></dl>
 
-<p>Definition at line <a class="el" href="parsexml_8c_source.html#l00116">116</a> of file <a class="el" href="parsexml_8c_source.html">parsexml.c</a>.</p>
+<p>Definition at line <a class="el" href="parsexml_8c_source.html#l00130">130</a> of file <a class="el" href="parsexml_8c_source.html">parsexml.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2a5b3d6185736d241882557909ff3361"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">find_way </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>way_id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Find a way in the hashtable based on its id. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">way_id</td><td>id of the way </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Way* the way corresponding to the id </dd></dl>
+
+<p>Definition at line <a class="el" href="parsexml_8c_source.html#l00144">144</a> of file <a class="el" href="parsexml_8c_source.html">parsexml.c</a>.</p>
 
 </div>
 </div>
@@ -320,7 +352,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="struct_map.html" title="permet de stocker les détails de la map ">Map</a> </dd></dl>
 
-<p>Definition at line <a class="el" href="parsexml_8c_source.html#l00171">171</a> of file <a class="el" href="parsexml_8c_source.html">parsexml.c</a>.</p>
+<p>Definition at line <a class="el" href="parsexml_8c_source.html#l00223">223</a> of file <a class="el" href="parsexml_8c_source.html">parsexml.c</a>.</p>
 
 </div>
 </div>
@@ -347,7 +379,25 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p>Definition at line <a class="el" href="parsexml_8c_source.html#l00030">30</a> of file <a class="el" href="parsexml_8c_source.html">parsexml.c</a>.</p>
+<p>Definition at line <a class="el" href="parsexml_8c_source.html#l00031">31</a> of file <a class="el" href="parsexml_8c_source.html">parsexml.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a04eed23fe45f102f0fcb2696ec801f3d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void print_member </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_member.html">Member</a>&#160;</td>
+          <td class="paramname"><em>member</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="parsexml_8c_source.html#l00071">71</a> of file <a class="el" href="parsexml_8c_source.html">parsexml.c</a>.</p>
 
 </div>
 </div>
@@ -374,7 +424,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p>Definition at line <a class="el" href="parsexml_8c_source.html#l00054">54</a> of file <a class="el" href="parsexml_8c_source.html">parsexml.c</a>.</p>
+<p>Definition at line <a class="el" href="parsexml_8c_source.html#l00055">55</a> of file <a class="el" href="parsexml_8c_source.html">parsexml.c</a>.</p>
 
 </div>
 </div>
@@ -401,7 +451,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p>Definition at line <a class="el" href="parsexml_8c_source.html#l00042">42</a> of file <a class="el" href="parsexml_8c_source.html">parsexml.c</a>.</p>
+<p>Definition at line <a class="el" href="parsexml_8c_source.html#l00043">43</a> of file <a class="el" href="parsexml_8c_source.html">parsexml.c</a>.</p>
 
 </div>
 </div>
@@ -428,7 +478,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p>Definition at line <a class="el" href="parsexml_8c_source.html#l00071">71</a> of file <a class="el" href="parsexml_8c_source.html">parsexml.c</a>.</p>
+<p>Definition at line <a class="el" href="parsexml_8c_source.html#l00082">82</a> of file <a class="el" href="parsexml_8c_source.html">parsexml.c</a>.</p>
 
 </div>
 </div>

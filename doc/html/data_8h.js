@@ -4,6 +4,7 @@ var data_8h =
     [ "Node", "struct_node.html", "struct_node" ],
     [ "Way", "struct_way.html", "struct_way" ],
     [ "Bounds", "struct_bounds.html", "struct_bounds" ],
+    [ "Member", "struct_member.html", "struct_member" ],
     [ "Relation", "struct_relation.html", "struct_relation" ],
     [ "Map", "struct_map.html", "struct_map" ],
     [ "MAX_LAT", "data_8h.html#a7ce12d8a28541150544bc0dfeb789e13", null ],

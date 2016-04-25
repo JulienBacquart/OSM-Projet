@@ -7,5 +7,8 @@ var graphics_8c =
     [ "drawFilledPolygon", "graphics_8c.html#af79bb461b8e68ef42c92b738da9b96cd", null ],
     [ "drawRoad", "graphics_8c.html#aa1d92f80c6d8f2b468e54d7aadb43fd0", null ],
     [ "html_to_rgba", "graphics_8c.html#a67bcb1a50893d6cab25861295e8876a5", null ],
-    [ "writeText", "graphics_8c.html#a6875aaa4804d4966ca7fac980caaf01e", null ]
+    [ "writeBuildingName", "graphics_8c.html#a3f8037c90e4cee055a5a8eb1f6688b01", null ],
+    [ "writeRoadName", "graphics_8c.html#aeae0c9def8d998eded6488f44f008995", null ],
+    [ "writeText", "graphics_8c.html#a9ada4657e7d8fe9740064b524e23c386", null ],
+    [ "writeWrappedText", "graphics_8c.html#a8e111ef338c6660ea4bee10b68eba970", null ]
 ];

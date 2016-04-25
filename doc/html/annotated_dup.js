@@ -2,6 +2,7 @@ var annotated_dup =
 [
     [ "Bounds", "struct_bounds.html", "struct_bounds" ],
     [ "Map", "struct_map.html", "struct_map" ],
+    [ "Member", "struct_member.html", "struct_member" ],
     [ "Node", "struct_node.html", "struct_node" ],
     [ "Relation", "struct_relation.html", "struct_relation" ],
     [ "Tag", "struct_tag.html", "struct_tag" ],

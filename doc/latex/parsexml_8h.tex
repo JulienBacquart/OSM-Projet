@@ -24,10 +24,14 @@ void \hyperlink{parsexml_8h_a38ef0cfa95cdf8f792c75e961b58f172}{print\+\_\+tag} (
 \begin{DoxyCompactList}\small\item\em Fonction qui affiche sur la console la valeur d\textquotesingle{}un tag. \end{DoxyCompactList}\item 
 void \hyperlink{parsexml_8h_aa51226aca6e00488e08b0be2222cf558}{print\+\_\+node} (\hyperlink{struct_node}{Node} node)
 \begin{DoxyCompactList}\small\item\em Fonction qui affiche sur la console la valeur d\textquotesingle{}un node. \end{DoxyCompactList}\item 
+void \hyperlink{parsexml_8h_a04eed23fe45f102f0fcb2696ec801f3d}{print\+\_\+member} (\hyperlink{struct_member}{Member} member)
+\item 
 void \hyperlink{parsexml_8h_a1a93e6fff145ef1129229fbaf60ffc13}{print\+\_\+way} (\hyperlink{struct_way}{Way} way)
 \begin{DoxyCompactList}\small\item\em Fonction qui affiche sur la console la valeur d\textquotesingle{}une way. \end{DoxyCompactList}\item 
 \hyperlink{struct_node}{Node} $\ast$ \hyperlink{parsexml_8h_aa3b55225ddbc4e5d0e7a281a92c8196f}{find\+\_\+node} (int node\+\_\+id)
 \begin{DoxyCompactList}\small\item\em Fonction qui trouve un node dans la hashtable en fonction de son id. \end{DoxyCompactList}\item 
+\hyperlink{struct_way}{Way} $\ast$ \hyperlink{parsexml_8h_a2a5b3d6185736d241882557909ff3361}{find\+\_\+way} (int way\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Find a way in the hashtable based on its id. \end{DoxyCompactList}\item 
 void \hyperlink{parsexml_8h_aead0135d7ecbdaaf4e630b3573ec36f6}{add\+\_\+node} (\hyperlink{struct_node}{Node} $\ast$nd)
 \begin{DoxyCompactList}\small\item\em Fonction qui ajoute un node dans la hashtable \textquotesingle{}nodes\textquotesingle{}. \end{DoxyCompactList}\item 
 void \hyperlink{parsexml_8h_adc9b8aa402815f9a039a263965e0bd14}{add\+\_\+way} (\hyperlink{struct_way}{Way} $\ast$way)
@@ -78,7 +82,7 @@ void
 \end{DoxyReturn}
 
 
-Definition at line 131 of file parsexml.\+c.
+Definition at line 159 of file parsexml.\+c.
 
 \index{parsexml.\+h@{parsexml.\+h}!add\+\_\+way@{add\+\_\+way}}
 \index{add\+\_\+way@{add\+\_\+way}!parsexml.\+h@{parsexml.\+h}}
@@ -101,7 +105,7 @@ void
 \end{DoxyReturn}
 
 
-Definition at line 144 of file parsexml.\+c.
+Definition at line 172 of file parsexml.\+c.
 
 \index{parsexml.\+h@{parsexml.\+h}!afficher\+\_\+noeud@{afficher\+\_\+noeud}}
 \index{afficher\+\_\+noeud@{afficher\+\_\+noeud}!parsexml.\+h@{parsexml.\+h}}
@@ -124,7 +128,7 @@ void
 \end{DoxyReturn}
 
 
-Definition at line 602 of file parsexml.\+c.
+Definition at line 810 of file parsexml.\+c.
 
 \index{parsexml.\+h@{parsexml.\+h}!find\+\_\+node@{find\+\_\+node}}
 \index{find\+\_\+node@{find\+\_\+node}!parsexml.\+h@{parsexml.\+h}}
@@ -147,7 +151,30 @@ Node$\ast$ le noeud correspondant a l\textquotesingle{}id
 \end{DoxyReturn}
 
 
-Definition at line 116 of file parsexml.\+c.
+Definition at line 130 of file parsexml.\+c.
+
+\index{parsexml.\+h@{parsexml.\+h}!find\+\_\+way@{find\+\_\+way}}
+\index{find\+\_\+way@{find\+\_\+way}!parsexml.\+h@{parsexml.\+h}}
+\subsubsection[{\texorpdfstring{find\+\_\+way(int way\+\_\+id)}{find_way(int way_id)}}]{\setlength{\rightskip}{0pt plus 5cm}find\+\_\+way (
+\begin{DoxyParamCaption}
+\item[{int}]{way\+\_\+id}
+\end{DoxyParamCaption}
+)}\hypertarget{parsexml_8h_a2a5b3d6185736d241882557909ff3361}{}\label{parsexml_8h_a2a5b3d6185736d241882557909ff3361}
+
+
+Find a way in the hashtable based on its id. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em way\+\_\+id} & id of the way \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Way$\ast$ the way corresponding to the id 
+\end{DoxyReturn}
+
+
+Definition at line 144 of file parsexml.\+c.
 
 \index{parsexml.\+h@{parsexml.\+h}!parcours\+\_\+prefixe@{parcours\+\_\+prefixe}}
 \index{parcours\+\_\+prefixe@{parcours\+\_\+prefixe}!parsexml.\+h@{parsexml.\+h}}
@@ -173,7 +200,7 @@ Fonction qui parcours un arbre xml et regarde tous les noeuds.
 \end{DoxyReturn}
 
 
-Definition at line 171 of file parsexml.\+c.
+Definition at line 223 of file parsexml.\+c.
 
 \index{parsexml.\+h@{parsexml.\+h}!print\+\_\+bounds@{print\+\_\+bounds}}
 \index{print\+\_\+bounds@{print\+\_\+bounds}!parsexml.\+h@{parsexml.\+h}}
@@ -196,7 +223,18 @@ void
 \end{DoxyReturn}
 
 
-Definition at line 30 of file parsexml.\+c.
+Definition at line 31 of file parsexml.\+c.
+
+\index{parsexml.\+h@{parsexml.\+h}!print\+\_\+member@{print\+\_\+member}}
+\index{print\+\_\+member@{print\+\_\+member}!parsexml.\+h@{parsexml.\+h}}
+\subsubsection[{\texorpdfstring{print\+\_\+member(\+Member member)}{print_member(Member member)}}]{\setlength{\rightskip}{0pt plus 5cm}void print\+\_\+member (
+\begin{DoxyParamCaption}
+\item[{{\bf Member}}]{member}
+\end{DoxyParamCaption}
+)}\hypertarget{parsexml_8h_a04eed23fe45f102f0fcb2696ec801f3d}{}\label{parsexml_8h_a04eed23fe45f102f0fcb2696ec801f3d}
+
+
+Definition at line 71 of file parsexml.\+c.
 
 \index{parsexml.\+h@{parsexml.\+h}!print\+\_\+node@{print\+\_\+node}}
 \index{print\+\_\+node@{print\+\_\+node}!parsexml.\+h@{parsexml.\+h}}
@@ -219,7 +257,7 @@ void
 \end{DoxyReturn}
 
 
-Definition at line 54 of file parsexml.\+c.
+Definition at line 55 of file parsexml.\+c.
 
 \index{parsexml.\+h@{parsexml.\+h}!print\+\_\+tag@{print\+\_\+tag}}
 \index{print\+\_\+tag@{print\+\_\+tag}!parsexml.\+h@{parsexml.\+h}}
@@ -242,7 +280,7 @@ void
 \end{DoxyReturn}
 
 
-Definition at line 42 of file parsexml.\+c.
+Definition at line 43 of file parsexml.\+c.
 
 \index{parsexml.\+h@{parsexml.\+h}!print\+\_\+way@{print\+\_\+way}}
 \index{print\+\_\+way@{print\+\_\+way}!parsexml.\+h@{parsexml.\+h}}
@@ -265,5 +303,5 @@ void
 \end{DoxyReturn}
 
 
-Definition at line 71 of file parsexml.\+c.
+Definition at line 82 of file parsexml.\+c.
 

@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>My Project: src/calcul.c File Reference</title>
+<title>OSM-Projet: src/calcul.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -31,7 +31,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">My Project
+   <div id="projectname">OSM-Projet
    &#160;<span id="projectnumber">1</span>
    </div>
   </td>
@@ -122,6 +122,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ab7e76782e68837ebc794f1aa22f54320"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="calcul_8c.html#ab7e76782e68837ebc794f1aa22f54320">degrees_to_radian</a> (double degrees)</td></tr>
 <tr class="memdesc:ab7e76782e68837ebc794f1aa22f54320"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction qui convertit un angle en degrès vers un angle en radian.  <a href="#ab7e76782e68837ebc794f1aa22f54320">More...</a><br /></td></tr>
 <tr class="separator:ab7e76782e68837ebc794f1aa22f54320"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5e9561cbf85d19eb4955a59266dea24"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="calcul_8c.html#ab5e9561cbf85d19eb4955a59266dea24">radian_to_degrees</a> (double radian)</td></tr>
+<tr class="memdesc:ab5e9561cbf85d19eb4955a59266dea24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert an angle in radian to degrees.  <a href="#ab5e9561cbf85d19eb4955a59266dea24">More...</a><br /></td></tr>
+<tr class="separator:ab5e9561cbf85d19eb4955a59266dea24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d05fa75dd55628afb68661beab3170f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="calcul_8c.html#a0d05fa75dd55628afb68661beab3170f">lat_to_y</a> (double lat)</td></tr>
 <tr class="memdesc:a0d05fa75dd55628afb68661beab3170f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction qui convertit une latitude GPS en une projection de mercator en mètre.  <a href="#a0d05fa75dd55628afb68661beab3170f">More...</a><br /></td></tr>
 <tr class="separator:a0d05fa75dd55628afb68661beab3170f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -209,7 +212,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Retourne un double correspondant a la latitude GPS convertit en pixel </dd></dl>
 
-<p>Definition at line <a class="el" href="calcul_8c_source.html#l00051">51</a> of file <a class="el" href="calcul_8c_source.html">calcul.c</a>.</p>
+<p>Definition at line <a class="el" href="calcul_8c_source.html#l00062">62</a> of file <a class="el" href="calcul_8c_source.html">calcul.c</a>.</p>
 
 </div>
 </div>
@@ -236,7 +239,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Retourne un double correspondant a une projection de mercator de la latitude </dd></dl>
 
-<p>Definition at line <a class="el" href="calcul_8c_source.html#l00027">27</a> of file <a class="el" href="calcul_8c_source.html">calcul.c</a>.</p>
+<p>Definition at line <a class="el" href="calcul_8c_source.html#l00038">38</a> of file <a class="el" href="calcul_8c_source.html">calcul.c</a>.</p>
 
 </div>
 </div>
@@ -281,7 +284,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Retourne un double correspondant a la longitude GPS convertit en pixel </dd></dl>
 
-<p>Definition at line <a class="el" href="calcul_8c_source.html#l00064">64</a> of file <a class="el" href="calcul_8c_source.html">calcul.c</a>.</p>
+<p>Definition at line <a class="el" href="calcul_8c_source.html#l00075">75</a> of file <a class="el" href="calcul_8c_source.html">calcul.c</a>.</p>
 
 </div>
 </div>
@@ -308,7 +311,34 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Retourne un double correspondant a une projection de mercator de la longitude </dd></dl>
 
-<p>Definition at line <a class="el" href="calcul_8c_source.html#l00038">38</a> of file <a class="el" href="calcul_8c_source.html">calcul.c</a>.</p>
+<p>Definition at line <a class="el" href="calcul_8c_source.html#l00049">49</a> of file <a class="el" href="calcul_8c_source.html">calcul.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab5e9561cbf85d19eb4955a59266dea24"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double radian_to_degrees </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>radian</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convert an angle in radian to degrees. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">radian</td><td>the angle in radian </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Return a double corresponding to the value in degrees </dd></dl>
+
+<p>Definition at line <a class="el" href="calcul_8c_source.html#l00027">27</a> of file <a class="el" href="calcul_8c_source.html">calcul.c</a>.</p>
 
 </div>
 </div>

@@ -24,8 +24,14 @@ int \hyperlink{graphics_8c_a8e4710df9c728169fdebcd6927236308}{draw\+Dashed\+Line
 \begin{DoxyCompactList}\small\item\em Fonction qui permet de dessiner une ligne pointillet ( \+\_\+\+\_\+ \+\_\+\+\_\+ \+\_\+\+\_\+ \+\_\+\+\_\+ \+\_\+\+\_\+ \+\_\+\+\_\+ ) \end{DoxyCompactList}\item 
 int \hyperlink{graphics_8c_a66be918dd4f9f320934f827ef92ef5f7}{draw\+Dotted\+Line} (S\+D\+L\+\_\+\+Renderer $\ast$renderer, \hyperlink{struct_way}{Way} $\ast$way, \hyperlink{struct_node}{Node} $\ast$\hyperlink{parsexml_8c_a558e97314f5dee487c68abcd21658877}{h\+\_\+nodes}, \hyperlink{struct_bounds}{Bounds} $\ast$m\+\_\+bds, char $\ast$color, int dot\+\_\+radius)
 \begin{DoxyCompactList}\small\item\em Fonction qui permet de dessiner une ligne pointillet avec des points ( . . . . . . . ) \end{DoxyCompactList}\item 
-int \hyperlink{graphics_8c_a6875aaa4804d4966ca7fac980caaf01e}{write\+Text} (S\+D\+L\+\_\+\+Renderer $\ast$renderer, char $\ast$text, int font\+Width, int x, int y, int width, int height, int r, int g, int b, double angle)
-\begin{DoxyCompactList}\small\item\em Fonction qui permet d\textquotesingle{}écrire du texte sur la fenêtre. \end{DoxyCompactList}\end{DoxyCompactItemize}
+int \hyperlink{graphics_8c_a3f8037c90e4cee055a5a8eb1f6688b01}{write\+Building\+Name} (S\+D\+L\+\_\+\+Renderer $\ast$renderer, \hyperlink{struct_way}{Way} $\ast$way, \hyperlink{struct_node}{Node} $\ast$\hyperlink{parsexml_8c_a558e97314f5dee487c68abcd21658877}{h\+\_\+nodes}, \hyperlink{struct_bounds}{Bounds} $\ast$m\+\_\+bds, char $\ast$text, T\+T\+F\+\_\+\+Font $\ast$police, char $\ast$color)
+\begin{DoxyCompactList}\small\item\em Write the name of a building. \end{DoxyCompactList}\item 
+int \hyperlink{graphics_8c_aeae0c9def8d998eded6488f44f008995}{write\+Road\+Name} (S\+D\+L\+\_\+\+Renderer $\ast$renderer, \hyperlink{struct_way}{Way} $\ast$way, \hyperlink{struct_node}{Node} $\ast$\hyperlink{parsexml_8c_a558e97314f5dee487c68abcd21658877}{h\+\_\+nodes}, \hyperlink{struct_bounds}{Bounds} $\ast$m\+\_\+bds, char $\ast$text, T\+T\+F\+\_\+\+Font $\ast$police, char $\ast$color)
+\begin{DoxyCompactList}\small\item\em Write the name of a road. \end{DoxyCompactList}\item 
+int \hyperlink{graphics_8c_a9ada4657e7d8fe9740064b524e23c386}{write\+Text} (S\+D\+L\+\_\+\+Renderer $\ast$renderer, char $\ast$text, T\+T\+F\+\_\+\+Font $\ast$police, int x, int y, char $\ast$color, double angle)
+\begin{DoxyCompactList}\small\item\em Write text on the screen centered around the coordinate (x,y) \end{DoxyCompactList}\item 
+int \hyperlink{graphics_8c_a8e111ef338c6660ea4bee10b68eba970}{write\+Wrapped\+Text} (S\+D\+L\+\_\+\+Renderer $\ast$renderer, char $\ast$text, T\+T\+F\+\_\+\+Font $\ast$police, int x, int y, char $\ast$color, double angle, int max\+\_\+length)
+\begin{DoxyCompactList}\small\item\em /!\textbackslash{} This method is not functionning properly right now and should not be used \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
@@ -148,7 +154,7 @@ Fonction qui permet de dessiner une ligne pointillet avec des points ( . . . . .
 \begin{DoxyParams}{Parameters}
 {\em renderer} & le renderer sur lequel dessiner \\
 \hline
-{\em way} & la way qui contient le nombre de noeud da la ligne \\
+{\em way} & la way qui contient le nombre de noeud de la ligne \\
 \hline
 {\em h\+\_\+nodes} & la table de hashage \textquotesingle{}nodes\textquotesingle{} \\
 \hline
@@ -274,46 +280,38 @@ int si tout c\textquotesingle{}est bien passé
 
 Definition at line 22 of file graphics.\+c.
 
-\index{graphics.\+c@{graphics.\+c}!write\+Text@{write\+Text}}
-\index{write\+Text@{write\+Text}!graphics.\+c@{graphics.\+c}}
-\subsubsection[{\texorpdfstring{write\+Text(\+S\+D\+L\+\_\+\+Renderer $\ast$renderer, char $\ast$text, int font\+Width, int x, int y, int width, int height, int r, int g, int b, double angle)}{writeText(SDL_Renderer *renderer, char *text, int fontWidth, int x, int y, int width, int height, int r, int g, int b, double angle)}}]{\setlength{\rightskip}{0pt plus 5cm}int write\+Text (
+\index{graphics.\+c@{graphics.\+c}!write\+Building\+Name@{write\+Building\+Name}}
+\index{write\+Building\+Name@{write\+Building\+Name}!graphics.\+c@{graphics.\+c}}
+\subsubsection[{\texorpdfstring{write\+Building\+Name(\+S\+D\+L\+\_\+\+Renderer $\ast$renderer, Way $\ast$way, Node $\ast$h\+\_\+nodes, Bounds $\ast$m\+\_\+bds, char $\ast$text, T\+T\+F\+\_\+\+Font $\ast$police, char $\ast$color)}{writeBuildingName(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char *text, TTF_Font *police, char *color)}}]{\setlength{\rightskip}{0pt plus 5cm}write\+Building\+Name (
 \begin{DoxyParamCaption}
 \item[{S\+D\+L\+\_\+\+Renderer $\ast$}]{renderer, }
+\item[{{\bf Way} $\ast$}]{way, }
+\item[{{\bf Node} $\ast$}]{h\+\_\+nodes, }
+\item[{{\bf Bounds} $\ast$}]{m\+\_\+bds, }
 \item[{char $\ast$}]{text, }
-\item[{int}]{font\+Width, }
-\item[{int}]{x, }
-\item[{int}]{y, }
-\item[{int}]{width, }
-\item[{int}]{height, }
-\item[{int}]{r, }
-\item[{int}]{g, }
-\item[{int}]{b, }
-\item[{double}]{angle}
+\item[{T\+T\+F\+\_\+\+Font $\ast$}]{police, }
+\item[{char $\ast$}]{color}
 \end{DoxyParamCaption}
-)}\hypertarget{graphics_8c_a6875aaa4804d4966ca7fac980caaf01e}{}\label{graphics_8c_a6875aaa4804d4966ca7fac980caaf01e}
+)}\hypertarget{graphics_8c_a3f8037c90e4cee055a5a8eb1f6688b01}{}\label{graphics_8c_a3f8037c90e4cee055a5a8eb1f6688b01}
 
 
-Fonction qui permet d\textquotesingle{}écrire du texte sur la fenêtre. 
+Write the name of a building. 
 
 
 \begin{DoxyParams}{Parameters}
 {\em renderer} & le renderer sur lequel dessiner \\
 \hline
-{\em text} & le texte a afficher \\
+{\em way} & the way containing the nodes of the building \\
 \hline
-{\em font\+Width} & la police d\textquotesingle{}écriture \\
+{\em h\+\_\+nodes} & the hashtable containing all the nodes \\
 \hline
-{\em x} & la coordonnées x pour placer le texte \\
+{\em m\+\_\+bds} & the boundaries of the map, usued to calculate on screen coordinate \\
 \hline
-{\em y} & la coordonnées y pour placer le texte \\
+{\em text} & the name of the building to write \\
 \hline
-{\em width} & la largeur du texte \\
+{\em police} & the font used \\
 \hline
-{\em height} & la longueur du texte \\
-\hline
-{\em r,g,b,a} & la couleur du texte \\
-\hline
-{\em angle} & la rotation du texte \\
+{\em color} & the color in html format (\#\+R\+R\+G\+G\+BB) \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -321,5 +319,133 @@ int si tout c\textquotesingle{}est bien passé
 \end{DoxyReturn}
 
 
-Definition at line 453 of file graphics.\+c.
+Definition at line 450 of file graphics.\+c.
+
+\index{graphics.\+c@{graphics.\+c}!write\+Road\+Name@{write\+Road\+Name}}
+\index{write\+Road\+Name@{write\+Road\+Name}!graphics.\+c@{graphics.\+c}}
+\subsubsection[{\texorpdfstring{write\+Road\+Name(\+S\+D\+L\+\_\+\+Renderer $\ast$renderer, Way $\ast$way, Node $\ast$h\+\_\+nodes, Bounds $\ast$m\+\_\+bds, char $\ast$text, T\+T\+F\+\_\+\+Font $\ast$police, char $\ast$color)}{writeRoadName(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char *text, TTF_Font *police, char *color)}}]{\setlength{\rightskip}{0pt plus 5cm}write\+Road\+Name (
+\begin{DoxyParamCaption}
+\item[{S\+D\+L\+\_\+\+Renderer $\ast$}]{renderer, }
+\item[{{\bf Way} $\ast$}]{way, }
+\item[{{\bf Node} $\ast$}]{h\+\_\+nodes, }
+\item[{{\bf Bounds} $\ast$}]{m\+\_\+bds, }
+\item[{char $\ast$}]{text, }
+\item[{T\+T\+F\+\_\+\+Font $\ast$}]{police, }
+\item[{char $\ast$}]{color}
+\end{DoxyParamCaption}
+)}\hypertarget{graphics_8c_aeae0c9def8d998eded6488f44f008995}{}\label{graphics_8c_aeae0c9def8d998eded6488f44f008995}
+
+
+Write the name of a road. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em renderer} & le renderer sur lequel dessiner \\
+\hline
+{\em way} & the way containing the nodes of the road \\
+\hline
+{\em h\+\_\+nodes} & the hashtable containing the nodes \\
+\hline
+{\em m\+\_\+bds} & the boundaries of the map, usued to calculate on screen coordinate \\
+\hline
+{\em text} & the name of the road to write \\
+\hline
+{\em police} & the font used \\
+\hline
+{\em color} & the color in html format (\#\+R\+R\+G\+G\+BB) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int si tout c\textquotesingle{}est bien passé 
+\end{DoxyReturn}
+
+
+Definition at line 517 of file graphics.\+c.
+
+\index{graphics.\+c@{graphics.\+c}!write\+Text@{write\+Text}}
+\index{write\+Text@{write\+Text}!graphics.\+c@{graphics.\+c}}
+\subsubsection[{\texorpdfstring{write\+Text(\+S\+D\+L\+\_\+\+Renderer $\ast$renderer, char $\ast$text, T\+T\+F\+\_\+\+Font $\ast$police, int x, int y, char $\ast$color, double angle)}{writeText(SDL_Renderer *renderer, char *text, TTF_Font *police, int x, int y, char *color, double angle)}}]{\setlength{\rightskip}{0pt plus 5cm}int write\+Text (
+\begin{DoxyParamCaption}
+\item[{S\+D\+L\+\_\+\+Renderer $\ast$}]{renderer, }
+\item[{char $\ast$}]{text, }
+\item[{T\+T\+F\+\_\+\+Font $\ast$}]{police, }
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{char $\ast$}]{color, }
+\item[{double}]{angle}
+\end{DoxyParamCaption}
+)}\hypertarget{graphics_8c_a9ada4657e7d8fe9740064b524e23c386}{}\label{graphics_8c_a9ada4657e7d8fe9740064b524e23c386}
+
+
+Write text on the screen centered around the coordinate (x,y) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em renderer} & le renderer sur lequel dessiner \\
+\hline
+{\em text} & le texte a afficher \\
+\hline
+{\em police} & la police d\textquotesingle{}écriture \\
+\hline
+{\em x} & la coordonnées x pour placer le texte \\
+\hline
+{\em y} & la coordonnées y pour placer le texte \\
+\hline
+{\em r,g,b,a} & la couleur du texte \\
+\hline
+{\em angle} & la rotation du texte (in degrees) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int si tout c\textquotesingle{}est bien passé 
+\end{DoxyReturn}
+
+
+Definition at line 578 of file graphics.\+c.
+
+\index{graphics.\+c@{graphics.\+c}!write\+Wrapped\+Text@{write\+Wrapped\+Text}}
+\index{write\+Wrapped\+Text@{write\+Wrapped\+Text}!graphics.\+c@{graphics.\+c}}
+\subsubsection[{\texorpdfstring{write\+Wrapped\+Text(\+S\+D\+L\+\_\+\+Renderer $\ast$renderer, char $\ast$text, T\+T\+F\+\_\+\+Font $\ast$police, int x, int y, char $\ast$color, double angle, int max\+\_\+length)}{writeWrappedText(SDL_Renderer *renderer, char *text, TTF_Font *police, int x, int y, char *color, double angle, int max_length)}}]{\setlength{\rightskip}{0pt plus 5cm}write\+Wrapped\+Text (
+\begin{DoxyParamCaption}
+\item[{S\+D\+L\+\_\+\+Renderer $\ast$}]{renderer, }
+\item[{char $\ast$}]{text, }
+\item[{T\+T\+F\+\_\+\+Font $\ast$}]{police, }
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{char $\ast$}]{color, }
+\item[{double}]{angle, }
+\item[{int}]{max\+\_\+length}
+\end{DoxyParamCaption}
+)}\hypertarget{graphics_8c_a8e111ef338c6660ea4bee10b68eba970}{}\label{graphics_8c_a8e111ef338c6660ea4bee10b68eba970}
+
+
+/!\textbackslash{} This method is not functionning properly right now and should not be used 
+
+Write text on the screen, when the text is too long try to split in several lines
+
+
+\begin{DoxyParams}{Parameters}
+{\em renderer} & le renderer sur lequel dessiner \\
+\hline
+{\em text} & le texte a afficher \\
+\hline
+{\em police} & la police d\textquotesingle{}écriture \\
+\hline
+{\em x} & la coordonnées x pour placer le texte \\
+\hline
+{\em y} & la coordonnées y pour placer le texte \\
+\hline
+{\em r,g,b,a} & la couleur du texte \\
+\hline
+{\em angle} & la rotation du texte (in degrees) \\
+\hline
+{\em max\+\_\+length} & the maximum number of characters on a line \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int si tout c\textquotesingle{}est bien passé 
+\end{DoxyReturn}
+
+
+Definition at line 645 of file graphics.\+c.
 
