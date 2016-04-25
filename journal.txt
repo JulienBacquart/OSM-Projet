@@ -16,8 +16,6 @@
 -Faire des fonctions de dessin
 
 TODO List:
-- rivieres, lacs (WIP)
-- Z levels
 - feuilles de style externe (WIP)
 - tests (WIP) (NEED: lib check installed)
 
@@ -29,3 +27,5 @@ DONE:
 - pkg-config (08/04)
 - Ligne pointillé (08/04)
 - Relations (23/04)
+- rivieres, lacs (WIP) (24/04)
+- Z levels (24/04)
