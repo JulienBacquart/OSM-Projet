@@ -45,7 +45,7 @@ int html_to_rgba(char *str, Uint8* r, Uint8* g, Uint8* b, Uint8* a){
 void doPause()
 {
 	SDL_Event evenements;
-    int terminer = 0;
+	int terminer = 0;
 
 	while(!terminer)
     {
@@ -344,7 +344,7 @@ int drawDashedLine(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bd
  * \brief Fonction qui permet de dessiner une ligne pointillet avec des points ( . . . . . . . )
  *
  * \param renderer le renderer sur lequel dessiner
- * \param way la way qui contient le nombre de noeud da la ligne
+ * \param way la way qui contient le nombre de noeud de la ligne
  * \param h_nodes la table de hashage 'nodes'
  * \param m_bds les bounds de la map
  * \param color la couleur de la route au format html
@@ -434,58 +434,38 @@ int drawDottedLine(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bd
 	return 0;
 }
 
-// int writeText(SDL_Renderer *renderer, const char *s, Sint16 x, Sint16 y, Uint32 rotation, char* color){
+// SDL_Point* get_centroid(Way *way, Node *h_nodes, Bounds *m_bds){
+// 	SDL_Point* centroid = (struct SDL_Point*) malloc(sizeof(struct SDL_Point));;
 // 	
-// 	Uint8 *r = (Uint8 *)malloc(sizeof(Uint8));
-// 	Uint8 *g = (Uint8 *)malloc(sizeof(Uint8));
-// 	Uint8 *b = (Uint8 *)malloc(sizeof(Uint8));
-// 	Uint8 *a = (Uint8 *)malloc(sizeof(Uint8));
-// 	html_to_rgba(color, r, g, b, a);
+// 	centroid->x =(int) malloc(sizeof(int));
+// 	centroid->y =(int) malloc(sizeof(int));
+// 	int sommeX = 0;
+// 	int sommeY = 0;	
+// 	double minLat = m_bds->minlat;
+// 	double minLon= m_bds->minlon;
+// 	double maxLat = m_bds->maxlat;
+// 	double maxLon= m_bds->maxlon;
+// 	Node *n = NULL;
+// 	int x1,y1,i;	
 // 	
-// 	gfxPrimitivesSetFontRotation(rotation);
+// 	for(i = 0; i < (way->nb_nds); i++){
+// 		
+// 		HASH_FIND_INT(h_nodes, &way->nds[i], n);
+// 			
+// 		x1 = lon_to_pixels(n->lon, minLon, maxLon) * WIN_WIDTH;
+// 		y1 = lat_to_pixels(n->lat, minLat, maxLat) * WIN_HEIGHT;
+// 
+// 		sommeX += x1;
+// 		sommeY += y1;
+// 		
+// 	}	
+// 	centroid->x = sommeX/(way->nb_nds);
+// 	centroid->y = sommeY/(way->nb_nds);
 // 	
-// 	stringRGBA(renderer, (int)x, (int)y, s, *r, *g, *b, *a);
-// 	
-// 	free(r);
-// 	free(g);
-// 	free(b);
-// 	free(a);
-// 	
-// 	return 0;
+// 	//printf("Centroid : x = %d ;  y = %d \n",centroid->x,centroid->y);
+// 
+// 	return centroid;
 // }
-
-SDL_Point* get_centroid(Way *way, Node *h_nodes, Bounds *m_bds){
-	SDL_Point* centroid = (struct SDL_Point*) malloc(sizeof(struct SDL_Point));;
-	
-	centroid->x =(int) malloc(sizeof(int));
-	centroid->y =(int) malloc(sizeof(int));
-	int sommeX = 0;
-	int sommeY = 0;	
-	double minLat = m_bds->minlat;
-	double minLon= m_bds->minlon;
-	double maxLat = m_bds->maxlat;
-	double maxLon= m_bds->maxlon;
-	Node *n = NULL;
-	int x1,y1,i;	
-	
-	for(i = 0; i < (way->nb_nds); i++){
-		
-		HASH_FIND_INT(h_nodes, &way->nds[i], n);
-			
-		x1 = lon_to_pixels(n->lon, minLon, maxLon) * WIN_WIDTH;
-		y1 = lat_to_pixels(n->lat, minLat, maxLat) * WIN_HEIGHT;
-
-		sommeX += x1;
-		sommeY += y1;
-		
-	}	
-	centroid->x = sommeX/(way->nb_nds);
-	centroid->y = sommeY/(way->nb_nds);
-	
-	//printf("Centroid : x = %d ;  y = %d \n",centroid->x,centroid->y);
-
-	return centroid;
-}
 
 // SDL_Point* get_middle_of_way(Way *way, Node *h_nodes, Bounds *m_bds){
 // 	SDL_Point* centre = (struct SDL_Point*) malloc(sizeof(struct SDL_Point));;
@@ -555,6 +535,19 @@ void trim_string(const char *input, char *output, int max_length){
 	}
 }
 
+/**
+ * \fn  writeBuildingName(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char *text, TTF_Font *police, char* color)
+ * \brief Write the name of a building
+ *
+ * \param renderer le renderer sur lequel dessiner
+ * \param way the way containing the nodes of the building
+ * \param h_nodes the hashtable containing all the nodes
+ * \param m_bds the boundaries of the map, usued to calculate on screen coordinate 
+ * \param text the name of the building to write
+ * \param police the font used
+ * \param color the color in html format (#RRGGBB)
+ * \return int si tout c'est bien passé
+ */
 int writeBuildingName(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char *text, TTF_Font *police, char* color){
 	int i;
 	
@@ -591,6 +584,7 @@ int writeBuildingName(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m
 // 	char *result = malloc(strlen(text)+1);
 // 	trim_string(text, result, 15);
 	
+	// Make sure the text to display is not too long
 	char *result;
 	if (strlen(text) > 30) {
 		result = (char *) malloc(sizeof(char[30]));
@@ -610,6 +604,19 @@ int writeBuildingName(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m
 	return 0;
 }
 
+/**
+ * \fn  writeRoadName(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char *text, TTF_Font *police, char* color)
+ * \brief Write the name of a road
+ *
+ * \param renderer le renderer sur lequel dessiner
+ * \param way the way containing the nodes of the road
+ * \param h_nodes the hashtable containing the nodes
+ * \param m_bds the boundaries of the map, usued to calculate on screen coordinate 
+ * \param text the name of the road to write
+ * \param police the font used
+ * \param color the color in html format (#RRGGBB)
+ * \return int si tout c'est bien passé
+ */
 int writeRoadName(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds, char *text, TTF_Font *police, char* color){
 	
 	double minLat = m_bds->minlat;
@@ -659,7 +666,7 @@ int writeRoadName(SDL_Renderer *renderer, Way *way, Node *h_nodes, Bounds *m_bds
 
 /**
  * \fn writeText(SDL_Renderer *renderer, char *text, TTF_Font *police, int x, int y, char* color, double angle)
- * \brief Fonction qui permet d'écrire du texte sur la fenêtre
+ * \brief Write text on the screen centered around the coordinate (x,y)
  *
  * \param renderer le renderer sur lequel dessiner
  * \param text le texte a afficher
