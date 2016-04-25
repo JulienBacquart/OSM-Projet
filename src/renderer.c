@@ -68,7 +68,7 @@ int main(int argc, char *argv[]) {
 		// For example if we have a road with a width of 5 meter, it size on the screen will be:
 		// 5m x scale = nb of pixels
 		double scale = WIN_HEIGHT / delta_y_meter;
-		printf("Scale: %f\n", scale);
+// 		printf("Scale: %f\n", scale);
 		printf("Scale: 1 px = %f meter\n", 1/scale);
 		
 		// Create display window
